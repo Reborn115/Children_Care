@@ -1,6 +1,9 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/users/login/login",
+    "pages/users/register/register",
+    "pages/users/forget/forget",
+    "pages/users/actor/actor"
   ],
   "subPackages": [],
   "window": {
@@ -9,6 +12,5 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

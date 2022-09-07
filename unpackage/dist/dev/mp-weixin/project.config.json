@@ -29,13 +29,12 @@
       "outputPath": ""
     },
     "disableUseStrict": false,
-    "useCompilerPlugins": false,
-    "minifyWXML": true
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.26.0",
-  "appid": "touristappid",
-  "projectname": "CareForChildren",
+  "appid": "wx51d5eeba73d732de",
+  "projectname": "left_behind _children",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
