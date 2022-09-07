@@ -1,6 +1,9 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/users/login/login",
+    "pages/users/register/register",
+    "pages/users/forget/forget",
+    "pages/users/actor/actor"
   ],
   "subPackages": [],
   "window": {
