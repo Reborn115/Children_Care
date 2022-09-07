@@ -98,9 +98,12 @@
 				})
 			},
 			submit(ref){
+				uni.navigateTo({
+				    url:"/pages/users/actor/actor"
+				})
 				this.$refs[ref].validate().then(res => {
 					uni.request({
-						url: 'https://www.example.com/request', //仅为示例，并非真实接口地址。
+						url: 'https://api.yuleng.top:38088', //仅为示例，并非真实接口地址。
 						method:"GET",
 						data: {
 						    formData:this.formData,
