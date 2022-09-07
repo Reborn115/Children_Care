@@ -1,0 +1,19 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.child {
+  background: linear-gradient(blue, pink) !important;
+}
+#child {
+  background: linear-gradient(blue, pink) !important;
+}
+ .uni-card {
+  height: 20vh;
+  padding-left: 50vw;
+  /* background: linear-gradient(blue, pink)!important; */
+  /* background-color: aqua !important; */
+}
+ .uni-card .uni-card__content {
+  margin-left: 55vw;
+}
+
