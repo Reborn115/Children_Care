@@ -53,7 +53,7 @@
             "path" : "pages/childs/personal/personal",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false
             }
             
@@ -63,7 +63,7 @@
             "path" : "pages/childs/posthouse/posthouse",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "驿站",
                 "enablePullDownRefresh": false
             }
             
