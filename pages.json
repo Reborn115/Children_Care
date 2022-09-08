@@ -1,15 +1,15 @@
 {
 	"pages": [
+		//登录
 		{
             "path" : "pages/users/login/login",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-				/* "navigationBarBackgroundColor":"#2F9DA4", */
                 "enablePullDownRefresh": false
             }
-            
         }
+		//注册
         ,{
             "path" : "pages/users/register/register",
             "style" :                                                                                    
@@ -17,8 +17,8 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
         }
+		// 忘记密码
         ,{
             "path" : "pages/users/forget/forget",
             "style" :                                                                                    
@@ -28,8 +28,39 @@
             }
             
         }
+		// 选择模式
         ,{
             "path" : "pages/users/actor/actor",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 主页
+        ,{
+            "path" : "pages/childs/home/home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 个人中心
+        ,{
+            "path" : "pages/childs/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		// 驿站
+        {
+            "path" : "pages/childs/posthouse/posthouse",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -41,10 +72,33 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#fff",
 		"app-plus": {
-			"background": "#efeff4"
+			"background": "#fff"
 		}
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#aecfca",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+			"pagePath": "pages/childs/home/home",
+			"iconPath": "static/home.png",
+			"selectedIconPath": "static/home (1).png",
+			"text": "主页"
+		}, {
+			"pagePath": "pages/childs/posthouse/posthouse",
+			"iconPath": "static/love.png",
+			"selectedIconPath": "static/love (1).png",
+			"text": "驿站"
+		},
+		{
+			"pagePath": "pages/childs/personal/personal",
+			"iconPath": "static/my.png",
+			"selectedIconPath": "static/my (1).png",
+			"text": "个人中心"
+		}]
 	}
 }

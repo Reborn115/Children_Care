@@ -3,15 +3,43 @@
     "pages/users/login/login",
     "pages/users/register/register",
     "pages/users/forget/forget",
-    "pages/users/actor/actor"
+    "pages/users/actor/actor",
+    "pages/childs/home/home",
+    "pages/childs/personal/personal",
+    "pages/childs/posthouse/posthouse"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#fff"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#aecfca",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/childs/home/home",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home (1).png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/childs/posthouse/posthouse",
+        "iconPath": "static/love.png",
+        "selectedIconPath": "static/love (1).png",
+        "text": "驿站"
+      },
+      {
+        "pagePath": "pages/childs/personal/personal",
+        "iconPath": "static/my.png",
+        "selectedIconPath": "static/my (1).png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {}
 }
