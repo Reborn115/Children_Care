@@ -7,8 +7,13 @@
     "urlCheck": false
   },
   "compileType": "miniprogram",
+<<<<<<< HEAD
   "libVersion": "",
   "appid": "wx51d5eeba73d732de",
+=======
+  "libVersion": "2.26.0",
+  "appid": "wxfda8057f2b7cb400",
+>>>>>>> 0bbc16bd317f929c2a052edd9e921228509b019e
   "projectname": "left_behind _children",
   "condition": {
     "search": {
