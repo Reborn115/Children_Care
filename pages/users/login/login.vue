@@ -1,7 +1,7 @@
 <template class="body">
 	<view class="container">
 		
-		<image  :src='img' alt="" ref="normalImage"></image>
+		<image  :src='img' alt="" ref="normalImage">
 		<uni-forms :modelValue="formData" :rules="rules" ref="formData"  class='formNormal'>
 			<uni-forms-item name="account" class="inputNormal">
 						
@@ -101,6 +101,9 @@
 				uni.navigateTo({
 				    url:"/pages/users/actor/actor"
 				})
+				/* uni.navigateTo({
+				    url:"/pages/home/home/home"
+				}) */
 				this.$refs[ref].validate().then(res => {
 					uni.request({
 						url: 'https://api.yuleng.top:38088', //仅为示例，并非真实接口地址。

@@ -1,7 +1,52 @@
 @charset "UTF-8";
 /* 水平间距 */
 /* 水平间距 */
-page.data-v-15904fd0 {
-  background-color: #fff;
+.uni-card .uni-card__cover.data-v-15904fd0 {
+  margin-top: 0 !important;
+}
+image.data-v-15904fd0 {
+  width: 25vh;
+}
+.uni-card .uni-card__content.data-v-15904fd0 {
+  /* display: none; */
+}
+.card-actions-item.data-v-15904fd0 {
+  margin-right: 20vw;
+}
+.card-actions.data-v-15904fd0 {
+  display: flex;
+  /* align-items: center;
+	justify-content: center; */
+  flex-direction: space-around;
+  padding-left: 12.5vw;
+}
+.uni-margin-wrap.data-v-15904fd0 {
+  width: 690rpx;
+  width: 100%;
+}
+.swiper.data-v-15904fd0 {
+  height: 300rpx;
+}
+.swiper-item.data-v-15904fd0 {
+  display: block;
+  height: 300rpx;
+  line-height: 300rpx;
+  text-align: center;
+}
+.swiper-list.data-v-15904fd0 {
+  margin-top: 40rpx;
+  margin-bottom: 0;
+}
+.uni-common-mt.data-v-15904fd0 {
+  margin-top: 60rpx;
+  position: relative;
+}
+.info.data-v-15904fd0 {
+  position: absolute;
+  right: 20rpx;
+}
+.uni-padding-wrap.data-v-15904fd0 {
+  width: 550rpx;
+  padding: 0 100rpx;
 }
 

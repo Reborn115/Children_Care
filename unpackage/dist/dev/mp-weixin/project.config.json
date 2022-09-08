@@ -1,36 +1,24 @@
 {
   "description": "项目配置文件。",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
-    "urlCheck": false
+    "urlCheck": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
-<<<<<<< HEAD
-  "libVersion": "",
-  "appid": "wx51d5eeba73d732de",
-=======
   "libVersion": "2.26.0",
-  "appid": "wxfda8057f2b7cb400",
->>>>>>> 0bbc16bd317f929c2a052edd9e921228509b019e
+  "appid": "wx51d5eeba73d732de",
   "projectname": "left_behind _children",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }
