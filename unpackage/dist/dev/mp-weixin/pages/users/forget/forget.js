@@ -188,7 +188,7 @@ var _default =
 {
   data: function data() {
     return {
-      img: '/static/neither.png',
+      img: 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
       formData: {
         name: '',
         account: '',
@@ -250,7 +250,7 @@ var _default =
   },
   methods: {
     recoverImg: function recoverImg() {
-      this.img = '/static/neither.png';
+      this.img = 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png';
     },
     changeImg: function changeImg(num) {
       /* if(num==2){

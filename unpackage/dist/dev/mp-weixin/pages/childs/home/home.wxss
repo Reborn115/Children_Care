@@ -1,6 +1,44 @@
 @charset "UTF-8";
 /* 水平间距 */
 /* 水平间距 */
+text.data-v-15904fd0 {
+  display: block;
+}
+.idea.data-v-15904fd0 {
+  margin-left: 13vw;
+}
+.type.data-v-15904fd0 {
+  margin-bottom: 2vh;
+  margin-left: 13vw;
+}
+.title.data-v-15904fd0 {
+  margin-top: 1vh;
+  margin-left: 13vw;
+  margin-bottom: 2vh;
+}
+.box.data-v-15904fd0 {
+  padding-top: 4vh;
+  margin-left: 2vw;
+  background-color: #F4F4F4;
+  width: 96vw;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.tips.data-v-15904fd0 {
+  display: flex;
+  width: 85vw;
+  height: 14vh;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 40rpx;
+}
+.data-v-15904fd0 .uni-card {
+  border-radius: 10px;
+}
 .uni-card .uni-card__cover.data-v-15904fd0 {
   margin-top: 0 !important;
 }
