@@ -12,6 +12,7 @@
 				<uni-easyinput prefixIcon="locked" type="password" v-model="formData.password" placeholder="请输入密码" @focus="changeImg(3)" @blur="recoverImg()"/>
 			</uni-forms-item>
 			<button type="primary" @click="submit('formData')" class="bottonNormal">登录</button>
+			<!-- <button type="primary" @click="goHome()" class="bottonNormal">登录</button> -->
 			<view class="password_account">
 				<text @click="goRegister" class="textNormal">注册账号</text>
 				<text @click="goForget" class="textNormal">忘记密码？</text>
@@ -26,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				img:'/static/neither.png',
+				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
 				formData:{
 					account:'',
 					password:''
@@ -41,7 +42,7 @@
 								errorMessage:'请填写账号'
 							},
 							{
-								minLength:6,
+								minLength:5,
 								maxLength:12,
 								errorMessage:'{label}长度在{minLength}到{maxLength}个字符'
 							}
@@ -69,12 +70,9 @@
 			}
 			
 		},
-		mounted() {
-			console.log(this, "Vue")
-		},
 		methods:{
 			recoverImg(){
-				this.img='/static/neither.png'
+				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
 			},
 			changeImg(num){
 				/* if(num==2){
@@ -84,7 +82,7 @@
 					this.$refs.normalImage.style.height="110px";
 				} */
 				if(num==3){
-					this.img='/static/password.png'
+					this.img='https://s2.loli.net/2022/09/11/4OaWfdqHkl1xpMc.png'
 				}
 			},
 			goForget(){
@@ -97,19 +95,20 @@
 				    url:"/pages/users/register/register"
 				})
 			},
-			submit(ref){
+			goHome(){
+				console.log('555')
 				uni.navigateTo({
-				    url:"/pages/users/actor/actor"
+				    url:"/pages/childs/home/home"
 				})
-				/* uni.navigateTo({
-				    url:"/pages/home/home/home"
-				}) */
+			},
+			submit(ref){
 				this.$refs[ref].validate().then(res => {
 					uni.request({
-						url: 'https://api.yuleng.top:38088', //仅为示例，并非真实接口地址。
-						method:"GET",
+						url: 'https://api.yuleng.top:38088/login/c', //仅为示例，并非真实接口地址。
+						method:"POST",
 						data: {
-						    formData:this.formData,
+						    userName:this.formData.account,
+							password:this.formData.password
 						},
 						header: {
 						    'custom-header': 'hello' //自定义请求头信息
@@ -117,7 +116,10 @@
 						success: (res) => {
 							console.log(res.data);
 							this.text = 'request success';
-						 }
+							uni.navigateTo({
+							    url:"/pages/users/actor/actor"
+							})
+						}
 					});
 					console.log('success', res);
 					uni.showToast({
