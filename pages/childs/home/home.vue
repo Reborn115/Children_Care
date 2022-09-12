@@ -5,21 +5,21 @@
 		</uni-search-bar>
 					<uni-card :cover="cover" @click="onClick">
 						<!-- <image slot='cover' style="width: 100%;" :src="cover"></image> -->
-						<swiper class="swiper" slot='cover' circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
 										:duration="duration">
 										<swiper-item>
 											<view class="swiper-item uni-bg-red">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
 										<swiper-item>
-											<view class="swiper-item uni-bg-green">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+											<view class="swiper-item uni-bg-red">
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
 										<swiper-item>
-											<view class="swiper-item uni-bg-blue">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+											<view class="swiper-item uni-bg-red">
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
 									</swiper>
@@ -98,6 +98,12 @@
 </script>
 
 <style lang="scss" scoped>
+.swiper-item{
+	image{
+		margin-left: 0!important;
+		margin-top: 50rpx !important;
+	}
+}
 text{
 	display: block;
 }
@@ -126,7 +132,7 @@ text{
 	/* background-color: #F4F4F4; */
 	background-color: #FFFFFF;
 	width: 96vw;
-	height: 60vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	border-radius: 8px;
@@ -134,7 +140,7 @@ text{
 	align-content:flex-start
 }
 .tips{
-	box-shadow: 2px 2px 5px #000;
+	box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.2);
 	display: flex;
 	width:85vw ;
 	height: 14vh;
@@ -144,7 +150,8 @@ text{
 }
 ::v-deep .uni-card{
 	border-radius: 10px;
-	height: 700rpx;
+	height: 600rpx;
+	box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.2)!important;
 }
 .uni-card .uni-card__cover{
 	margin-top: 0!important;
@@ -170,7 +177,7 @@ image{
 		width: 100%;
 	}
 	.swiper {
-		height: 300rpx;
+		height: 600rpx;
 	}
 	.swiper-item {
 		display: block;
