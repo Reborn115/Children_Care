@@ -1,12 +1,25 @@
 {
 	"pages": [
+		{
+		    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "添加问题",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
 		//登录
 		{
             "path" : "pages/users/login/login",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": "false",
+					"scrollIndicator": "none"
+				}
             }
         }
 		//注册
@@ -43,13 +56,13 @@
             "path" : "pages/childs/home/home",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "主页",
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
 		// 个人中心
-        ,{
+        {
             "path" : "pages/childs/personal/personal",
             "style" :                                                                                    
             {
@@ -68,6 +81,36 @@
             }
             
         }
+        // ,{
+        //     "path" : "pages/childs/posthouse/addQuestion/addQuestion",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "添加问题",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // }
+        ,{
+            "path" : "pages/childs/posthouse/lookAll/lookAll",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成长档案",
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": "false"
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/childs/posthouse/detailNo/detailNo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -80,24 +123,24 @@
 	},
 	"tabBar": {
 		"color": "#8a8a8a",
-		"selectedColor": "#aecfca",
+		"selectedColor": "#f8a349",
 		"borderStyle": "black",
 		"backgroundColor": "#fff",
 		"list": [{
 			"pagePath": "pages/childs/home/home",
-			"iconPath": "static/home.png",
-			"selectedIconPath": "static/home (1).png",
+			"iconPath": "static/首页-面性.png",
+			"selectedIconPath": "static/首页-面性 (1).png",
 			"text": "主页"
 		}, {
 			"pagePath": "pages/childs/posthouse/posthouse",
-			"iconPath": "static/love.png",
-			"selectedIconPath": "static/love (1).png",
+			"iconPath": "static/喜欢-面性.png",
+			"selectedIconPath": "static/喜欢-面性 (1).png",
 			"text": "驿站"
 		},
 		{
 			"pagePath": "pages/childs/personal/personal",
-			"iconPath": "static/my.png",
-			"selectedIconPath": "static/my (1).png",
+			"iconPath": "static/个人中心-m.png",
+			"selectedIconPath": "static/个人中心-m (1).png",
 			"text": "个人中心"
 		}]
 	}

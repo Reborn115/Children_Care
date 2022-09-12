@@ -1,12 +1,15 @@
 {
   "pages": [
+    "pages/childs/posthouse/addQuestion/addQuestion",
     "pages/users/login/login",
     "pages/users/register/register",
     "pages/users/forget/forget",
     "pages/users/actor/actor",
     "pages/childs/home/home",
     "pages/childs/personal/personal",
-    "pages/childs/posthouse/posthouse"
+    "pages/childs/posthouse/posthouse",
+    "pages/childs/posthouse/lookAll/lookAll",
+    "pages/childs/posthouse/detailNo/detailNo"
   ],
   "subPackages": [],
   "window": {
@@ -17,26 +20,26 @@
   },
   "tabBar": {
     "color": "#8a8a8a",
-    "selectedColor": "#aecfca",
+    "selectedColor": "#f8a349",
     "borderStyle": "black",
     "backgroundColor": "#fff",
     "list": [
       {
         "pagePath": "pages/childs/home/home",
-        "iconPath": "static/home.png",
-        "selectedIconPath": "static/home (1).png",
+        "iconPath": "static/首页-面性.png",
+        "selectedIconPath": "static/首页-面性 (1).png",
         "text": "主页"
       },
       {
         "pagePath": "pages/childs/posthouse/posthouse",
-        "iconPath": "static/love.png",
-        "selectedIconPath": "static/love (1).png",
+        "iconPath": "static/喜欢-面性.png",
+        "selectedIconPath": "static/喜欢-面性 (1).png",
         "text": "驿站"
       },
       {
         "pagePath": "pages/childs/personal/personal",
-        "iconPath": "static/my.png",
-        "selectedIconPath": "static/my (1).png",
+        "iconPath": "static/个人中心-m.png",
+        "selectedIconPath": "static/个人中心-m (1).png",
         "text": "个人中心"
       }
     ]
