@@ -6,20 +6,28 @@ text.data-v-15904fd0 {
 }
 .idea.data-v-15904fd0 {
   margin-left: 13vw;
+  font-size: 12px;
 }
 .type.data-v-15904fd0 {
-  margin-bottom: 2vh;
+  font-size: 12px;
+  margin-bottom: 1vh;
   margin-left: 13vw;
 }
 .title.data-v-15904fd0 {
+  border-radius: 8px;
+  background-color: #A4B3DA;
+  width: 170rpx;
+  font-size: 18px;
   margin-top: 1vh;
   margin-left: 13vw;
   margin-bottom: 2vh;
+  height: 50rpx;
 }
 .box.data-v-15904fd0 {
   padding-top: 4vh;
   margin-left: 2vw;
-  background-color: #F4F4F4;
+  /* background-color: #F4F4F4; */
+  background-color: #FFFFFF;
   width: 96vw;
   height: 60vh;
   display: flex;
@@ -29,6 +37,7 @@ text.data-v-15904fd0 {
   align-content: flex-start;
 }
 .tips.data-v-15904fd0 {
+  box-shadow: 2px 2px 5px #000;
   display: flex;
   width: 85vw;
   height: 14vh;
@@ -38,6 +47,7 @@ text.data-v-15904fd0 {
 }
 .data-v-15904fd0 .uni-card {
   border-radius: 10px;
+  height: 700rpx;
 }
 .uni-card .uni-card__cover.data-v-15904fd0 {
   margin-top: 0 !important;

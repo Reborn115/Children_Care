@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<uni-search-bar @confirm="search" :focus="true" v-model="searchValue" @blur="blur" @focus="focus" @input="input"
+		<uni-search-bar @confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input"
 						@cancel="cancel" @clear="clear" bgColor="white">
 		</uni-search-bar>
 					<uni-card :cover="cover" @click="onClick">
@@ -75,6 +75,9 @@
 			};
 		},
 		methods: {
+			search(searchValue){
+				
+			},
 			goStory(url){
 				
 			},
@@ -100,20 +103,28 @@ text{
 }
 .idea{
 	margin-left: 13vw;
+	font-size: 12px;
 }
 .type{
-	margin-bottom: 2vh;
+	font-size: 12px;
+	margin-bottom: 1vh;
 	margin-left: 13vw;
 }
 .title{
+	border-radius: 8px;
+	background-color: #A4B3DA;
+	width: 170rpx;
+	font-size: 18px;
 	margin-top: 1vh;
 	margin-left: 13vw;
 	margin-bottom: 2vh;
+	height: 50rpx;
 }
 .box{
 	padding-top: 4vh;
 	margin-left: 2vw;
-	background-color: #F4F4F4;
+	/* background-color: #F4F4F4; */
+	background-color: #FFFFFF;
 	width: 96vw;
 	height: 60vh;
 	display: flex;
@@ -123,6 +134,7 @@ text{
 	align-content:flex-start
 }
 .tips{
+	box-shadow: 2px 2px 5px #000;
 	display: flex;
 	width:85vw ;
 	height: 14vh;
@@ -132,6 +144,7 @@ text{
 }
 ::v-deep .uni-card{
 	border-radius: 10px;
+	height: 700rpx;
 }
 .uni-card .uni-card__cover{
 	margin-top: 0!important;

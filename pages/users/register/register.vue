@@ -18,6 +18,7 @@
 					
 					<uni-easyinput prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" />
 				</uni-forms-item>
+				
 				<!-- <uni-forms-item name="confirm" class="inputNormal">
 					<u-input placeholder="请输入验证码"  v-model="formData.confirm" prefixIcon="checkmark-circle" prefixIconStyle="font-size: 22px;color: #909399">
 						<template slot="suffix">

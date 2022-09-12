@@ -6,7 +6,8 @@
     "pages/users/actor/actor",
     "pages/childs/home/home",
     "pages/childs/personal/personal",
-    "pages/childs/posthouse/posthouse"
+    "pages/childs/posthouse/posthouse",
+    "pages/childs/home/details/details"
   ],
   "subPackages": [],
   "window": {
@@ -41,6 +42,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }
