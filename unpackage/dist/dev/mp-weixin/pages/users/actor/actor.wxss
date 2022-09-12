@@ -19,13 +19,14 @@
   margin-bottom: 4vh;
 }
 #card1.data-v-a67072aa {
-  background: linear-gradient(#C4E759, #6DE195) !important;
+  /* background: linear-gradient(#F78FAD, #FDEB82)!important; */
+  background: linear-gradient(#fbcdbb, #f9a7aa) !important;
 }
 #card2.data-v-a67072aa {
-  background: linear-gradient(#8DEBFF, #6CACFF) !important;
+  background: linear-gradient(#55caf3, #3c82df) !important;
 }
 #card3.data-v-a67072aa {
-  background: linear-gradient(#FDEB82, #F78FAD) !important;
+  background: linear-gradient(#d9c0fa, #abc1f9) !important;
 }
 .card.data-v-a67072aa {
   height: 20vh;

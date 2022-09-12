@@ -1,14 +1,14 @@
 {
 	"pages": [
-		{
-		    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "添加问题",
-		        "enablePullDownRefresh": false
-		    }
+	// 	{
+	// 	    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
+	// 	    "style" :                                                                                    
+	// 	    {
+	// 	        "navigationBarTitleText": "添加问题",
+	// 	        "enablePullDownRefresh": false
+	// 	    }
 		    
-		},
+	// 	},
 		//登录
 		{
             "path" : "pages/users/login/login",
@@ -81,15 +81,15 @@
             }
             
         }
-        // ,{
-        //     "path" : "pages/childs/posthouse/addQuestion/addQuestion",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "添加问题",
-        //         "enablePullDownRefresh": false
-        //     }
+        ,{
+            "path" : "pages/childs/posthouse/addQuestion/addQuestion",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加问题",
+                "enablePullDownRefresh": false
+            }
             
-        // }
+        }
         ,{
             "path" : "pages/childs/posthouse/lookAll/lookAll",
             "style" :                                                                                    

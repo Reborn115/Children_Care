@@ -98,13 +98,13 @@ var components
 try {
   components = {
     uniForms: function() {
-      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms/uni-forms.vue */ 89))
+      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms/uni-forms.vue */ 97))
     },
     uniFormsItem: function() {
-      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue */ 101))
+      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue */ 109))
     },
     uniEasyinput: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput */ "uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue */ 108))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput */ "uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue */ 90))
     }
   }
 } catch (e) {
@@ -185,11 +185,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
-      img: '/static/neither.png',
+      img: 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
       formData: {
         account: '',
         password: '' },
@@ -204,7 +205,7 @@ var _default =
             errorMessage: '请填写账号' },
 
           {
-            minLength: 6,
+            minLength: 5,
             maxLength: 12,
             errorMessage: '{label}长度在{minLength}到{maxLength}个字符' }],
 
@@ -232,12 +233,9 @@ var _default =
 
 
   },
-  mounted: function mounted() {
-    console.log(this, "Vue");
-  },
   methods: {
     recoverImg: function recoverImg() {
-      this.img = '/static/neither.png';
+      this.img = 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png';
     },
     changeImg: function changeImg(num) {
       /* if(num==2){
@@ -247,7 +245,7 @@ var _default =
                                         	this.$refs.normalImage.style.height="110px";
                                         } */
       if (num == 3) {
-        this.img = '/static/password.png';
+        this.img = 'https://s2.loli.net/2022/09/11/4OaWfdqHkl1xpMc.png';
       }
     },
     goForget: function goForget() {
@@ -260,19 +258,20 @@ var _default =
         url: "/pages/users/register/register" });
 
     },
-    submit: function submit(ref) {var _this = this;
+    goHome: function goHome() {
+      console.log('555');
       uni.navigateTo({
-        url: "/pages/users/actor/actor" });
+        url: "/pages/childs/home/home" });
 
-      /* uni.navigateTo({
-                                                url:"/pages/home/home/home"
-                                            }) */
+    },
+    submit: function submit(ref) {var _this = this;
       this.$refs[ref].validate().then(function (res) {
         uni.request({
-          url: 'https://api.yuleng.top:38088', //仅为示例，并非真实接口地址。
-          method: "GET",
+          url: 'https://api.yuleng.top:38088/login/c', //仅为示例，并非真实接口地址。
+          method: "POST",
           data: {
-            formData: _this.formData },
+            userName: _this.formData.account,
+            password: _this.formData.password },
 
           header: {
             'custom-header': 'hello' //自定义请求头信息
@@ -280,6 +279,9 @@ var _default =
           success: function success(res) {
             console.log(res.data);
             _this.text = 'request success';
+            uni.navigateTo({
+              url: "/pages/users/actor/actor" });
+
           } });
 
         console.log('success', res);

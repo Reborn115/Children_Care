@@ -25,7 +25,7 @@
 	export default {
 		data() {
 			return {
-				img:'/static/neither.png',
+				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
 				formData:{
 					name:'',
 					account:'',
@@ -87,7 +87,7 @@
 		},
 		methods:{
 			recoverImg(){
-				this.img='/static/neither.png'
+				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
 			},
 			changeImg(num){
 				/* if(num==2){

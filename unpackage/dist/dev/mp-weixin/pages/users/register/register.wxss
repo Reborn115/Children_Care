@@ -1,6 +1,19 @@
 @charset "UTF-8";
 /* 水平间距 */
 /* 水平间距 */
+.data-v-d941c442 .u-input {
+  width: 60vw !important;
+  outline: none !important;
+  background-color: white;
+  /* border-style:none !important; */
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-left: 2vw;
+}
+.bottonCheck.data-v-d941c442 {
+  display: inline;
+}
 .container input.data-v-d941c442 {
   outline: none;
   padding: 10px;

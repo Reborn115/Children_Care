@@ -98,13 +98,13 @@ var components
 try {
   components = {
     uniForms: function() {
-      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms/uni-forms.vue */ 89))
+      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms/uni-forms.vue */ 97))
     },
     uniFormsItem: function() {
-      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue */ 101))
+      return Promise.all(/*! import() | uni_modules/uni-forms/components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-forms/components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue */ 109))
     },
     uniEasyinput: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput */ "uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue */ 108))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput */ "uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue */ 90))
     }
   }
 } catch (e) {
@@ -187,16 +187,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      img: '/static/neither.png',
+      tips: '',
+      value: '',
+      img: 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
       formData: {
         name: '',
         newPassword: '',
         confirmPassword: '',
-        phone: '' },
+        phone: '',
+        confirm: '' },
 
 
       rules: {
@@ -268,8 +293,42 @@ var _default =
 
   },
   methods: {
+    codeChange: function codeChange(text) {
+      this.tips = text;
+    },
+    getCode: function getCode() {var _this = this;
+      if (this.$refs.uCode.canGetCode) {
+        // 模拟向后端请求验证码
+        uni.request({
+          url: 'https://api.yuleng.top:38088/api/seed-code', //仅为示例，并非真实接口地址。
+          method: "POST",
+          data: {
+            phone: this.formData.phone },
+
+          header: {
+            'custom-header': 'hello' //自定义请求头信息
+          },
+          success: function success(res) {
+            console.log(res.data);
+            _this.text = 'request success';
+          } });
+
+        uni.showLoading({
+          title: '正在获取验证码' });
+
+        setTimeout(function () {
+          uni.hideLoading();
+          // 这里此提示会被this.start()方法中的提示覆盖
+          uni.$u.toast('验证码已发送');
+          // 通知验证码组件内部开始倒计时
+          _this.$refs.uCode.start();
+        }, 2000);
+      } else {
+        uni.$u.toast('倒计时结束后再发送');
+      }
+    },
     recoverImg: function recoverImg() {
-      this.img = '/static/neither.png';
+      this.img = 'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png';
     },
     changeImg: function changeImg(num) {
       /* if(num==2){
@@ -279,24 +338,24 @@ var _default =
                                         	this.$refs.normalImage.style.height="110px";
                                         } */
       if (num == 3) {
-        this.img = '/static/password.png';
+        this.img = 'https://s2.loli.net/2022/09/11/4OaWfdqHkl1xpMc.png';
       }
     },
-    submit: function submit(ref) {var _this = this;
+    submit: function submit(ref) {var _this2 = this;
 
       this.$refs[ref].validate().then(function (res) {
         uni.request({
           url: 'https://www.example.com/request', //仅为示例，并非真实接口地址。
           method: "GET",
           data: {
-            formData: _this.formData },
+            formData: _this2.formData },
 
           header: {
             'custom-header': 'hello' //自定义请求头信息
           },
           success: function success(res) {
             console.log(res.data);
-            _this.text = 'request success';
+            _this2.text = 'request success';
             uni.navigateTo({
               url: "/pages/login/login" });
 
