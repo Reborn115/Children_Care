@@ -1,4 +1,7 @@
 {
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [
 		//登录
 		{
@@ -70,6 +73,15 @@
         }
         ,{
             "path" : "pages/childs/home/details/details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/childs/home/details/audioPlayer/audioPlayer",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

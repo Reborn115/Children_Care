@@ -4,21 +4,21 @@
       <text>选择身份</text>
     </view>
     <view class="box">
-      <view class="card" id="card1" @click="goHome">
+      <view class="card" id="card1" @click="setIdentity(1)">
         <view class="textInline">
           <text class="textBottom">儿童模式</text>
         </view>
       </view>
     </view>
     <view class="box">
-      <view class="card" id="card2">
+      <view class="card" id="card2" @click="setIdentity(2)">
         <view class="textInline">
           <text class="textBottom">父母模式</text>
         </view>
       </view>
     </view>
     <view class="box">
-      <view class="card" id="card3">
+      <view class="card" id="card3" @click="setIdentity(3)">
         <view class="textInline">
           <text class="textBottom">志愿者模式</text>
         </view>
@@ -42,11 +42,32 @@ export default {
     return {};
   },
   methods: {
-    goHome() {
+	  setIdentity(order){
+		  uni.request({
+		      url: 'https://api.yuleng.top:38088/api/set-identity', //仅为示例，并非真实接口地址。
+		  	method:"POST",
+		      data: {
+		          permission:order,
+				  
+		      },
+		      header: {
+		          "content-type":"application/json",
+				  "token":uni.getStorageSync('token')
+		      },
+		      success: (res) => {
+		          console.log(res.data);
+		          this.text = 'request success';
+		  		uni.switchTab({
+		  		  url: "/pages/childs/home/home",
+		  		});
+		      }
+		  });
+	  },		  
+    /* goHome() {
       uni.switchTab({
         url: "/pages/childs/home/home",
       });
-    },
+    }, */
   },
 };
 </script>

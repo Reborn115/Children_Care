@@ -6,9 +6,9 @@
 					<uni-card :cover="cover" @click="onClick">
 						<!-- <image slot='cover' style="width: 100%;" :src="cover"></image> -->
 						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
-										:duration="duration">
-										<swiper-item>
-											<view class="swiper-item uni-bg-red">
+										:duration="duration" >
+										<swiper-item >
+											<view class="swiper-item uni-bg-red" >
 												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
@@ -28,7 +28,7 @@
 					</uni-card>
 					<uni-section title="精选内容" type="line">
 						<view class="box">
-							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goStory(item.url)">
+							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail()">
 								<view>
 									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.picture" @error="imageError"></image>
 								</view>
@@ -50,15 +50,17 @@
 	export default {
 		data() {
 			return {
+				searchValue:'',
 				tips:[
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
+					{url:"http://www.xiaowangzi.org/",picture:"https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'}
 				],
-				src: 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg',
+				/* src:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg', */
+				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				cover: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/094a9dc0-50c0-11eb-b680-7980c8a877b8.jpg',
 				avatar: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png',
 				extraIcon:{
@@ -74,7 +76,30 @@
 				
 			};
 		},
+		onLoad(){
+			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
+				method:"POST",
+			    data: {
+			        searchWord:	this.searchValue  
+			    },
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+			        console.log(res.data);
+			        this.text = 'request success';
+					
+			    }
+			});
+		},
 		methods: {
+			goDetail(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/details"
+				})
+			},
 			search(searchValue){
 				
 			},

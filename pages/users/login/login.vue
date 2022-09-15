@@ -114,7 +114,17 @@
 						    "content-type":"application/json",
 						},
 						success: (res) => {
-							console.log(res.data);
+							uni.setStorage({
+								key:"token",
+								data:res.data.data.token
+							})
+							/* console.log(res.data); */
+							/* uni.getStorage({
+								key:"token",
+								success(res) {
+									console.log(res.data)
+								}
+							}) */
 							this.text = 'request success';
 							uni.navigateTo({
 							    url:"/pages/users/actor/actor"
