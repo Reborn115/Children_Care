@@ -63,6 +63,10 @@
 </script>
 
 <style lang="scss" scoped>
+.container{
+	background-color: #F4F4F4;
+	height: 100vh;
+}
 .imgBox{
 	display: flex;
 	justify-content: center;

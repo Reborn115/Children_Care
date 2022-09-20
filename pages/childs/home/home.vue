@@ -1,6 +1,5 @@
 <template>
 	<view class="container">
-		
 		<uni-search-bar v-model="searchValue" 
 						@cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
 		</uni-search-bar>
@@ -154,6 +153,9 @@
 </script>
 
 <style lang="scss" scoped>
+.container{
+	background-color: #F4F4F4;
+}
 .swiper-item{
 	image{
 		margin-left: 0!important;
@@ -186,7 +188,7 @@ text{
 	padding-top: 4vh;
 	margin-left: 2vw;
 	/* background-color: #F4F4F4; */
-	background-color: #FFFFFF;
+	background-color: #FFFFFF!important;
 	width: 96vw;
 	height: 100%;
 	display: flex;
