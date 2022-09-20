@@ -1,30 +1,31 @@
 <template>
-  <view class="container">
-    <view class="textTop">
-      <text>选择身份</text>
-    </view>
-    <view class="box">
-      <view class="card" id="card1" @click="setIdentity(1)">
-        <view class="textInline">
-          <text class="textBottom">儿童模式</text>
-        </view>
-      </view>
-    </view>
-    <view class="box">
-      <view class="card" id="card2" @click="setIdentity(2)">
-        <view class="textInline">
-          <text class="textBottom">父母模式</text>
-        </view>
-      </view>
-    </view>
-    <view class="box">
-      <view class="card" id="card3" @click="setIdentity(3)">
-        <view class="textInline">
-          <text class="textBottom">志愿者模式</text>
-        </view>
-      </view>
-    </view>
-    <!-- <uni-card :is-shadow="true" class="child" id="child">
+	<view class="container">
+			<view class="textTop">
+				<text>选择身份</text>
+			</view>
+			<view class="box" @click="setIdentity">
+				<view class="card" id="card1">
+					<view class="textInline">
+						<text class="textBottom">儿童模式</text>
+					</view>
+					
+				</view>
+			</view>
+			<view class="box">
+				<view class="card" id="card2">
+					<view class="textInline">
+						<text class="textBottom">父母模式</text>
+					</view>
+				</view>
+			</view>
+			<view class="box">
+				<view class="card" id="card3">
+					<view class="textInline">
+						<text class="textBottom">志愿者模式</text>
+					</view>
+				</view>
+			</view>
+			<!-- <uni-card :is-shadow="true" class="child" id="child">
 				<text class="uni-body">儿童模式</text>
 			</uni-card>
 			<uni-card :is-shadow="true" id='parent'>

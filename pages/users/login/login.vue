@@ -1,7 +1,7 @@
 <template class="body">
 	<view class="container">
 		
-		<image  :src='img' alt="" ref="normalImage">
+		<image  :src='img' alt="" ref="normalImage"></image>
 		<uni-forms :modelValue="formData" :rules="rules" ref="formData"  class='formNormal'>
 			<uni-forms-item name="account" class="inputNormal">
 						
