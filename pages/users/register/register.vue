@@ -18,14 +18,15 @@
 					
 					<uni-easyinput prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" />
 				</uni-forms-item>
-				<!-- <uni-forms-item name="confirm" class="inputNormal">
-					<u-input placeholder="请输入验证码"  v-model="formData.confirm" prefixIcon="checkmark-circle" prefixIconStyle="font-size: 22px;color: #909399">
+				
+				<uni-forms-item name="confirm" class="inputNormal">
+					<u-input placeholder="请输入验证码"  v-model="formData.confirm" prefixIcon="checkmark-circle" prefixIconStyle="font-size: 22px;color: #c0c4cc">
 						<template slot="suffix">
 											<u-code
 												ref="uCode"
 												@change="codeChange"
 												seconds="20"
-												changeText="X秒重新获取哈哈哈"
+												changeText="60秒后重新获取"
 											></u-code>
 											<u-button
 												@tap="getCode"
@@ -37,9 +38,9 @@
 									
 									</u-input>
 
-					<uni-easyinput prefixIcon="checkbox" type="text" v-model="formData.confirm" placeholder="请输入验证码" />
-					<button type="primary" @click="getCheck" class="bottonCheck">获取验证码</button>
-				</uni-forms-item> -->
+					<!-- <uni-easyinput prefixIcon="checkbox" type="text" v-model="formData.confirm" placeholder="请输入验证码" />
+					<button type="primary" @click="getCheck" class="bottonCheck">获取验证码</button> -->
+				</uni-forms-item>
 				<button type="primary" @click="submit('formData')" class="bottonNormal">注册</button>
 			</uni-forms>
 		
@@ -143,7 +144,7 @@
 					  	    phone:this.formData.phone,
 					  	},
 					  	header: {
-					  	    'custom-header': 'hello' //自定义请求头信息
+					  	    "content-type":"application/json",
 					  	},
 					  	success: (res) => {
 					  		console.log(res.data);
@@ -182,13 +183,17 @@
 				
 							this.$refs[ref].validate().then(res => {
 								uni.request({
-								    url: 'https://www.example.com/request', //仅为示例，并非真实接口地址。
-									method:"GET",
+								    url: 'https://api.yuleng.top:38088/api/register', //仅为示例，并非真实接口地址。
+									method:"POST",
 								    data: {
-								        formData:this.formData,
+								        userName:this.formData.name,
+										password:this.formData.newPassword,
+										confirmPassword:this.formData.confirmPassword,
+										phone:this.formData.phone,
+										code:this.formData.confirm
 								    },
 								    header: {
-								        'custom-header': 'hello' //自定义请求头信息
+								        "content-type":"application/json",
 								    },
 								    success: (res) => {
 								        console.log(res.data);
@@ -260,7 +265,10 @@
 		visibility: hidden !important;
 		padding: 0;
 	}
-	
+	::v-deep .uni-forms-item__label no-label{
+		visibility: hidden !important;
+		padding: 0;
+	}
 	.bottonNormal{
 		align-items: center;
 		justify-content: center;
