@@ -126,9 +126,16 @@
 								}
 							}) */
 							this.text = 'request success';
-							uni.navigateTo({
-							    url:"/pages/users/actor/actor"
-							})
+							if(res.data.data.isCertification){
+								uni.switchTab({
+								  url: "/pages/childs/home/home",
+								});
+							} else {
+								uni.navigateTo({
+								    url:"/pages/users/actor/actor"
+								})
+							}
+							
 						}
 					});
 					console.log('success', res);

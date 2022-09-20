@@ -30,6 +30,35 @@
 					<u-icon name="rewind-right-fill" size='35'></u-icon>
 					
 				</view>
+				<view class="speed">
+					<!-- <u-number-box v-model="speed" @change="speedChange" :step="0.25" @click="speedChange"></u-number-box> -->
+					<u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
+					        <view
+					            slot="minus"
+					            class="minus"
+					        >
+					            <u-icon
+					                name="minus"
+					                size="12"
+					            ></u-icon>
+					        </view>
+					        <text
+					            slot="input"
+					            style="width: 50px;text-align: center;"
+					            class="input"
+					        >{{speed}}</text>
+					        <view
+					            slot="plus"
+					            class="plus"
+					        >
+					            <u-icon
+					                name="plus"
+					                color="#FFFFFF"
+					                size="12"
+					            ></u-icon>
+					        </view>
+					    </u-number-box>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -39,13 +68,24 @@
 	export default {
 		data() {
 			return {
-				audioUrl:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3',
+				speed:1,
+				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
 				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				isPlay:false,
 				contentAudio:'',
 			};
 		},
+		watch:{
+			speed(newVal, oldVal){
+				this.contentAudio.playbackRate=newVal
+			}
+		},
 		methods:{
+			speedChange(){
+				console.log(this.speed)
+				this.contentAudio.playbackRate=this.speed
+				console.log(this.speed,this.contentAudio.playbackRate)
+			},
 			pauseAudio(){
 				this.contentAudio.pause();
 				this.isPlay=!this.isPlay;
@@ -59,6 +99,7 @@
 				this.isPlay=!this.isPlay;
 				/* console.log(this.isPlay); */
 				this.contentAudio=innerAudioContext;
+				this.contentAudio.playbackRate=this.speed
 				/* console.log(this.contentAudio) */
 			},
 		}
@@ -66,6 +107,41 @@
 </script>
 
 <style lang="scss" scoped>
+.minus {
+		width: 22px;
+		height: 22px;
+		border-width: 1px;
+		border-color: #E6E6E6;
+		border-top-left-radius: 100px;
+		border-top-right-radius: 100px;
+		border-bottom-left-radius: 100px;
+		border-bottom-right-radius: 100px;
+		@include flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.input {
+		padding: 0 10px;
+	}
+
+	.plus {
+		width: 22px;
+		height: 22px;
+		background-color: #FF0000;
+		border-radius: 50%;
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		justify-content: center;
+		align-items: center;
+	}
+.speed{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	margin-top: 30px;
+}
 .icon{
 	display: flex;
 	justify-content:space-around;

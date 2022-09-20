@@ -37,10 +37,12 @@
 			<view class="content">
 				<view v-if="current === 0">
 					<view class="audio">
-						<u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
+						<!-- <u-icon name="play-circle" size='35' @click='playAudio'></u-icon> -->
+						<u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
+						<u-icon name="pause-circle-fill" size='35' @click='pauseAudio' v-if="isPlay"></u-icon>
 						<text>播放全部</text>
 						<text>（共{{sumAudio}}集）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory"></u-button>
+						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 					</view>
 					<view class="list">
 						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio(item.title)">
@@ -69,7 +71,7 @@
 						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory"></u-button>
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio(item.title)">
+						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead()">
 							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{item.book}}》--{{item.title}}
 						</text>
 					</view>
@@ -83,6 +85,12 @@
 	export default {
 		data() {
 			return {
+				contentAudio:'',
+				isPlay:false,
+				title:'',
+				type:'',
+				idea:'',
+				positionResult:'',
 				contentId:'',
 				chapter:[
 					{order:1,book:"小王子",title:"标题一"},
@@ -90,7 +98,7 @@
 					{order:3,book:"小王子",title:"标题一"},
 					{order:1,book:"小王子",title:"标题一"},
 				],
-				audioUrl:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3',
+				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
 				sumAudio:38,
 				sumRead:98,
 				list: ['亲属智慧语音', '原声朗读', '文字阅读'],
@@ -102,6 +110,12 @@
 			};
 		},
 		onLoad(e){
+			this.positionResult = JSON.parse(e.positionResult)
+			console.log(e.positionResult)
+			console.log(this.positionResult[0].name)
+			this.title=this.positionResult[0].name
+			this.type=this.positionResult[0].type
+			this.idea=this.positionResult[0].theme
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/list', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -118,19 +132,37 @@
 		    		
 		        }
 		    });
+			
 		},
 		methods:{
+			goRead(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/goRead/goRead"
+				})
+			},
+			goSummary(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/summary/summary"
+				})
+			},
 			goAudio(title){
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/audioPlayer/audioPlayer"
 				})
+			},
+			pauseAudio(){
+				this.contentAudio.pause();
+				this.isPlay=!this.isPlay;
+				/* console.log(this.isPlay); */
 			},
 			playAudio(){
 				/* this.innerAudioContext.play(); */
 				const innerAudioContext = uni.createInnerAudioContext();
 				innerAudioContext.src = this.audioUrl;
 				innerAudioContext.play();
-				
+				this.isPlay=!this.isPlay;
+				/* console.log(this.isPlay); */
+				this.contentAudio=innerAudioContext;
 			},
 			change(index) {
 				this.current = index
@@ -218,16 +250,18 @@ text{
 .idea{
 	margin-left: 50rpx;
 	font-size: 15px;
+	width: 400rpx;
 }
 .type{
 	font-size: 15px;
 	margin-bottom: 1vh;
 	margin-left: 50rpx;
+	width: 400rpx;
 }
 .title{
 	border-radius: 8px;
 	/* background-color: #A4B3DA; */
-	width: 170rpx;
+	width: 400rpx;
 	font-size: 20px;
 	margin-top: 1vh;
 	margin-left: 50rpx;
@@ -235,8 +269,10 @@ text{
 	height: 50rpx;
 }
 .text-intro{
+	color: aliceblue;
 	display: flex;
 	flex-wrap: wrap;
+	/* flex-direction: column; */
 }
 .introduce{
 	display: flex;
