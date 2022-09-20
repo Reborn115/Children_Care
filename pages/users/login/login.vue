@@ -42,7 +42,7 @@
 								errorMessage:'请填写账号'
 							},
 							{
-								minLength:5,
+								minLength:1,
 								maxLength:12,
 								errorMessage:'{label}长度在{minLength}到{maxLength}个字符'
 							}
@@ -104,17 +104,27 @@
 			submit(ref){
 				this.$refs[ref].validate().then(res => {
 					uni.request({
-						url: 'https://api.yuleng.top:38088/login/c', //仅为示例，并非真实接口地址。
+						url: 'https://api.yuleng.top:38088/api/login/c', //仅为示例，并非真实接口地址。
 						method:"POST",
 						data: {
 						    userName:this.formData.account,
 							password:this.formData.password
 						},
 						header: {
-						    'custom-header': 'hello' //自定义请求头信息
+						    "content-type":"application/json",
 						},
 						success: (res) => {
-							console.log(res.data);
+							uni.setStorage({
+								key:"token",
+								data:res.data.data.token
+							})
+							/* console.log(res.data); */
+							/* uni.getStorage({
+								key:"token",
+								success(res) {
+									console.log(res.data)
+								}
+							}) */
 							this.text = 'request success';
 							uni.navigateTo({
 							    url:"/pages/users/actor/actor"

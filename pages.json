@@ -1,4 +1,7 @@
 {
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [
 	// 	{
 	// 	    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
@@ -107,6 +110,24 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/childs/home/details/details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/childs/home/details/audioPlayer/audioPlayer",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

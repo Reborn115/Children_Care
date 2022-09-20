@@ -1,25 +1,25 @@
 <template>
 	<view class="container">
-		<uni-search-bar @confirm="search" :focus="true" v-model="searchValue" @blur="blur" @focus="focus" @input="input"
+		<uni-search-bar @confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input"
 						@cancel="cancel" @clear="clear" bgColor="white">
 		</uni-search-bar>
 					<uni-card :cover="cover" @click="onClick">
 						<!-- <image slot='cover' style="width: 100%;" :src="cover"></image> -->
-						<swiper class="swiper" slot='cover' circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
-										:duration="duration">
+						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
+										:duration="duration" >
+										<swiper-item >
+											<view class="swiper-item uni-bg-red" >
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+											</view>
+										</swiper-item>
 										<swiper-item>
 											<view class="swiper-item uni-bg-red">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
 										<swiper-item>
-											<view class="swiper-item uni-bg-green">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
-											</view>
-										</swiper-item>
-										<swiper-item>
-											<view class="swiper-item uni-bg-blue">
-												<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+											<view class="swiper-item uni-bg-red">
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
 											</view>
 										</swiper-item>
 									</swiper>
@@ -28,7 +28,7 @@
 					</uni-card>
 					<uni-section title="精选内容" type="line">
 						<view class="box">
-							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goStory(item.url)">
+							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail()">
 								<view>
 									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.picture" @error="imageError"></image>
 								</view>
@@ -50,15 +50,17 @@
 	export default {
 		data() {
 			return {
+				searchValue:'',
 				tips:[
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
+					{url:"http://www.xiaowangzi.org/",picture:"https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
 					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'}
 				],
-				src: 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg',
+				/* src:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg', */
+				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				cover: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/094a9dc0-50c0-11eb-b680-7980c8a877b8.jpg',
 				avatar: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png',
 				extraIcon:{
@@ -74,7 +76,33 @@
 				
 			};
 		},
+		onLoad(){
+			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
+				method:"POST",
+			    data: {
+			        searchWord:	this.searchValue  
+			    },
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+			        console.log(res.data);
+			        this.text = 'request success';
+					
+			    }
+			});
+		},
 		methods: {
+			goDetail(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/details"
+				})
+			},
+			search(searchValue){
+				
+			},
 			goStory(url){
 				
 			},
@@ -95,27 +123,41 @@
 </script>
 
 <style lang="scss" scoped>
+.swiper-item{
+	image{
+		margin-left: 0!important;
+		margin-top: 50rpx !important;
+	}
+}
 text{
 	display: block;
 }
 .idea{
 	margin-left: 13vw;
+	font-size: 12px;
 }
 .type{
-	margin-bottom: 2vh;
+	font-size: 12px;
+	margin-bottom: 1vh;
 	margin-left: 13vw;
 }
 .title{
+	border-radius: 8px;
+	background-color: #A4B3DA;
+	width: 170rpx;
+	font-size: 18px;
 	margin-top: 1vh;
 	margin-left: 13vw;
 	margin-bottom: 2vh;
+	height: 50rpx;
 }
 .box{
 	padding-top: 4vh;
 	margin-left: 2vw;
-	background-color: #F4F4F4;
+	/* background-color: #F4F4F4; */
+	background-color: #FFFFFF;
 	width: 96vw;
-	height: 60vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	border-radius: 8px;
@@ -123,6 +165,7 @@ text{
 	align-content:flex-start
 }
 .tips{
+	box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.2);
 	display: flex;
 	width:85vw ;
 	height: 14vh;
@@ -132,6 +175,8 @@ text{
 }
 ::v-deep .uni-card{
 	border-radius: 10px;
+	height: 600rpx;
+	box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.2)!important;
 }
 .uni-card .uni-card__cover{
 	margin-top: 0!important;
@@ -157,7 +202,7 @@ image{
 		width: 100%;
 	}
 	.swiper {
-		height: 300rpx;
+		height: 600rpx;
 	}
 	.swiper-item {
 		display: block;
