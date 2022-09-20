@@ -1,9 +1,18 @@
 <template>
 	<view>
 		<view class="toppic">
-			<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 100rpx;height: 90rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
-			<view style="margin-left: 55rpx;color: #595959;">
-				交流区
+			<view class="area1">
+				<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<view style="margin-left: 58rpx;color: #595959;">
+					交流区
+				</view>
+			</view>
+			
+			<view class="area2" @click="goEdit">
+				<image src="https://s2.loli.net/2022/09/12/zDbapIBwWO2guSd.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<view style="margin-left: 58rpx;color: #595959;">
+					建议区
+				</view>
 			</view>
 		</view>
 		<view class="pic">
@@ -56,7 +65,11 @@
 			}
 		},
 		methods: {
-			
+			goEdit(){
+				uni.navigateTo({
+					url:"/pages/parents/parentSolveProblem/noresolve/edit/edit"
+				})
+			}
 		}
 	}
 </script>
@@ -65,6 +78,19 @@
 	.toppic{
 		position: relative;
 		z-index: 10;
+		.area1{
+			display: inline-block;
+			width: 211rpx;
+			height: 180rpx;
+			// background-color: #fff187;
+		}
+		.area2{
+			display: inline-block;
+			float: right;
+			width: 211rpx;
+			height: 180rpx;
+			// background-color: #cdffab;
+		}
 	}
 	.pic{
 		display: flex;

@@ -4,7 +4,7 @@
 			<image src="https://s2.loli.net/2022/09/11/3oxwWE6GIiMfFbA.png" style="width: 200rpx;height: 200rpx;border-radius: 100rpx;"></image>
 		</view>
 		<view class="name">
-			<text class="nametext">堂堂</text>
+			<text class="nametext">志愿者哈哈</text>
 		</view>
 		<view class="one">
 			<view class="item1">
@@ -13,14 +13,9 @@
 				<image src="https://s2.loli.net/2022/09/11/8TcwdmNuDxKW1aO.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
 			<view class="item2">
-				<text>儿童模式</text>
+				<text>志愿者模式</text>
 				<image src="https://s2.loli.net/2022/09/11/Hmr2g85unltcToP.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
-		</view>
-		<view class="two">
-			<image src="https://s2.loli.net/2022/09/11/NEpQiRIDKlOCWUs.png" style="width: 50rpx;height: 40rpx;" class="icon"></image>
-			<text class="content">父母账号</text>
-			<image src="https://s2.loli.net/2022/09/11/nIwfsF7rDemSMER.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
 		</view>
 		<view class="two">
 			<image src="https://s2.loli.net/2022/09/11/cvsUMmNJOGHjB4r.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
@@ -34,7 +29,7 @@
 		</view>
 		
 		<!-- 切换模式弹窗 -->
-		<!-- <uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
+		<!-- <uni-popup ref="popup1" background-color="#fff" style="border-radius: 30rpx;">
 			<view class="change">
 				<image src="https://s2.loli.net/2022/09/11/cGDVIO75kn3rqey.jpg" style="width: 300rpx;height: 400rpx;margin-top: 60rpx;"></image>
 				<view class="button">
@@ -57,7 +52,7 @@
 		methods: {
 			//打开切换模式弹窗
 			// changeType(){
-			// 	this.$refs.popup.open()
+			// 	this.$refs.popup1.open()
 			// }
 		}
 	}
@@ -88,7 +83,7 @@
 		.item1,.item2{
 			// background-color: #00aaff;
 			box-shadow: 2px 2px 4px #88888873;
-			border-radius: 20rpx;
+			border-radius: 15rpx;
 			width: 315rpx;
 			height: 88rpx;
 			font-size: 32rpx;
@@ -119,7 +114,7 @@
 		margin-top: 30rpx;
 		margin-left: 46rpx;
 		box-shadow: 2px 2px 4px #88888873;
-		border-radius: 20rpx;
+		border-radius: 15rpx;
 		width: 662rpx;
 		height: 88rpx;
 		font-size: 32rpx;

@@ -1,14 +1,16 @@
 {
 	"pages": [
-	// 	{
-	// 	    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
-	// 	    "style" :                                                                                    
-	// 	    {
-	// 	        "navigationBarTitleText": "添加问题",
-	// 	        "enablePullDownRefresh": false
-	// 	    }
+
+		{
+		    "path" : "pages/volunteer/problem/information/information",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "个人信息",
+		        "enablePullDownRefresh": false
+		    }
 		    
-	// 	},
+		},
+		
 		//登录
 		{
             "path" : "pages/users/login/login",
@@ -80,8 +82,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+        {
             "path" : "pages/childs/posthouse/addQuestion/addQuestion",
             "style" :                                                                                    
             {
@@ -109,8 +111,128 @@
                 "navigationBarTitleText": "我的问题",
                 "enablePullDownRefresh": false
             }
+        }
+        ,{
+            "path" : "pages/childs/posthouse/detailYes/detailYes",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "已解决的问题",
+                "enablePullDownRefresh": false
+            }
             
         }
+		//父母端主页
+        ,{
+            "path" : "pages/parents/homepage/homepage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "孩子的问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/parents/parentSolveProblem/noresolve/noresolve",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "解决问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+
+        ,{
+            "path" : "pages/parents/parentSolveProblem/noresolve/edit/edit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "意见建议",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/parents/parentLookall/parentLookall",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成长档案",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		//父母端个人中心
+        ,{
+            "path" : "pages/parents/parentsme/parentsme",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		//志愿者端主页
+        // ,{
+        //     "path" : "pages/volunteer/volunteerhome/volunteerhome",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // }
+        ,{
+            "path" : "pages/volunteer/problem/problem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/volunteer/volunterMe/volunterMe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/volunteer/problem/datails/datails",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问题详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/volunteer/problem/vedit/vedit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "情况记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        // ,{
+        //     "path" : "pages/volunteer/problem/information/information",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "个人信息",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

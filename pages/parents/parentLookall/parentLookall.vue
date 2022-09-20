@@ -90,7 +90,7 @@
 			},
 			detailNo(){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailNo/detailNo'
+					url:'/pages/parents/parentSolveProblem/noresolve/noresolve'
 				})
 			},
 			detailYes(){
