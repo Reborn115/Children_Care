@@ -4,15 +4,16 @@
 	},
 	"pages": [
 		
-		// {
-		//     "path" : "pages/parents/homepage/homepage",
-		//     "style" :                                                                                    
-		//     {
-		//         "navigationBarTitleText": "",
-		//         "enablePullDownRefresh": false
-		//     }
+		{
+		    "path" : "pages/childs/personal/personal",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "个人中心",
+		        "enablePullDownRefresh": false
+		    }
 		    
-		// },
+		},
+		
 		
 		//登录
 		{
@@ -85,15 +86,15 @@
 			
 		},
 		// 儿童端个人中心
-        {
-            "path" : "pages/childs/personal/personal",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人中心",
-                "enablePullDownRefresh": false
-            }
+        // {
+        //     "path" : "pages/childs/personal/personal",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "个人中心",
+        //         "enablePullDownRefresh": false
+        //     }
             
-        },
+        // },
 		// 儿童端驿站
         {
             "path" : "pages/childs/posthouse/posthouse",
@@ -259,6 +260,24 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "个人信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/chat/chat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "聊天",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/chat/chatlist/chatlist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的消息",
                 "enablePullDownRefresh": false
             }
             

@@ -85,10 +85,10 @@
 						<view class="text4">
 							线下直拍:
 						</view>
-						<image src="../../../../static/02郁金香团子.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="../../../../static/07跳跃团子.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="../../../../static/07跳跃团子.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="../../../../static/02郁金香团子.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image src="https://s2.loli.net/2022/09/21/WvknDJx4dVqr3cu.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image src="https://s2.loli.net/2022/09/21/IYSvdtKWkX4O7ae.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image src="https://s2.loli.net/2022/09/21/IYSvdtKWkX4O7ae.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image src="https://s2.loli.net/2022/09/21/WvknDJx4dVqr3cu.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
 						<view class="text4">
 							孩子的情绪状态：
 						</view>

@@ -5,21 +5,22 @@ export const myRequest=(options)=>{
 			url:'https://api.yuleng.top:38088/api'+options.url,
 			method:options.method||'GET',
 			data:options.data||{},
+			header:options.header||{},
 			success:(res)=>{
-				if(res.data.meta.status!==200){
-					return uni.showToast({
-						title:'获取数据失败',
-						icon:"none",
-						duration:2000
-					})
-				}
+				// if(res.data.meta.status!==200){
+				// 	return uni.showToast({
+				// 		title:'获取数据失败',
+				// 		icon:"none",
+				// 		duration:2000
+				// 	})
+				// }
 				resolve(res);
 			},
 			fail: (err) => {
-				uni.showToast({
-					title:'请求失败',
-					icon:"none"
-				})
+				// uni.showToast({
+				// 	title:'请求失败',
+				// 	icon:"none"
+				// })
 				reject(err);
 			}
 		})

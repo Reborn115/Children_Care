@@ -7,7 +7,7 @@
 			<text class="nametext">堂堂</text>
 		</view>
 		<view class="one">
-			<view class="item1">
+			<view class="item1" @click="goChatlist">
 				<text>我的消息</text>
 				<uni-badge class="uni-badge-left-margin" text="20" />
 				<image src="https://s2.loli.net/2022/09/11/8TcwdmNuDxKW1aO.png" style="width: 50rpx;height: 50rpx;"></image>
@@ -59,6 +59,11 @@
 			// changeType(){
 			// 	this.$refs.popup.open()
 			// }
+			goChatlist(){
+				uni.navigateTo({
+					url:"/pages/chat/chatlist/chatlist"
+				})
+			}
 		}
 	}
 </script>
