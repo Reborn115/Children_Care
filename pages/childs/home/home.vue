@@ -8,19 +8,9 @@
 						<!-- <image slot='cover' style="width: 100%;" :src="cover"></image> -->
 						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
 										:duration="duration" >
-										<swiper-item >
+										<swiper-item v-for="(item, index) in swiper" :key="index" @click="goDetail2(item)">
 											<view class="swiper-item uni-bg-red" >
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
-											</view>
-										</swiper-item>
-										<swiper-item>
-											<view class="swiper-item uni-bg-red">
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
-											</view>
-										</swiper-item>
-										<swiper-item>
-											<view class="swiper-item uni-bg-red">
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="src" @error="imageError"></image>
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
 											</view>
 										</swiper-item>
 									</swiper>
@@ -29,7 +19,7 @@
 					</uni-card>
 					<uni-section title="精选内容" type="line">
 						<view class="box">
-							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail(item)">
+							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail1(item)">
 								<view>
 									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
 								</view>
@@ -53,14 +43,8 @@
 			return {
 				isEmpty:false,
 				searchValue:'',
-				tips:[
-					{url:"http://www.xiaowangzi.org/",picture:"https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'},
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'小王子',type:'童话文学',idea:'坠落凡间的小王子'},
-					{url:"http://www.xiaowangzi.org/",picture:"https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg",title:'啊啊啊',type:'童话文学',idea:'坠落凡间的啊啊啊'}
-				],
+				tips:[],
+				swiper:[],
 				/* src:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg', */
 				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				cover: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/094a9dc0-50c0-11eb-b680-7980c8a877b8.jpg',
@@ -91,6 +75,7 @@
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
+					this.swiper=res.data.data.homeInfoPictureParamList
 					this.tips=res.data.data.homeInfoParamList
 			        console.log(res.data);
 			        this.text = 'request success';
@@ -99,10 +84,16 @@
 			});
 		},
 		methods: {
-			goDetail(item){
+			goDetail1(item){
 				console.log(item)
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(this.tips)
+				})
+			},
+			goDetail2(item){
+				console.log(item)
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(this.swiper)
 				})
 			},
 			

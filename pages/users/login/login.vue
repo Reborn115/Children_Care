@@ -27,6 +27,7 @@
 	export default {
 		data() {
 			return {
+				permission:'',
 				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
 				formData:{
 					account:'',
@@ -114,34 +115,38 @@
 						    "content-type":"application/json",
 						},
 						success: (res) => {
+							/* uni.navigateTo({
+							    url:"/pages/users/upload/upload"
+							}) */
+							this.permission=res.data.data.permission
+							
+							console.log(res.data)
+							console.log(res.data.code)
 							uni.setStorage({
 								key:"token",
 								data:res.data.data.token
 							})
-							/* console.log(res.data); */
-							/* uni.getStorage({
-								key:"token",
-								success(res) {
-									console.log(res.data)
-								}
-							}) */
-							this.text = 'request success';
-							if(res.data.data.isCertification){
+							if(!res.data.data.isSetIdentity/* &&!res.data.data.isCertification */){
+								uni.navigateTo({
+								    url:"/pages/users/actor/actor?positionResult="+JSON.stringify(res.data.data.isCertification)
+								})
+							} else if(!res.data.data.isCertification&&this.permission==1){
+								uni.navigateTo({
+								    url:"/pages/users/editChild/editChild"
+								})
+							} else if(!res.data.data.isCertification){
+								uni.navigateTo({
+								    url:"/pages/users/editInfo/editInfo"
+								})
+							} else{
 								uni.switchTab({
 								  url: "/pages/childs/home/home",
 								});
-							} else {
-								uni.navigateTo({
-								    url:"/pages/users/actor/actor"
-								})
 							}
 							
 						}
 					});
 					console.log('success', res);
-					uni.showToast({
-						title: `校验通过`
-					})
 				}).catch(err => {
 					console.log('err', err);
 				})

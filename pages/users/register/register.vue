@@ -4,23 +4,23 @@
 		<uni-forms :modelValue="formData" :rules="rules" ref="formData" class='formNormal'>
 				<uni-forms-item name="name" class="inputNormal">
 							
-					<uni-easyinput prefixIcon="heart" type="text" v-model="formData.name" placeholder="请输入昵称" />
+					<u-input prefixIcon="heart" type="text" v-model="formData.name" placeholder="请输入昵称" />
 				</uni-forms-item>
 				<uni-forms-item name="newPassword" class="inputNormal">
 					
-					<uni-easyinput prefixIcon="locked" type="password" v-model="formData.newPassword" placeholder="请输入密码" @focus="changeImg(3)" @blur="recoverImg()"/>
+					<u-input prefixIcon="lock" type="password" v-model="formData.newPassword" placeholder="请输入密码" @focus="changeImg(3)" @blur="recoverImg()"/>
 				</uni-forms-item>
 				<uni-forms-item name="confirmPassword" class="inputNormal">
 							
-					<uni-easyinput prefixIcon="locked" type="password" v-model="formData.confirmPassword" placeholder="请再次确认密码" @focus="changeImg(3)" @blur="recoverImg()" />
+					<u-input prefixIcon="lock" type="password" v-model="formData.confirmPassword" placeholder="请再次确认密码" @focus="changeImg(3)" @blur="recoverImg()" />
 				</uni-forms-item>
 				<uni-forms-item name="phone" class="inputNormal">
 					
-					<uni-easyinput prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" />
+					<u-input prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" />
 				</uni-forms-item>
 				
 				<uni-forms-item name="confirm" class="inputNormal">
-					<u-input placeholder="请输入验证码"  v-model="formData.confirm" prefixIcon="checkmark-circle" prefixIconStyle="font-size: 22px;color: #c0c4cc">
+					<u-input placeholder="请输入验证码" type="number" v-model="formData.confirm" prefixIcon="checkmark-circle" >
 						<template slot="suffix">
 											<u-code
 												ref="uCode"
@@ -126,6 +126,22 @@
 						],
 						label:'手机号码',
 						validateTrigger:'submit'
+					},
+					confirm:{
+						//验证码检验
+						rules:[
+							{
+								required:true,
+								errorMessage:'请填写验证码'
+							},
+							{
+								minLength:4,
+								maxLength:4,
+								errorMessage:'{label}长度为{minLength}个数字'
+							}
+						],
+						label:'验证码',
+						validateTrigger:'submit'
 					}
 				}
 			};
@@ -197,17 +213,12 @@
 								    },
 								    success: (res) => {
 								        console.log(res.data);
-								        this.text = 'request success';
+								        
 										uni.navigateTo({
-											url:"/pages/login/login"
+											url:"/pages/users/login/login"
 										})
 								    }
 								});
-			
-								console.log('success', res);
-								uni.showToast({
-									title: `校验通过`
-								})
 							}).catch(err => {
 								console.log('err', err);
 							})
@@ -217,6 +228,23 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-input{
+	.u-border:focus{
+		border-color: #2979ff!important;
+	}
+	
+}
+::v-deep .u-border:focus{
+	border-color: #2979ff!important;
+}
+::v-deep .uni-forms-item__content{
+	.uni-forms-item__error{
+		text{
+			margin-left: 19rpx!important;
+		}
+	}
+}
+
 	::v-deep .u-input{
 		width: 60vw !important;
 		outline: none !important;
@@ -263,9 +291,11 @@
 	}
 	::v-deep .uni-forms-item__label{
 		visibility: hidden !important;
+		display: none;
 		padding: 0;
 	}
 	::v-deep .uni-forms-item__label no-label{
+		display: none;
 		visibility: hidden !important;
 		padding: 0;
 	}
@@ -286,7 +316,7 @@
 	}
 	::v-deep .uni-forms{
 		margin-top:26.7vh;
-		margin-left: 10vw;
+		margin-left: 9vw;
 		width: 80vw;
 		align-items: center;
 		justify-content: center;

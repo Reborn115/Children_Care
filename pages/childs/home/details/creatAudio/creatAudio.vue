@@ -158,7 +158,7 @@
 					this.audioUrl=res.data.data.audioUrl
 		        }
 		    });
-			
+			this.getAudio()
 			
 		},
 	}

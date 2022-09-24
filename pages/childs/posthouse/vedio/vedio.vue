@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="container">
 		
 	</view>
 </template>
@@ -10,7 +10,8 @@
 			return {
 				
 			};
-		}
+		},
+		
 	}
 </script>
 

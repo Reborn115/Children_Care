@@ -41,12 +41,12 @@
 						<u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
 						<u-icon name="pause-circle-fill" size='35' @click='pauseAudio' v-if="isPlay"></u-icon>
 						<text>播放全部</text>
-						<text>（共{{sumAudio}}集）</text>
+						<text>（共{{total}}集）</text>
 						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio(item.title)">
-							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{item.book}}》--{{item.title}}
+						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio1(item)">
+							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
 						</text>
 					</view>
 				</view>
@@ -54,12 +54,12 @@
 					<view class="audio">
 						<u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
 						<text>播放全部</text>
-						<text>（共{{sumAudio}}集）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory"></u-button>
+						<text>（共{{total}}集）</text>
+						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio(item.title)">
-							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{item.book}}》--{{item.title}}
+						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio2(item)">
+							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
 						</text>
 					</view>
 				</view>
@@ -67,12 +67,12 @@
 					<view class="read">
 						<!-- <u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
 						<text>播放全部</text> -->
-						<text>（共{{sumRead}}章）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory"></u-button>
+						<text>（共{{total}}章）</text>
+						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead()">
-							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{item.book}}》--{{item.title}}
+						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead">
+							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
 						</text>
 					</view>
 				</view>
@@ -85,6 +85,7 @@
 	export default {
 		data() {
 			return {
+				total:'',
 				contentAudio:'',
 				isPlay:false,
 				title:'',
@@ -92,12 +93,7 @@
 				idea:'',
 				positionResult:'',
 				contentId:'',
-				chapter:[
-					{order:1,book:"小王子",title:"标题一"},
-					{order:2,book:"小王子",title:"标题一"},
-					{order:3,book:"小王子",title:"标题一"},
-					{order:1,book:"小王子",title:"标题一"},
-				],
+				chapter:[],
 				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
 				sumAudio:38,
 				sumRead:98,
@@ -113,6 +109,7 @@
 			this.positionResult = JSON.parse(e.positionResult)
 			console.log(e.positionResult)
 			console.log(this.positionResult[0].name)
+			this.contentId=this.positionResult[0].id
 			this.title=this.positionResult[0].name
 			this.type=this.positionResult[0].type
 			this.idea=this.positionResult[0].theme
@@ -129,7 +126,8 @@
 		        success: (res) => {
 		            console.log(res.data);
 		            this.text = 'request success';
-		    		
+		    		this.chapter=res.data.data.homeListContentParamList
+					this.total=res.data.data.total
 		        }
 		    });
 			
@@ -145,9 +143,14 @@
 				    url:"/pages/childs/home/details/summary/summary"
 				})
 			},
-			goAudio(title){
+			goAudio1(item){
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/audioPlayer/audioPlayer"
+				    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
+				})
+			},
+			goAudio2(item){
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/creatAudio/creatAudio?positionResult="+JSON.stringify(item)
 				})
 			},
 			pauseAudio(){

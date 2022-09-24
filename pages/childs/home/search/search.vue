@@ -3,7 +3,7 @@
 		<uni-search-bar v-model="searchValue" @cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
 		</uni-search-bar>
 		<view class="box">
-			<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail(item)">
+			<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail1(item)">
 				<view>
 					<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
 				</view>
@@ -30,11 +30,17 @@
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
 			this.tips=this.positionResult
-			console.log(e.positionResult)
-			console.log(this.positionResult)
+			/* console.log(e.positionResult)
+			console.log(this.positionResult) */
 			
 		},
 		methods:{
+			goDetail1(item){
+				console.log(item)
+				uni.navigateTo({
+				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(this.tips)
+				})
+			},
 			search(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
@@ -48,7 +54,7 @@
 				    },
 				    success: (res) => {
 						this.tips=res.data.data.homeInfoParamList
-				        console.log(res.data);
+				        /* console.log(res.data); */
 				        this.text = 'request success';
 						if(res.data.data.homeInfoParamList.length<1){
 							uni.navigateTo({

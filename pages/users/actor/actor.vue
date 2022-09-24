@@ -3,7 +3,7 @@
 			<view class="textTop">
 				<text>选择身份</text>
 			</view>
-			<view class="box" @click="setIdentity">
+			<view class="box" @click="setIdentity(1)">
 				<view class="card" id="card1">
 					<view class="textInline">
 						<text class="textBottom">儿童模式</text>
@@ -11,14 +11,14 @@
 					
 				</view>
 			</view>
-			<view class="box">
+			<view class="box" @click="setIdentity(2)">
 				<view class="card" id="card2">
 					<view class="textInline">
 						<text class="textBottom">父母模式</text>
 					</view>
 				</view>
 			</view>
-			<view class="box">
+			<view class="box" @click="setIdentity(3)">
 				<view class="card" id="card3">
 					<view class="textInline">
 						<text class="textBottom">志愿者模式</text>
@@ -40,7 +40,14 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+		permission:'',
+		isCertification:0
+	};
+  },
+  onLoad(e){
+  	this.isCertification= JSON.parse(e.positionResult)
+	console.log(this.isCertification)
   },
   methods: {
 	  setIdentity(order){
@@ -48,19 +55,34 @@ export default {
 		      url: 'https://api.yuleng.top:38088/api/set-identity', //仅为示例，并非真实接口地址。
 		  	method:"POST",
 		      data: {
-		          permission:order,
-				  
+		          permission:order			  
 		      },
 		      header: {
 		          "content-type":"application/json",
 				  "token":uni.getStorageSync('token')
 		      },
 		      success: (res) => {
-		          console.log(res.data);
-		          this.text = 'request success';
-		  		uni.switchTab({
-		  		  url: "/pages/childs/home/home",
-		  		});
+				  console.log(res.data);
+				  this.text = 'request success';
+				  this.permission=res.data.data.permission
+				  if(!this.isCertification){
+					  if(this.permission==1){
+						 uni.navigateTo({
+						     url:"/pages/users/editChild/editChild"
+						 }) 
+					  } else {
+						  uni.navigateTo({
+						      url:"/pages/users/editInfo/editInfo"
+						  })
+					  }
+					  
+				  } else{
+					  uni.switchTab({
+					    url: "/pages/childs/home/home",
+					  });
+				  }
+		          
+		  		
 		      }
 		  });
 	  },		  
