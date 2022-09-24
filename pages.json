@@ -3,15 +3,10 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-	// 	{
-	// 	    "path" : "pages/childs/posthouse/addQuestion/addQuestion",
-	// 	    "style" :                                                                                    
-	// 	    {
-	// 	        "navigationBarTitleText": "添加问题",
-	// 	        "enablePullDownRefresh": false
-	// 	    }
-		    
-	// 	},
+		
+		
+		
+		
 		//登录
 		{
             "path" : "pages/users/login/login",
@@ -54,7 +49,7 @@
             }
             
         }
-		// 主页
+		// 儿童端主页
         ,{
             "path" : "pages/childs/home/home",
             "style" :                                                                                    
@@ -63,9 +58,27 @@
                 "enablePullDownRefresh": false
             }
             
-        },
-		// 个人中心
-        {
+        }
+		 ,{
+			"path" : "pages/childs/home/details/details",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+			
+		}
+		,{
+			"path" : "pages/childs/home/details/audioPlayer/audioPlayer",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+			
+		},
+		// 儿童端个人中心
+        /* {
             "path" : "pages/childs/personal/personal",
             "style" :                                                                                    
             {
@@ -73,8 +86,17 @@
                 "enablePullDownRefresh": false
             }
             
-        },
-		// 驿站
+        }, */
+		{
+		    "path" : "pages/childs/personal/personal",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "个人中心",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		// 儿童端驿站
         {
             "path" : "pages/childs/posthouse/posthouse",
             "style" :                                                                                    
@@ -83,15 +105,14 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+        {
             "path" : "pages/childs/posthouse/addQuestion/addQuestion",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "添加问题",
                 "enablePullDownRefresh": false
             }
-            
         }
         ,{
             "path" : "pages/childs/posthouse/lookAll/lookAll",
@@ -105,6 +126,7 @@
             }
             
         }
+		// 儿童端未解决的问题
         ,{
             "path" : "pages/childs/posthouse/detailNo/detailNo",
             "style" :                                                                                    
@@ -112,10 +134,20 @@
                 "navigationBarTitleText": "我的问题",
                 "enablePullDownRefresh": false
             }
+        }
+		// 儿童端已解决的问题
+        ,{
+            "path" : "pages/childs/posthouse/detailYes/detailYes",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "已解决的问题",
+                "enablePullDownRefresh": false
+            }
             
         }
+		//父母端主页
         ,{
-            "path" : "pages/childs/home/details/details",
+            "path" : "pages/parents/homepage/homepage",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -123,8 +155,49 @@
             }
             
         }
+		// 父母端解惑部分
         ,{
-            "path" : "pages/childs/home/details/audioPlayer/audioPlayer",
+            "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "孩子的问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 父母端孩子未解决的问题
+        ,{
+            "path" : "pages/parents/parentSolveProblem/noresolve/noresolve",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "解决问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 父母端提交建议
+        ,{
+            "path" : "pages/parents/parentSolveProblem/noresolve/edit/edit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "意见建议",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 父母端查看成长档案
+        ,{
+            "path" : "pages/parents/parentLookall/parentLookall",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成长档案",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		//父母端个人中心
+        ,{
+            "path" : "pages/parents/parentsme/parentsme",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -132,8 +205,9 @@
             }
             
         }
+		//志愿者端主页
         ,{
-            "path" : "pages/childs/posthouse/vedio/vedio",
+            "path" : "pages/volunteer/volunteerhome/volunteerhome",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -148,10 +222,28 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
+        }
+		// 志愿者端问题列表
+        ,{
+            "path" : "pages/volunteer/problem/problem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
             
         }
         ,{
             "path" : "pages/childs/home/details/goRead/goRead",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        }
+		// 志愿者端的我的界面
+        ,{
+            "path" : "pages/volunteer/volunterMe/volunterMe",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -166,6 +258,35 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
+        }
+		// 志愿者端问题详情
+        ,{
+            "path" : "pages/volunteer/problem/datails/datails",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问题详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 志愿者端情况记录
+        ,{
+            "path" : "pages/volunteer/problem/vedit/vedit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "情况记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		// 志愿者端显示儿童信息
+        ,{
+            "path" : "pages/volunteer/problem/information/information",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人信息",
+                "enablePullDownRefresh": false
+            }
             
         }
         ,{
@@ -173,6 +294,14 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        },
+        {
+            "path" : "pages/chat/chat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "聊天",
                 "enablePullDownRefresh": false
             }
             
@@ -209,6 +338,14 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        },
+        {
+            "path" : "pages/chat/chatlist/chatlist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的消息",
                 "enablePullDownRefresh": false
             }
             

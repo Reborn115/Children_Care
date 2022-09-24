@@ -1,39 +1,29 @@
 <template>
-	<view class="container">
-			<view class="textTop">
-				<text>选择身份</text>
-			</view>
-			<view class="box" @click="setIdentity(1)">
-				<view class="card" id="card1">
-					<view class="textInline">
-						<text class="textBottom">儿童模式</text>
-					</view>
-					
-				</view>
-			</view>
-			<view class="box" @click="setIdentity(2)">
-				<view class="card" id="card2">
-					<view class="textInline">
-						<text class="textBottom">父母模式</text>
-					</view>
-				</view>
-			</view>
-			<view class="box" @click="setIdentity(3)">
-				<view class="card" id="card3">
-					<view class="textInline">
-						<text class="textBottom">志愿者模式</text>
-					</view>
-				</view>
-			</view>
-			<!-- <uni-card :is-shadow="true" class="child" id="child">
-				<text class="uni-body">儿童模式</text>
-			</uni-card>
-			<uni-card :is-shadow="true" id='parent'>
-				<text class="uni-body">父母模式</text>
-			</uni-card>
-			<uni-card :is-shadow="true" id='volunteer'>
-				<text class="uni-body">志愿者模式</text>
-			</uni-card> -->
+  <view class="container">
+    <view class="textTop">
+      <text>选择身份</text>
+    </view>
+    <view class="box" @click="setIdentity(1)">
+      <view class="card" id="card1">
+        <view class="textInline">
+          <text class="textBottom">儿童模式</text>
+        </view>
+      </view>
+    </view>
+    <view class="box" @click="setIdentity(2)">
+      <view class="card" id="card2">
+        <view class="textInline">
+          <text class="textBottom">父母模式</text>
+        </view>
+      </view>
+    </view>
+    <view class="box" @click="setIdentity(3)">
+      <view class="card" id="card3">
+        <view class="textInline">
+          <text class="textBottom">志愿者模式</text>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -41,51 +31,58 @@
 export default {
   data() {
     return {
-		permission:'',
-		isCertification:0
-	};
+      permission: "",
+      isCertification: 0,
+    };
   },
-  onLoad(e){
-  	this.isCertification= JSON.parse(e.positionResult)
-	console.log(this.isCertification)
+  onLoad(e) {
+    this.isCertification = JSON.parse(e.positionResult);
+    console.log(this.isCertification);
   },
   methods: {
-	  setIdentity(order){
-		  uni.request({
-		      url: 'https://api.yuleng.top:38088/api/set-identity', //仅为示例，并非真实接口地址。
-		  	method:"POST",
-		      data: {
-		          permission:order			  
-		      },
-		      header: {
-		          "content-type":"application/json",
-				  "token":uni.getStorageSync('token')
-		      },
-		      success: (res) => {
-				  console.log(res.data);
-				  this.text = 'request success';
-				  this.permission=res.data.data.permission
-				  if(!this.isCertification){
-					  if(this.permission==1){
-						 uni.navigateTo({
-						     url:"/pages/users/editChild/editChild"
-						 }) 
-					  } else {
-						  uni.navigateTo({
-						      url:"/pages/users/editInfo/editInfo"
-						  })
-					  }
-					  
-				  } else{
-					  uni.switchTab({
-					    url: "/pages/childs/home/home",
-					  });
-				  }
-		          
-		  		
-		      }
-		  });
-	  },		  
+    setIdentity(order) {
+      uni.request({
+        url: "https://api.yuleng.top:38088/api/set-identity", //仅为示例，并非真实接口地址。
+        method: "POST",
+        data: {
+          permission: order,
+        },
+        header: {
+          "content-type": "application/json",
+          token: uni.getStorageSync("token"),
+        },
+        success: (res) => {
+          console.log(res.data);
+          this.text = "request success";
+          this.permission = res.data.data.permission;
+          if (!this.isCertification) {
+            if (this.permission == 1) {
+              uni.navigateTo({
+                url: "/pages/users/editChild/editChild",
+              });
+            } else {
+              uni.navigateTo({
+                url: "/pages/users/editInfo/editInfo",
+              });
+            }
+          } else {
+            uni.switchTab({
+              url: "/pages/childs/home/home",
+            });
+          }
+        },
+      });
+    },
+    goParents() {
+      uni.redirectTo({
+        url: "/pages/parents/homepage/homepage",
+      });
+    },
+    goVolunter() {
+      uni.redirectTo({
+        url: "/pages/volunteer/volunteerhome/volunteerhome",
+      });
+    },
     /* goHome() {
       uni.switchTab({
         url: "/pages/childs/home/home",

@@ -90,7 +90,7 @@
 			},
 			detailNo(){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailNo/detailNo'
+					url:'/pages/parents/parentSolveProblem/noresolve/noresolve'
 				})
 			},
 			detailYes(){
@@ -105,6 +105,7 @@
 <style scoped lang="scss">
 	.body{
 		padding-bottom: 5vh;
+		// background-color: #feedbc;
 	}
 	.toptime{
 		background-color: #6f6f6f17;
@@ -144,7 +145,7 @@
 		width: 86vw;
 		height: 17vh;
 		background-color: #f3f2f2;
-		// background-color: #b0def7;
+		// background-color: #feedbc;
 		margin-left: 7vw;
 		border-radius: 10px;
 		margin-top: 2vh;
