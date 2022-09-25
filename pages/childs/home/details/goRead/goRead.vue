@@ -32,6 +32,11 @@
 			};
 		},
 		onLoad(e){
+			this.positionResult = JSON.parse(e.positionResult)
+			console.log(e.positionResult)
+			this.contentId=this.positionResult.contentId
+			this.order=this.positionResult.order
+			
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/text', //仅为示例，并非真实接口地址。
 		    	method:"POST",

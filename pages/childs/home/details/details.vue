@@ -71,7 +71,7 @@
 						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead">
+						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead(item)">
 							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
 						</text>
 					</view>
@@ -133,9 +133,9 @@
 			
 		},
 		methods:{
-			goRead(){
+			goRead(item){
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/goRead/goRead"
+				    url:"/pages/childs/home/details/goRead/goRead?positionResult="+JSON.stringify(item)
 				})
 			},
 			goSummary(){
@@ -144,9 +144,35 @@
 				})
 			},
 			goAudio1(item){
-				uni.navigateTo({
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/audio/ai-cache', //仅为示例，并非真实接口地址。
+					method:"GET",
+				    data: {
+				        contentInfoId:item.id
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+				        if(res.data.code=='A0400'){
+							uni.navigateTo({
+							    url:"/pages/childs/home/details/waitAudio/waitAudio?positionResult="+JSON.stringify(item)
+							})
+							
+						} else {
+							item.smartAudio=res.data.message
+							console.log(item)
+							uni.navigateTo({
+							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
+							})
+						}
+				    }
+				});
+				/* uni.navigateTo({
 				    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
-				})
+				}) */
 			},
 			goAudio2(item){
 				uni.navigateTo({

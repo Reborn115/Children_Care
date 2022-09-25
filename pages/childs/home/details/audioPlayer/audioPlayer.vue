@@ -86,6 +86,23 @@
 			}
 		},
 		methods:{
+			getServe(){
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/audio/server', //仅为示例，并非真实接口地址。
+					method:"GET",
+				    data: {
+				       
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+				        
+				    }
+				});
+			},
 			getAudio(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/audio/sys', //仅为示例，并非真实接口地址。
@@ -139,25 +156,51 @@
 			this.contentInfoId=this.positionResult.id
 			this.name=this.positionResult.headName
 			this.originalAudioId=this.positionResult.originalAudioId
-		    uni.request({
-		        url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
-		    	method:"POST",
-		        data: {
-		            contentId:this.contentId,
-					originalAudioId:this.originalAudioId
-		        },
-		        header: {
-		            "content-type":"application/json",
-		    		"token":uni.getStorageSync('token')
-		        },
-		        success: (res) => {
-		            console.log(res.data);
-		            this.text = 'request success';
-		    		this.name=res.data.data.storyName
-					this.author=res.data.data.writer
-					this.audioUrl=res.data.data.audioUrl
-		        }
-		    });
+			if(this.positionResult.smartAudio){
+				this.audioUrl=this.positionResult.smartAudio
+				console.log(this.audioUrl)
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
+					method:"POST",
+				    data: {
+				        contentId:this.contentId,
+						originalAudioId:this.originalAudioId
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+				        this.text = 'request success';
+						this.name=res.data.data.storyName
+						this.author=res.data.data.writer
+						
+				    }
+				});
+			} else {
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
+					method:"POST",
+				    data: {
+				        contentId:this.contentId,
+						originalAudioId:this.originalAudioId
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+				        this.text = 'request success';
+						this.name=res.data.data.storyName
+						this.author=res.data.data.writer
+						this.audioUrl=res.data.data.audioUrl
+				    }
+				});
+			}
+		    
+			/* this.getServe() */
 			
 			
 		},

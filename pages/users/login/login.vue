@@ -126,6 +126,10 @@
 								key:"token",
 								data:res.data.data.token
 							})
+							uni.setStorage({
+								key:"userId",
+								data:res.data.data.id
+							})
 							if(!res.data.data.isSetIdentity/* &&!res.data.data.isCertification */){
 								uni.navigateTo({
 								    url:"/pages/users/actor/actor?positionResult="+JSON.stringify(res.data.data.isCertification)

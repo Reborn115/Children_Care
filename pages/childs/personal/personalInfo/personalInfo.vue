@@ -237,7 +237,7 @@
 					}
 			    }
 			});
-			this.init()
+			s
 		
 		},
 		methods:{

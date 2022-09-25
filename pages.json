@@ -368,6 +368,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/childs/home/details/waitAudio/waitAudio",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
