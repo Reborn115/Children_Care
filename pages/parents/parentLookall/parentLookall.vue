@@ -29,7 +29,7 @@
 			<view class="one">
 				<view class="title">提出的问题</view>
 				<view class="status">
-					未解决
+					已解决
 				</view>
 			</view>
 			<view class="two">
@@ -54,9 +54,9 @@
 				<!-- <view class="every">线下</view>
 				<view class="every">无需立即解决</view> -->
 			</view>
-			<view class="three">
+			<!-- <view class="three">
 				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>

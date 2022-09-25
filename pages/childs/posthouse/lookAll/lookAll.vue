@@ -8,7 +8,7 @@
 			{{time}}
 		</view>
 		<!-- 未解决 -->
-		<view class="box" v-for="item in 3"  :key="item" @click="detailNo">
+		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.disabuseId)">
 			<view class="one">
 				<view class="title">提出的问题</view>
 				<view class="status">
@@ -16,16 +16,16 @@
 				</view>
 			</view>
 			<view class="two">
-				<view class="every">心理</view>
-				<view class="every">线下</view>
-				<view class="every">无需立即解决</view>
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
+				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
-		<view class="box" v-for="item in 2"  :key="item" @click="detailYes">
+		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.disabuseId)">
 			<view class="one">
 				<view class="title">提出的问题</view>
 				<view class="status2">
@@ -33,30 +33,30 @@
 				</view>
 			</view>
 			<view class="two">
-				<view class="every">心理</view>
-				<view class="every">线下</view>
-				<view class="every">无需立即解决</view>
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
+				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
 		
-		<view class="box" v-for="item in 2"  :key="item">
+		<view class="box" v-for="(item,index) in otherlist"  :key="index">
 			<view class="one">
-				<view class="title">学习过的内容</view>
+				<view class="title">学习{{item.bookName}}</view>
 				<!-- <view class="status2">
 					已解决
 				</view> -->
 			</view>
-			<view class="two">
-				<view class="every">学习了XX时长的XX类型的内容</view>
+			<view class="two"> 
+				<view class="every">学习了{{item.type}}类型的{{item.bookName}}</view>
 				<!-- <view class="every">线下</view>
 				<view class="every">无需立即解决</view> -->
 			</view>
-			<view class="three">
+			<!-- <view class="three">
 				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -73,6 +73,9 @@
 					]
 				},
 				time:'',
+				nolist:[],
+				yeslist:[],
+				otherlist:[],
 			}
 		},
 		onLoad(){

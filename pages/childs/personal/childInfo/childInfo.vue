@@ -102,7 +102,7 @@
 		onLoad(){
 			
 			uni.request({
-			    url: 'https://api.yuleng.top:38088/api/my-profile/parent', //仅为示例，并非真实接口地址。
+			    url: 'https://api.yuleng.top:38088/api/my-profile/child', //仅为示例，并非真实接口地址。
 				method:"POST",
 			    data: {
 			        

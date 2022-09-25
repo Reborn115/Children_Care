@@ -22,7 +22,7 @@
 			<text class="content">孩子账号</text>
 			<image src="https://s2.loli.net/2022/09/11/nIwfsF7rDemSMER.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
 		</view>
-		<view class="two">
+		<view class="two" @click="goInfo">
 			<image src="https://s2.loli.net/2022/09/11/cvsUMmNJOGHjB4r.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
 			<text class="content">我的资料</text>
 			<image src="https://s2.loli.net/2022/09/11/w9XmrnbvWBaUckI.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
@@ -62,6 +62,11 @@
 			this.getdata()
 		},
 		methods: {
+			goInfo(){
+				uni.navigateTo({
+					url:"/pages/childs/personal/personalInfo/personalInfo"
+				})
+			},
 			//打开切换模式弹窗
 			changeType(){
 				this.$refs.popup1.open()

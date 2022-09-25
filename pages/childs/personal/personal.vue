@@ -64,7 +64,7 @@
 		methods: {
 			goInfo(){
 				uni.navigateTo({
-					url:"/pages/childs/personal/personalInfo/personalInfo"
+					url:"/pages/childs/personal/childInfo/childInfo"
 				})
 			},
 			//打开切换模式弹窗
