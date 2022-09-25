@@ -101,6 +101,24 @@ export default{
 			return Y+'年'+ M +'月' +D+ '日 '+h+':'+m
 		}
 	},
+	changeTime(e){
+		// let old = new Date(e);
+		let old = e;
+		//获取old具体时间
+		let d = old.getTime();
+		let h = old.getHours();
+		let m = old.getMinutes();
+		let Y = old.getFullYear();
+		let M = old.getMonth()+1;
+		let D = old.getDate();
+		if(h<10){
+			h = '0'+h;
+		}
+		if(m<10){
+			m = '0'+m;
+		}
+		return Y+'/'+M+'/'+D +' '+' '+' '+ h+':'+m
+	},
 	// 间隔时间差（后续开发）
 	spaceTime(old,now){
 		old = new Date(old);

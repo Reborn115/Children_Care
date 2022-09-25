@@ -2,7 +2,7 @@
 export const myRequest=(options)=>{
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url:'https://api.yuleng.top:38088/api'+options.url,
+			url:'https://api.yuleng.top:38088'+options.url,
 			method:options.method||'GET',
 			data:options.data||{},
 			header:options.header||{},
@@ -28,15 +28,15 @@ export const myRequest=(options)=>{
 }
 //用法说明
 // async getgoods(callback){
-// 				const res=await this.$myRequest({
-// 					url:'/goods/search',
-// 					method:'GET',
-// 					data:{
-// 						pagenum:this.pagenum,
-// 					}
-// 				})
-// 				// console.log(res)
-// 				callback&&callback();
-// 				this.goods=[...this.goods,...res.data.message.goods];
-// 				this.total=res.data.message.total;
-// 			},
+// 	const res=await this.$myRequest({
+// 		url:'/goods/search',
+// 		method:'GET',
+// 		data:{
+// 			pagenum:this.pagenum,
+// 		}
+// 	})
+// 	// console.log(res)
+// 	callback&&callback();
+// 	this.goods=[...this.goods,...res.data.message.goods];
+// 	this.total=res.data.message.total;
+// },

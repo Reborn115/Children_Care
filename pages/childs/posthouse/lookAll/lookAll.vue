@@ -2,10 +2,10 @@
 	<view class="body">
 		<view class="calendar">
 			<!-- 插入模式 -->
-			<uni-calendar class="uni-calendar--hook" :selected="info.selected" :showMonth="true" @change="change1" @monthSwitch="monthSwitch" />
+			<uni-calendar class="uni-calendar--hook" :selected="info.selected" :showMonth="true" @change="change1" />
 		</view>
 		<view class="toptime">
-			2022-9-20
+			{{time}}
 		</view>
 		<!-- 未解决 -->
 		<view class="box" v-for="item in 3"  :key="item" @click="detailNo">
@@ -66,38 +66,172 @@
 		data() {
 			return {
 				info: {
-					selected: [{
-						date: "2022-09-15",
-						
-					},
-					{
-						date: "2022-09-13",
-						
-					},
-					{
-						date: "2022-09-18",
-						
-					}]
-				}
+					selected: [
+					// {
+					// 	date: "2022-09-13",
+					// },
+					]
+				},
+				time:'',
 			}
 		},
+		onLoad(){
+			this.time=this.changeTime3(new Date())
+			this.gettime()
+			this.getlist()
+		},
 		methods: {
+			// 列表时间转换
+			changeTime(e){
+				let old = new Date(e*1000);
+				//获取old具体时间
+				let d = old.getTime();
+				let h = old.getHours();
+				let m = old.getMinutes();
+				let Y = old.getFullYear();
+				let M = old.getMonth()+1;
+				let D = old.getDate();
+				if(h<10){
+					h = '0'+h;
+				}
+				if(m<10){
+					m = '0'+m;
+				}
+				if(M<10){
+					M = '0'+M;
+				}
+				if(D<10){
+					D = '0'+D;
+				}
+				return Y+'/'+M+'/'+D +' '+' '+ h+':'+m
+			},
+			// 日历标点时间转换 
+			changeTime2(e){
+				let old = new Date(e*1000);
+				//获取old具体时间
+				let Y = old.getFullYear();
+				let M = old.getMonth()+1;
+				let D = old.getDate();
+				if(M<10){
+					M = '0'+M;
+				}
+				if(D<10){
+					D = '0'+D;
+				}
+				return Y+'-'+M+'-'+D 
+			},
+			// 刚进入头部时间转换
+			changeTime3(e){
+				let old = new Date(e);
+				//获取old具体时间
+				let Y = old.getFullYear();
+				let M = old.getMonth()+1;
+				let D = old.getDate();
+				if(M<10){
+					M = '0'+M;
+				}
+				if(D<10){
+					D = '0'+D;
+				}
+				return Y+'-'+M+'-'+D 
+			},
 			change1(e) {
+				this.nolist=[],
+				this.yeslist=[],
+				this.otherlist=[],
 				console.log('change 返回:', e)
+				this.time=e.fulldate
+				this.getlist()
 			},
-			monthSwitch(e) {
-				console.log('monthSwitchs 返回:', e)
-			},
-			detailNo(){
+			// 跳转携带id
+			detailNo(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailNo/detailNo'
+					url:'/pages/childs/posthouse/detailNo/detailNo?id='+JSON.stringify(id)
 				})
 			},
-			detailYes(){
+			// 跳转携带id
+			detailYes(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes'
+					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
+			},
+			gettime(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/track-record', 
+					method:"POST",
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						let hh=res.data.data.scheduleTime
+						hh.forEach((item)=>{
+							item=this.changeTime2(item)
+							this.info.selected.push({date: item})
+						})
+						// console.log(this.info.selected)
+					}
+				});
+			},
+			getlist(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/track-record/list', 
+					method:"POST",
+					data:{
+						time:Date.parse(new Date(this.time).toString())/1000,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						console.log(res,'成长档案列表数据')
+						let data1=res.data.data.postResultList
+						this.otherlist=res.data.data.selectContentList
+						data1.forEach((item)=>{
+							//转换类型
+							if(item.type==1){
+								item.type='心理'
+							}else if(item.type==2){
+								item.type='学习'
+							}else if(item.type==3){
+								item.type='安全'
+							}else if(item.type==4){
+								item.type='生活'
+							}else if(item.type==5){
+								item.type='兴趣'
+							}else if(item.type==6){
+								item.type='感情'
+							}else{
+								item.type='健康'
+							}
+							//转换解决方式
+							if(item.solveType==1){
+								item.solveType='线下'
+							}else if(item.solveType==2){
+								item.solveType='视频'
+							}else if(item.solveType==3){
+								item.solveType='语音'
+							}else{
+								item.solveType='文字'
+							}
+							//转换是否立即解决
+							if(item.isNowSolve==1){
+								item.isNowSolve='立即解决'
+							}else{
+								item.isNowSolve='无需立即解决'
+							}
+							//转换时间
+							item.time=this.changeTime(item.time)
+							if(item.isFinish==0){
+								this.nolist.push(item)
+							}else{
+								this.yeslist.push(item)
+							}
+						})
+						
+					}
+				});
 			}
+			
 		}
 	}
 </script>
@@ -162,12 +296,14 @@
 			.status{
 				display: inline-block;
 				color: #d1292f;
-				margin-left: 28vw;
+				float: right;
+				margin-right: 50rpx;
 			}
 			.status2{
 				display: inline-block;
 				color: #0055ff;
-				margin-left: 28vw;
+				float: right;
+				margin-right: 50rpx;
 			}
 		}
 		.two{

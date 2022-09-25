@@ -1,37 +1,37 @@
 <template>
 	<view>
 		<!-- //未解决 -->
-		<view class="box" v-for="item in 3"  :key="item" @click="detailNo">
+		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id)">
 			<view class="one">
-				<view class="title">我提出的问题</view>
+				<view class="title">提出的问题</view>
 				<view class="status">
 					未解决
 				</view>
 			</view>
 			<view class="two">
-				<view class="every">心理</view>
-				<view class="every">线下</view>
-				<view class="every">无需立即解决</view>
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
+				<text class="time">{{item.itme}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
-		<view class="box" v-for="item in 2"  :key="item" @click="detailYes">
+		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.id)">
 			<view class="one">
-				<view class="title">我提出的问题</view>
+				<view class="title">提出的问题</view>
 				<view class="status2">
 					已解决
 				</view>
 			</view>
 			<view class="two">
-				<view class="every">心理</view>
-				<view class="every">线下</view>
-				<view class="every">无需立即解决</view>
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
+				<text class="time">{{item.itme}}</text>
 			</view>
 		</view>
 		<view class="tip"><text class="content">仅展示最近一周的问题</text></view>
@@ -46,10 +46,43 @@
 	export default {
 		data() {
 			return {
-				
+				nolist:[],
+				yeslist:[],
 			}
 		},
+		// onLoad() {
+		// 	this.nolist=[],
+		// 	this.yeslist=[],
+		// 	this.getList()
+		// },
+		onShow(){
+			this.nolist=[],
+			this.yeslist=[],
+			this.getList()
+		},
 		methods: {
+			// 转换时间戳
+			changeTime(e){
+				let old = new Date(e*1000);
+				let h = old.getHours();
+				let m = old.getMinutes();
+				let Y = old.getFullYear();
+				let M = old.getMonth()+1;
+				let D = old.getDate();
+				if(h<10){
+					h = '0'+h;
+				}
+				if(m<10){
+					m = '0'+m;
+				}
+				if(M<10){
+					M = '0'+M;
+				}
+				if(D<10){
+					D = '0'+D;
+				}
+				return Y+'/'+M+'/'+D +' '+' '+ h+':'+m
+			},
 			addQuestion(){
 				uni.navigateTo({
 					url:'/pages/childs/posthouse/addQuestion/addQuestion'
@@ -60,15 +93,42 @@
 					url:'/pages/childs/posthouse/lookAll/lookAll'
 				})
 			},
-			detailNo(){
+			detailNo(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailNo/detailNo'
+					url:"/pages/childs/posthouse/detailNo/detailNo?id="+JSON.stringify(id)
 				})
 			},
-			detailYes(){
+			detailYes(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes'
+					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
+			},
+			getList(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						// console.log(res);
+						res.data.data.disabuseResultList.forEach((item)=>{
+							item.itme=this.changeTime(item.time)
+							if(item.isNowSolve==1){
+								item.isNowSolve='立即解决'
+							}else{
+								item.isNowSolve='无需立即解决'
+							}
+							if(item.isFinish==1){
+								this.yeslist.push(item);
+							}
+							if(item.isFinish==0){
+								this.nolist.push(item);
+							}
+						})
+						// console.log(this.yeslist);
+						// console.log(this.nolist);
+					}
+				});
 			}
 		}
 	}
@@ -98,12 +158,14 @@
 		.status{
 			display: inline-block;
 			color: #d1292f;
-			margin-left: 28vw;
+			float: right;
+			margin-right: 50rpx;
 		}
 		.status2{
 			display: inline-block;
 			color: #797979;
-			margin-left: 28vw;
+			float: right;
+			margin-right: 50rpx;
 		}
 	}
 	.two{

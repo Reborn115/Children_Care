@@ -7,6 +7,7 @@
 		
 		
 		
+		
 		//登录
 		{
             "path" : "pages/users/login/login",
@@ -78,15 +79,8 @@
 			
 		},
 		// 儿童端个人中心
-        /* {
-            "path" : "pages/childs/personal/personal",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人中心",
-                "enablePullDownRefresh": false
-            }
-            
-        }, */
+        
+       
 		{
 		    "path" : "pages/childs/personal/personal",
 		    "style" :                                                                                    
@@ -96,6 +90,7 @@
 		    }
 		    
 		},
+        
 		// 儿童端驿站
         {
             "path" : "pages/childs/posthouse/posthouse",

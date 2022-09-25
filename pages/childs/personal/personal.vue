@@ -1,18 +1,18 @@
 <template>
 	<view>
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/11/3oxwWE6GIiMfFbA.png" style="width: 200rpx;height: 200rpx;border-radius: 100rpx;"></image>
+			<image :src="img" style="width: 200rpx;height: 200rpx;border-radius: 100rpx;"></image>
 		</view>
 		<view class="name">
-			<text class="nametext">堂堂</text>
+			<text class="nametext">{{name}}</text>
 		</view>
 		<view class="one">
 			<view class="item1" @click="goChatlist">
 				<text>我的消息</text>
-				<uni-badge class="uni-badge-left-margin" text="20" />
+				<uni-badge class="uni-badge-left-margin" :text="messageNumber" />
 				<image src="https://s2.loli.net/2022/09/11/8TcwdmNuDxKW1aO.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
-			<view class="item2">
+			<view class="item2" @click="changeType">
 				<text>儿童模式</text>
 				<image src="https://s2.loli.net/2022/09/11/Hmr2g85unltcToP.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
@@ -34,7 +34,7 @@
 		</view>
 		
 		<!-- 切换模式弹窗 -->
-		<!-- <uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
+		<uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
 			<view class="change">
 				<image src="https://s2.loli.net/2022/09/11/cGDVIO75kn3rqey.jpg" style="width: 300rpx;height: 400rpx;margin-top: 60rpx;"></image>
 				<view class="button">
@@ -43,7 +43,7 @@
 					<button class="mini-btn1 btncolor3" type="default" size="mini">志愿者模式</button>
 				</view>
 			</view>
-		</uni-popup> -->
+		</uni-popup>
 	</view>
 </template>
 
@@ -51,8 +51,15 @@
 	export default {
 		data() {
 			return {
-				
+				img:'',
+				name:'',
+				messageNumber:0,
+				download:0,
+				myLove:0,
 			}
+		},
+		onLoad() {
+			this.getdata()
 		},
 		methods: {
 			goInfo(){
@@ -61,13 +68,30 @@
 				})
 			},
 			//打开切换模式弹窗
-			// changeType(){
-			// 	this.$refs.popup.open()
-			// }
+			changeType(){
+				this.$refs.popup.open()
+			},
 			goChatlist(){
 				uni.navigateTo({
 					url:"/pages/chat/chatlist/chatlist"
 				})
+			},
+			getdata(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/my-interface/child', 
+					method:'POST',
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						// console.log(this.data,"ziliao")
+						this.img=res.data.data.headPicUrl
+						this.name=res.data.data.userName
+						this.messageNumber=res.data.data.messageNumber
+						this.download=res.data.data.download
+						this.myLove=res.data.data.myLove
+					}
+				});
 			}
 		}
 	}

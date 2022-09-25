@@ -16,7 +16,7 @@
 						遇到问题的类型：
 					</view>
 					<view class="text1">
-						<text class="answer">心理</text>
+						<text class="answer">{{data.type}}</text>
 					</view>
 				</view>
 				<view class="item">
@@ -24,7 +24,7 @@
 						解决问题的方式:
 					</view>
 					<view class="text1">
-						线下
+						{{data.solveType}}
 					</view>
 				</view>
 				<view class="item">
@@ -32,7 +32,7 @@
 						是否要立即解决：
 					</view>
 					<view class="text1">
-						是
+						{{data.isNowSolve}}
 					</view>
 				</view>
 				<view class="item">
@@ -40,7 +40,7 @@
 						具体问题描述:
 					</view>
 					<view class="text1">
-						我好困困困困啊我好饿饿饿啊我好困困困困啊
+						{{data.question}}
 					</view>
 				</view>
 			</view>
@@ -52,11 +52,35 @@
 	export default {
 		data() {
 			return {
-				
+				id:0,
+				data:{},
 			}
 		},
+		onLoad(e){
+			this.id = JSON.parse(e.id)
+			this.gedetail()
+		},
 		methods: {
-			
+			gedetail(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.data=res.data.data
+						// console.log(this.data,"问题详情")
+						if(this.data.isNowSolve==1){
+							this.data.isNowSolve="是"
+						}else{
+							this.data.isNowSolve="否"
+						}
+					}
+				});
+			}
 		}
 	}
 </script>
