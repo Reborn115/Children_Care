@@ -54,15 +54,16 @@
 				    },
 				    success: (res) => {
 						this.tips=res.data.data.homeInfoParamList
+						this.swiper=res.data.data.homeInfoPictureParamList
 				        /* console.log(res.data); */
 				        this.text = 'request success';
-						if(res.data.data.homeInfoParamList.length<1){
+						if(res.data.data.homeInfoParamList.length<1&&res.data.data.homeInfoPictureParamList<1){
 							uni.navigateTo({
 							    url:"/pages/childs/home/emptySearch/emptySearch"
 							})
 						}else{
 							uni.navigateTo({
-							    url:"/pages/childs/home/search/search?positionResult="+JSON.stringify(this.tips)
+							    url:"/pages/childs/home/search/search?positionResult="+JSON.stringify(this.tips.concat(this.swiper))
 							})
 						}
 				    }

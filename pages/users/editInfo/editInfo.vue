@@ -107,20 +107,18 @@
 				
 				
 				frequence: [
-				          { value: 0, text: "爸爸" },
-				          { value: 1, text: "妈妈" },
-				          { value: 2, text: "爷爷" },
-						  { value: 3, text: "奶奶" },
-						  { value: 4, text: "哥哥" },
-						  { value: 5, text: "姐姐" },
+				          { value: 0, text: "一月一次" },
+				          { value: 1, text: "三月一次" },
+				          { value: 2, text: "半年一次" },
+						  { value: 3, text: "一年一次" },
+						  { value: 4, text: "超过一年才回一次" },
+						 
 				        ],
 				care:[
-				          { value: 0, text: "爸爸" },
-				          { value: 1, text: "妈妈" },
-				          { value: 2, text: "爷爷" },
-						  { value: 3, text: "奶奶" },
-						  { value: 4, text: "哥哥" },
-						  { value: 5, text: "姐姐" },
+				          { value: 0, text: "偶尔" },
+				          { value: 1, text: "时常" },
+				          { value: 2, text: "经常" },
+						  
 				        ],
 				rules:{
 					/* headPic:{

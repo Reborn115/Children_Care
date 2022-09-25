@@ -62,6 +62,26 @@
 				
 			};
 		},
+		onShow(){
+			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
+				method:"POST",
+			    data: {
+			        searchWord:	this.searchValue  
+			    },
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+					this.swiper=res.data.data.homeInfoPictureParamList
+					this.tips=res.data.data.homeInfoParamList
+			        console.log(res.data);
+			        this.text = 'request success';
+					
+			    }
+			});
+		},
 		onLoad(){
 
 			uni.request({
@@ -110,15 +130,16 @@
 				    },
 				    success: (res) => {
 						this.tips=res.data.data.homeInfoParamList
+						this.swiper=res.data.data.homeInfoPictureParamList
 				        console.log(res.data);
 				        this.text = 'request success';
-						if(res.data.data.homeInfoParamList.length<1){
+						if(res.data.data.homeInfoParamList.length<1&&res.data.data.homeInfoPictureParamList<1){
 							uni.navigateTo({
 							    url:"/pages/childs/home/emptySearch/emptySearch"
 							})
 						}else{
 							uni.navigateTo({
-							    url:"/pages/childs/home/search/search?positionResult="+JSON.stringify(this.tips)
+							    url:"/pages/childs/home/search/search?positionResult="+JSON.stringify(this.tips.concat(this.swiper))
 							})
 						}
 				    }
