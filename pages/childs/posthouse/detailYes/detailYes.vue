@@ -16,7 +16,7 @@
 						遇到问题的类型
 					</view>
 					<view class="text1">
-						<text class="answer">心理</text>
+						<text class="answer">{{data.type}}</text>
 					</view>
 				</view>
 				<view class="item">
@@ -24,7 +24,7 @@
 						解决问题的方式
 					</view>
 					<view class="text1">
-						线下
+						{{data.solveType}}
 					</view>
 				</view>
 				<view class="item">
@@ -32,7 +32,7 @@
 						是否要立即解决
 					</view>
 					<view class="text1">
-						是
+						{{data.isNowSolve}}
 					</view>
 				</view>
 				<view class="item">
@@ -40,7 +40,7 @@
 						具体问题描述
 					</view>
 					<view class="text1">
-						我好困困困困啊我好饿饿饿啊我好困困困困啊
+						{{data.question}}
 					</view>
 				</view>
 				<view class="item">
@@ -55,9 +55,21 @@
 						
 					</view>
 					<view class="text1">
-						<view class="parent">
+						<!-- <view class="parent"> -->
 							<!-- <text style="font-weight: 600;color: #6f6f6f;">父母：</text> -->
-							<text>加油宝贝，相信你是最棒</text>
+							<!-- <text>加油宝贝，相信你是最棒</text>
+						</view> -->
+						<view class="text4">
+							建议:
+						</view>
+						<view class="text5">
+							{{parentsAdvise.advise}}
+						</view>
+						<view class="text4">
+							其他：
+						</view>
+						<view class="text5">
+							{{parentsAdvise.other}}
 						</view>
 						<!-- <view class="volunter" style="margin-top: 15rpx;">
 							<text style="font-weight: 600;color: #6f6f6f;">志愿者：</text>
@@ -80,26 +92,24 @@
 							建议:
 						</view>
 						<view class="text5">
-							好好学习天天向上
+							{{volunterAdvise.suggestion}}
 						</view>
 						<view class="text4">
 							线下直拍:
 						</view>
-						<image src="https://s2.loli.net/2022/09/21/WvknDJx4dVqr3cu.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="https://s2.loli.net/2022/09/21/IYSvdtKWkX4O7ae.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="https://s2.loli.net/2022/09/21/IYSvdtKWkX4O7ae.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
-						<image src="https://s2.loli.net/2022/09/21/WvknDJx4dVqr3cu.png" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image v-for="(item,index) in volunterAdvise.imageUrlList" :key="index" :src="item" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						
 						<view class="text4">
 							孩子的情绪状态：
 						</view>
 						<view class="text5">
-							好好好快乐开心哈哈哈好好好快乐开心哈哈哈好好好快乐开心哈哈哈
+							{{volunterAdvise.emotionalState}}
 						</view>
 						<view class="text4">
 							其他：
 						</view>
 						<view class="text5">
-							好好好快乐开心哈哈哈
+							{{volunterAdvise.other}}
 						</view>
 					</view>
 				</view>
@@ -112,25 +122,123 @@
 	export default {
 		data() {
 			return {
+				//儿童问题详情
+				id:0,
+				data:{},
 				//父母第几次
 				parentnum: 0,
 				// 志愿者第几次
 				volunternum:0,
 				//父母的选择第几次
 				range1: [
-				  { value: 0, text: "第一次" },
-				  { value: 1, text: "第二次" },
-				  { value: 2, text: "第三次" },
+				  // { value: 1, text: "第一次" },
 				],
 				// 志愿者选择的第几次
-				range2: [
-				  { value: 0, text: "第一次" },
-				  { value: 1, text: "第二次" },
-				],
+				range2: [],
+				//父母建议
+				parentsAdvise:'',
+				//志愿者建议
+				volunterAdvise:'',
+			}
+		},
+		onLoad(e){
+			this.id = JSON.parse(e.id)
+			this.gedetail()
+			this.getnum()
+		},
+		watch:{
+			parentnum(){
+				this.getparents()
+			},
+			volunternum(){
+				this.getvolunter()
 			}
 		},
 		methods: {
-			
+			// 获取儿童基本问题
+			gedetail(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.data=res.data.data
+						// console.log(this.data,"问题详情yes")
+						if(this.data.isNowSolve==1){
+							this.data.isNowSolve="是"
+						}else{
+							this.data.isNowSolve="否"
+						}
+					}
+				});
+			},
+			// 获取有几次
+			getnum(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/num', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						// console.log(res,'次数')
+						if(res.data.data.parentCount!=0){
+							this.parentnum=1
+							for(let i=1;i<=res.data.data.parentCount;i++){
+								this.range1.push({value:i,text:'第'+i+'次'})
+							}
+						}
+						if(res.data.data.volunteerCount!=0){
+							this.volunternum=1
+							for(let i=1;i<=res.data.data.volunteerCount;i++){
+								this.range2.push({value:i,text:'第'+i+'次'})
+							}
+						}
+					}
+				});
+			},
+			getparents(){
+				if(this.parentnum){
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/disabuse/parent', 
+						data:{
+							disabuseId:this.id,
+							order:this.parentnum
+						},
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							// console.log(res,"parents")
+							this.parentsAdvise=res.data.data
+						}
+					});
+				}
+			},
+			getvolunter(){
+				if(this.volunternum){
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/disabuse/volunteer', 
+						data:{
+							disabuseId:this.id,
+							order:this.volunternum
+						},
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							// console.log(res,"volunter")
+							this.volunterAdvise=res.data.data
+						}
+					});
+				}
+			}
 		}
 	}
 </script>

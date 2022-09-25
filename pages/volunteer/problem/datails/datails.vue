@@ -8,7 +8,7 @@
 				</view>
 			</view>
 			
-			<view class="area" @click="goinformation">
+			<view class="area" @click="goinformation" v-if="showdetail">
 				<image src="https://s2.loli.net/2022/09/12/9gwRV6tlsqXfLY3.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 47rpx;color: #595959;">
 					儿童详情
@@ -33,7 +33,7 @@
 						遇到问题的类型：
 					</view>
 					<view class="text1">
-						<text class="answer">心理</text>
+						<text class="answer">{{data.type}}</text>
 					</view>
 				</view>
 				<view class="item">
@@ -41,7 +41,7 @@
 						解决问题的方式:
 					</view>
 					<view class="text1">
-						线下
+						{{data.solveType}}
 					</view>
 				</view>
 				<view class="item">
@@ -49,7 +49,7 @@
 						是否要立即解决：
 					</view>
 					<view class="text1">
-						是
+						{{data.isNowSolve}}
 					</view>
 				</view>
 				<view class="item">
@@ -57,13 +57,13 @@
 						具体问题描述:
 					</view>
 					<view class="text1">
-						我好困困困困啊我好饿饿饿啊我好困困困困啊
+						{{data.question}}
 					</view>
 				</view>
 			</view>
 		</view>
 		<button class="button" @click="dialogToggle"><text
-				class="button-text warn-text">问题未解决</text></button>
+				class="button-text warn-text">{{problemSolved}}</text></button>
 		<view>
 			<!-- 提示窗示例 -->
 			<uni-popup ref="alertDialog" type="dialog">
@@ -78,20 +78,35 @@
 	export default {
 		data() {
 			return {
-				
+				id:0,
+				data:{},
+				problemSolved:'问题未解决',
+				isAnonymous:1,
+				// 是否显示儿童详细信息
+				showdetail:false,
 			}
 		},
+		onLoad(e){
+			console.log(e)
+			this.id = JSON.parse(e.id)
+			this.isAnonymous=JSON.parse(e.isAnonymous)
+			if(this.isAnonymous==0){
+				this.showdetail=true
+			}
+			this.gedetail()
+		},
 		methods: {
+			
 			//进入编辑页面
 			goEdit(){
 				uni.navigateTo({
-					url:"/pages/volunteer/problem/vedit/vedit"
+					url:"/pages/volunteer/problem/vedit/vedit?id="+JSON.stringify(this.id)
 				})
 			},
 			//进入消息详情
 			goinformation(){
 				uni.navigateTo({
-					url:"/pages/volunteer/problem/information/information"
+					url:"/pages/volunteer/problem/information/information?id="+JSON.stringify(this.id)
 				})
 			},
 			//打开修改问题状态弹窗
@@ -100,10 +115,37 @@
 			},
 			dialogConfirm() {
 				console.log('点击确认')
+				uni.showToast({
+					title: '修改成功',
+					icon:'success',
+					duration: 2000
+				});
+				this.problemSolved="问题已解决"
 			},
 			dialogClose() {
 				console.log('点击关闭')
+				
 			},
+			gedetail(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.data=res.data.data
+						console.log(this.data,"问题详情")
+						if(this.data.isNowSolve==1){
+							this.data.isNowSolve="是"
+						}else{
+							this.data.isNowSolve="否"
+						}
+					}
+				});
+			}
 		}
 	}
 </script>

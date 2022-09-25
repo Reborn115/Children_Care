@@ -3,9 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
+// import{ myRequest } from 'util/util.js'
 Vue.use(uView);
 Vue.config.productionTip = false
-
+// Vue.prototype.$myRequest=myRequest
 App.mpType = 'app'
 
 const app = new Vue({

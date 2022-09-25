@@ -39,7 +39,7 @@ export default {
 		      url: 'https://api.yuleng.top:38088/api/set-identity', //仅为示例，并非真实接口地址。
 		  	method:"POST",
 		      data: {
-		          permission:order,
+		          permission:order
 				  
 		      },
 		      header: {
@@ -50,7 +50,8 @@ export default {
 		          console.log(res.data);
 		          this.text = 'request success';
 		  		uni.switchTab({
-		  		  url: "/pages/childs/home/home",
+		  		  // url: "/pages/childs/home/home",
+				  url:"/pages/childs/posthouse/posthouse"
 		  		});
 		      }
 		  });

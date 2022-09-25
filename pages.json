@@ -4,16 +4,15 @@
 	},
 	"pages": [
 		
-		{
-		    "path" : "pages/childs/personal/personal",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "个人中心",
-		        "enablePullDownRefresh": false
-		    }
+		// {
+		//     "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "孩子的问题",
+		//         "enablePullDownRefresh": false
+		//     }
 		    
-		},
-		
+		// },
 		
 		//登录
 		{
@@ -86,15 +85,15 @@
 			
 		},
 		// 儿童端个人中心
-        // {
-        //     "path" : "pages/childs/personal/personal",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "个人中心",
-        //         "enablePullDownRefresh": false
-        //     }
+        {
+            "path" : "pages/childs/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
             
-        // },
+        },
 		// 儿童端驿站
         {
             "path" : "pages/childs/posthouse/posthouse",

@@ -10,7 +10,7 @@
 						遇到问题的类型：
 					</view>
 					<view class="btn">
-						<uni-data-checkbox mode="tag"  multiple v-model="type" :localdata="typelist" selectedColor="#e5a280 !important" style="margin-left: 40rpx;margin-top: 10rpx;"></uni-data-checkbox>
+						<uni-data-checkbox mode="tag"  v-model="type" :localdata="typelist" selectedColor="#e5a280 !important" style="margin-left: 40rpx;margin-top: 10rpx;"></uni-data-checkbox>
 					</view>
 				</view>
 				<view class="question">
@@ -55,8 +55,8 @@
 					</view>
 				</view>
 				<view class="button">
-					<button class="mini-btn1" type="default" size="mini">提交</button>
-					<button class="mini-btn2" type="default" size="mini">取消</button>
+					<button class="mini-btn1" type="default" size="mini" @click="submit">提交</button>
+					<button class="mini-btn2" type="default" size="mini" @click="cancel">取消</button>
 				</view>
 			</view>
 		</view>
@@ -77,69 +77,109 @@
 				active7:false,
 				typelist:[{
 					text: '心理',
-					value: 0
-				}, {
-					text: '学习',
 					value: 1
 				}, {
-					text: '安全',
+					text: '学习',
 					value: 2
-				},{
-					text: '生活',
+				}, {
+					text: '安全',
 					value: 3
 				},{
-					text: '兴趣',
+					text: '生活',
 					value: 4
 				},{
-					text: '感情',
+					text: '兴趣',
 					value: 5
 				},{
-					text: '健康',
+					text: '感情',
 					value: 6
+				},{
+					text: '健康',
+					value: 7
 				}],
 				//方式的展示内容
 				sexs: [{
 					text: '线下',
-					value: 0
-				}, {
-					text: '视频',
 					value: 1
 				}, {
-					text: '语言',
+					text: '视频',
 					value: 2
+				}, {
+					text: '语言',
+					value: 3
 				},{
 					text: '文字',
-					value: 3
+					value: 4
 				}],
 				//是否匿名
 				namelist:[{
 					text: '是',
-					value: 0
+					value: 1
 				}, {
 					text: '否',
-					value: 1
+					value: 0
 				}],
 				//是否现在解决
 				nowlist:[{
 					text: '是',
-					value: 0
+					value: 1
 				}, {
 					text: '否',
-					value: 1
+					value: 0
 				}],
 				//问题类型
-				type:[],
+				type:1,
 				//问题描述
 				question:'',
 				//方式
-				method:0,
+				method:1,
 				//是否匿名
-				realname:0,
+				realname:1,
 				//是否立即解决
-				now:0
+				now:1
 			}
 		},
 		methods: {
+			submit(){
+				if(this.question==''){
+					uni.showToast({
+						title: '请填写问题描述',
+						icon:'error',
+						duration: 2000
+					});
+				}else{
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/disabuse', 
+						method:'POST',
+						data:{
+							"type":this.type,
+							"question":this.question,
+							"solveType":this.method,
+							"isAnonymous":this.realname,
+							"isNowSolve":this.now
+						},
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							uni.switchTab({
+								url:"/pages/childs/posthouse/posthouse"
+							})
+							uni.showToast({
+								title: '提交成功',
+								icon:'success',
+								duration: 2000
+							});
+							
+						}
+					});
+				}
+			},
+			cancel(){
+				uni.switchTab({
+					url:"/pages/childs/posthouse/posthouse"
+				})
+			}
 		}
 	}
 </script>

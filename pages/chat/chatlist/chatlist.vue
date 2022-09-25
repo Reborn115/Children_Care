@@ -1,24 +1,55 @@
 <template>
 	<view>
 		<uni-list>
-			<uni-list-chat  v-for="(item,index) in 10" :key="index" @click="gochat" clickable="true" :avatar-circle="true" title="uni-app" style="margin-top: 0px;" avatar="https://s2.loli.net/2022/09/21/IYSvdtKWkX4O7ae.png" note="您收到一条新的消息" time="2020-02-02 20:20" badge-text="12"></uni-list-chat>
+			<uni-list-chat  v-for="(item,index) in list" 
+			:key="index" 
+			@click="gochat" 
+			clickable="true" 
+			:avatar-circle="true" 
+			:title="item.name" 
+			style="margin-top: 0px;" 
+			:avatar="item.headPicUrl" 
+			:note="item.latestMessage" 
+			:time="item.time" 
+			:badge-text="item.num"></uni-list-chat>
 		</uni-list>
 	</view>
 </template>
 
 <script>
+	import dateTime from '../dateTime.js';
 	export default {
 		data() {
 			return {
-				
+				list:[],
 			}
+		},
+		onShow() {
+			this.getMessageList()
 		},
 		methods: {
 			gochat(){
 				uni.navigateTo({
 					url:"/pages/chat/chat"
 				})
-			}
+			},
+			getMessageList(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-num-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						console.log(res)
+						res.data.data.messageNumList.forEach((item,index)=>{
+							let time=item.time*1000
+							item.time=dateTime.dateTime(time)
+						})
+						this.list=res.data.data.messageNumList
+						console.log(this.list)
+					}
+				});
+			},
 		}
 	}
 </script>
