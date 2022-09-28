@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<uni-search-bar v-model="searchValue" @cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
+		<uni-search-bar v-model="searchValue" @cancel="search" @clear="clear" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
 		</uni-search-bar>
 		<view class="box">
 			<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail1(item)">
@@ -27,6 +27,7 @@
 				positionResult:''
 			};
 		},
+		
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
 			this.tips=this.positionResult
@@ -35,6 +36,11 @@
 			
 		},
 		methods:{
+			back(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/home"
+				})
+			},
 			goDetail1(item){
 				console.log(item)
 				uni.navigateTo({
@@ -53,11 +59,11 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-						this.tips=res.data.data.homeInfoParamList
+						this.tips=res.data.data.homeInfoParamList.concat(res.data.data.homeInfoPictureParamList)
 						this.swiper=res.data.data.homeInfoPictureParamList
 				        /* console.log(res.data); */
 				        this.text = 'request success';
-						if(res.data.data.homeInfoParamList.length<1&&res.data.data.homeInfoPictureParamList<1){
+						/* if(res.data.data.homeInfoParamList.length<1&&res.data.data.homeInfoPictureParamList<1){
 							uni.navigateTo({
 							    url:"/pages/childs/home/emptySearch/emptySearch"
 							})
@@ -65,7 +71,7 @@
 							uni.navigateTo({
 							    url:"/pages/childs/home/search/search?positionResult="+JSON.stringify(this.tips.concat(this.swiper))
 							})
-						}
+						} */
 				    }
 				});
 			},
@@ -84,6 +90,10 @@ text{
 .idea{
 	margin-left: 13vw;
 	font-size: 12px;
+	white-space: nowrap; 
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	width:330rpx
 }
 .type{
 	font-size: 12px;
@@ -91,14 +101,19 @@ text{
 	margin-left: 13vw;
 }
 .title{
+	display:inline-block;
 	border-radius: 8px;
 	background-color: #A4B3DA;
-	width: 170rpx;
+	/* width: 170rpx; */
 	font-size: 18px;
 	margin-top: 1vh;
 	margin-left: 13vw;
 	margin-bottom: 2vh;
 	height: 50rpx;
+	white-space: nowrap; 
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+
 }
 .box{
 	padding-top: 4vh;

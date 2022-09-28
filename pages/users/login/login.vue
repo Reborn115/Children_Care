@@ -30,8 +30,8 @@
 				permission:'',
 				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
 				formData:{
-					account:'',
-					password:''
+					account:'阿东',
+					password:'123456'
 				},
 				
 				rules:{
@@ -70,6 +70,15 @@
 				}
 			}
 			
+		},
+		onLoad(){
+			let token=uni.getStorageSync('token')
+			console.log(token)
+			if(token){
+				uni.switchTab({
+				    url:"/pages/childs/home/home"
+				})
+			}
 		},
 		methods:{
 			recoverImg(){
@@ -127,6 +136,10 @@
 								data:res.data.data.token
 							})
 							uni.setStorage({
+								key:"isCertification",
+								data:res.data.data.isCertification
+							})
+							uni.setStorage({
 								key:"userId",
 								data:res.data.data.id
 							})
@@ -143,6 +156,9 @@
 								    url:"/pages/users/editInfo/editInfo"
 								})
 							} else{
+								/* uni.switchTab({
+								  url: "/pages/childs/home/home",
+								}); */
 								uni.switchTab({
 								  url: "/pages/childs/home/home",
 								});
@@ -160,6 +176,12 @@
 </script>
 
 <style lang="scss" scoped>
+.container{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
 .container input{
     outline: none;
     padding: 10px;
@@ -174,7 +196,7 @@
     position: absolute;
     width: 120px;
     height: 95px;
-    top: 11%;
+    top: 26%;
     left: 50%;
     transform: translate(-50%,0);
 }
@@ -211,8 +233,8 @@
 	width: 70vw;
 }
 ::v-deep .uni-forms{
-	margin-top:26.7vh;
-	margin-left: 10vw;
+	/* margin-top:26.7vh; */
+	/* margin-left: 10vw; */
 	width: 80vw;
 	align-items: center;
 	justify-content: center;

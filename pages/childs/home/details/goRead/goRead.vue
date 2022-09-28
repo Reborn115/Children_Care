@@ -25,7 +25,7 @@
 	export default {
 		data() {
 			return {
-				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
+				src:'',
 				contentId:'1',
 				order:'1',
 				lastContent:''

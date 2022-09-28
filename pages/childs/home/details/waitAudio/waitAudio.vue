@@ -85,7 +85,10 @@
 							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(this.positionResult)
 							})
 						}
-				    }
+				    },
+					fail:(res)=>{
+						console.log("请求失败")
+					}
 				});
 			},
 			getAudio(){
@@ -106,7 +109,10 @@
 						this.smartAudio=res.data.fileUrl;
 						console.log(this.smartAudio)
 						
-				    }
+				    },
+					fail:(res)=>{
+						console.log("请求失败")
+					}
 				});
 			},
 			getServe(){

@@ -69,13 +69,14 @@
 	export default {
 		data() {
 			return {
+				originalAudioId:'',
 				contentInfoId:'',
 				contentId:'',
 				author:'',
 				name:'',
 				speed:1,
 				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
-				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
+				src:'',
 				isPlay:false,
 				contentAudio:'',
 			};
@@ -88,10 +89,11 @@
 		methods:{
 			getAudio(){
 				uni.request({
-				    url: 'https://api.yuleng.top:38088/api/audio/sys', //仅为示例，并非真实接口地址。
+				    url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
 					method:"POST",
 				    data: {
-				        contentInfoId:this.contentInfoId
+				        contentId:this.contentId,
+						originalAudioId:this.originalAudioId
 				    },
 				    header: {
 				        "content-type":"application/json",
@@ -131,6 +133,14 @@
 				this.contentAudio.playbackRate=this.speed
 				/* console.log(this.contentAudio) */
 			},
+		},
+		onHide(){
+			this.pauseAudio()
+			this.contentAudio.destroy();
+		},
+		onUnload(){
+			this.pauseAudio()
+			this.contentAudio.destroy();
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -208,14 +218,15 @@
 	margin-top: 50px;
 }
 .author{
-	font-size: 22px;
+	font-size: 15px;
 	display: flex;
 	justify-content: center;
 	margin-top: 20rpx;
 }
 .name{
+	font-weight: bold;
 	margin-top: 50rpx;
-	font-size: 40px;
+	font-size: 15px;
 	justify-content: center;
 	/* align-items: center; */
 	display: flex;
@@ -228,7 +239,7 @@
 .main{
 	padding-top:50rpx ;
 	margin-top: 100rpx;
-	height: 950rpx;
+	height: 600rpx;
 	background-color: white;
 	border-radius: 25px;
 	display:flex;
@@ -250,7 +261,7 @@
 }
 .container{
 	background-color: #B6C8C8;
-	height: 100vh;
+	height: 89vh;
 	padding-top: 70rpx;
 }
 </style>

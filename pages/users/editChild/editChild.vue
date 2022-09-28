@@ -182,10 +182,12 @@
 						},
 						success: (res) => {
 							console.log(res.data);
-							
-							uni.switchTab({
-								  url: "/pages/childs/home/home",
+							uni.navigateTo({
+								  url: "/pages/users/upload/upload",
 								});
+							/* uni.switchTab({
+								  url: "/pages/childs/home/home",
+								}); */
 							
 						}
 					});

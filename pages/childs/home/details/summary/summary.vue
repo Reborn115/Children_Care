@@ -25,13 +25,14 @@
 	export default {
 		data() {
 			return {
-				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
+				src:'',
 				contentId:'1',
 				order:'1',
 				lastContent:''
 			};
 		},
 		onLoad(e){
+			this.contentId=e.contentId
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/story-detail', //仅为示例，并非真实接口地址。
 		    	method:"POST",
