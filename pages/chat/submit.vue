@@ -3,13 +3,13 @@
 		<view class="submit">
 			<view class="submit-chat">
 				<!-- 输入文本框 -->
-				<textarea auto-height="true" class="chat-send btn" :class="{displaynone:isrecord}" @input="inputs"
+				<textarea auto-height="true" class="chat-send btn" :class="{displaynone:isrecord}" @input="inputs2"
 					@focus="focus" v-model="msg"></textarea>
 					
 				<!-- <view class="bt-img" @tap="emoji">
 					<image src="https://s2.loli.net/2022/09/21/r2K1pLDCHFlkfhx.png"></image>
 				</view> -->
-				<view class="bt-img">
+				<view class="bt-img" @click="inputs">
 					<image src="https://s2.loli.net/2022/09/21/r2K1pLDCHFlkfhx.png"></image>
 				</view>
 				<view class="bt-img" @tap="more">
@@ -85,32 +85,31 @@
 			// 	console.log(e),
 			// 		this.msg = this.msg + e
 			// },
-			//文字发送
-			inputs(e) {
+			//点击按钮发送
+			inputs() {
+				if (this.msg !='') {
+					// 0为表情和文字
+					this.send(this.msg)
+				}
+			},
+			// 回车发送
+			inputs2(e) {
 				var chatm = e.detail.value;
 				var pos = chatm.indexOf('\n');
 				// 检索字符串没有数据，返回-1
-				// if (pos != -1 && chatm.length > 1) {
-				// this.$emit('inputs', this.msg);
-				// setTimeout(() => {
-				// 	this.msg = '';
-				// }, 0)
-				// }
-
 				if (pos != -1 && chatm.length > 1) {
-					// 0为表情和文字
-					this.send(this.msg, 0)
+					// 去掉回车字符
+					this.msg=this.msg.substring(0,this.msg.length-1)
+					// 触发发送消息函数
+					this.send(this.msg)
 				}
-
 			},
 			// 输入框聚焦
 			focus() {
 				//关闭其他项
 				this.isemoji = false;
 				this.ismore = false;
-				setTimeout(() => {
-					this.getElementHeight()
-				}, 10)
+				this.getElementHeight()
 			},
 			// 表情内发送
 			// emojiSend() {
@@ -138,22 +137,15 @@
 				//切换的时候关闭其他界面
 				this.isemoji = false
 				this.isrecord = false;
-				// this.toc = require("../../static/07跳跃团子.png");
 				setTimeout(() => {
 					this.getElementHeight();
 				}, 10)
 			},
 			//发送
-			send(msg, type) {
-				let date = {
-					message: msg,
-					type: type
-				}
+			send(msg) {
 				// 向主页面传输数据
-				this.$emit('inputs', date);
-				setTimeout(() => {
-					this.msg = '';
-				}, 0)
+				this.$emit('sendMessage', msg);
+				this.msg = '';
 			}
 		}
 	};

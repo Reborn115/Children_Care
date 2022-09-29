@@ -3,11 +3,10 @@
 		<uni-list>
 			<uni-list-chat  v-for="(item,index) in list" 
 			:key="index" 
-			@click="gochat" 
+			@click="gochat(item.roomId,item.type)" 
 			clickable="true" 
 			:avatar-circle="true" 
 			:title="item.name" 
-			style="margin-top: 0px;" 
 			:avatar="item.headPicUrl" 
 			:note="item.latestMessage" 
 			:time="item.time" 
@@ -28,10 +27,17 @@
 			this.getMessageList()
 		},
 		methods: {
-			gochat(){
-				uni.navigateTo({
-					url:"/pages/chat/chat"
-				})
+			gochat(roomId,type){
+				if(type==1){
+					uni.navigateTo({
+						url:"/pages/chat/chat?roomId="+JSON.parse(roomId)
+					})
+				}else{
+					uni.navigateTo({
+						url:"/pages/chat/chatgroup?roomId="+JSON.parse(roomId)
+					})
+				}
+				
 			},
 			getMessageList(){
 				uni.request({

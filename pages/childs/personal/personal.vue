@@ -12,7 +12,7 @@
 				<uni-badge class="uni-badge-left-margin" :text="messageNumber" />
 				<image src="https://s2.loli.net/2022/09/11/8TcwdmNuDxKW1aO.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
-			<view class="item2" @click="changeType">
+			<view class="item2">
 				<text>儿童模式</text>
 				<image src="https://s2.loli.net/2022/09/11/Hmr2g85unltcToP.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
@@ -34,7 +34,7 @@
 		</view>
 		
 		<!-- 切换模式弹窗 -->
-		<uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
+		<!-- <uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
 			<view class="change">
 				<image src="https://s2.loli.net/2022/09/11/cGDVIO75kn3rqey.jpg" style="width: 300rpx;height: 400rpx;margin-top: 60rpx;"></image>
 				<view class="button">
@@ -43,7 +43,7 @@
 					<button class="mini-btn1 btncolor3" type="default" size="mini">志愿者模式</button>
 				</view>
 			</view>
-		</uni-popup>
+		</uni-popup> -->
 	</view>
 </template>
 
@@ -68,9 +68,9 @@
 				})
 			},
 			//打开切换模式弹窗
-			changeType(){
-				this.$refs.popup.open()
-			},
+			// changeType(){
+			// 	this.$refs.popup.open()
+			// },
 			goChatlist(){
 				uni.navigateTo({
 					url:"/pages/chat/chatlist/chatlist"

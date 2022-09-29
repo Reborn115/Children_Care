@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "jquery": "^3.6.1",
     "uview-ui": "^2.0.33"
   }
 }

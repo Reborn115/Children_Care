@@ -11,12 +11,25 @@
 					<!-- 每条消息上方显示的时间 -->
 					<view class="chat-time" v-if="item.time != ''">{{changeTime(item.time*1000)}}</view>
 					
-					<!-- 对方的消息-->
-					<view class="msg-m msg-left" v-if="item.fromUserId !=  meId">
+					<!-- 对方的消息1-->
+					<view class="msg-m msg-left" v-if="item.fromUserId ==  personList[0].id">
 						
 						<!-- 头像 -->
-						<image class="user-img" :src="otherhead"></image>
+						<image class="user-img" :src="personList[0].headPicUrl"></image>
 						<!-- 发送的内容是文字时 -->
+						<text class="nameleft">{{personList[0].userName}}</text>
+						<view class="message">
+							<view class="msg-text">{{item.message}}</view>
+						</view>
+					</view>
+					
+					<!-- 对方的消息1-->
+					<view class="msg-m msg-left" v-if="item.fromUserId ==  personList[1].id">
+						
+						<!-- 头像 -->
+						<image class="user-img" :src="personList[1].headPicUrl"></image>
+						<!-- 发送的内容是文字时 -->
+						<text class="nameleft">{{personList[1].userName}}</text>
 						<view class="message">
 							<view class="msg-text">{{item.message}}</view>
 						</view>
@@ -24,7 +37,8 @@
 					
 					<!-- 我发的消息-->
 					<view class="msg-m msg-right" v-if="item.fromUserId == meId">
-						<image class="user-img" :src="myhead"></image>
+						<image class="user-img" :src="mymessage.headPicUrl"></image>
+						<!-- <text class="nameright">家长</text> -->
 						<view class="message">
 							<view class="msg-text">{{item.message}}</view>
 						</view>
@@ -38,7 +52,6 @@
 	</view>
 </template>
 
-
 <script>
 	import dateTime from './dateTime.js';
 	import submit from './submit.vue';
@@ -49,12 +62,9 @@
 				roomId:0,
 				//我的id
 				meId:  uni.getStorageSync('userId'),
-				otherId:0,
 				token:uni.getStorageSync("token"),
-				// 对方头像
-				otherhead:'',
-				// 我的头像
-				myhead:'',
+				personList:[],
+				mymessage:{},
 				//聊天记录
 				msg: [ ],
 				//高度控制 滚动到该元素
@@ -86,7 +96,7 @@
 					url: 'https://api.yuleng.top:38088/api/room-members', 
 					data:{
 						roomId:this.roomId,
-						type:1,
+						type:2,
 					},
 					header: {
 						'token': uni.getStorageSync('token'),
@@ -94,20 +104,21 @@
 					success: (res) => {
 						// console.log(res,'person')
 						res.data.data.roomMembers.forEach((item)=>{
-							if(item.id==this.meId){
-								this.myhead=item.headPicUrl
+							if(item.id!=this.meId){
+								this.personList.push(item)
 							}else{
-								this.otherhead=item.headPicUrl
-								this.otherId=item.id
+								this.mymessage=item
 							}
 						})
+						// console.log(this.mymessage,'8888')
+						// console.log(this.personList,'999')
 					}
 				});
 			},
 			// 获取历史记录
 			getPrevious(){
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/message-detail', 
+					url: 'https://api.yuleng.top:38088/api/message-group-detail', 
 					data:{
 						roomId:this.roomId
 					},
@@ -116,23 +127,20 @@
 					},
 					success: (res) => {
 						// console.log(res,'room')
-						this.msg=res.data.data.messageResultList
+						this.msg=res.data.data.messageGroupResultList
 						this.$nextTick(function() {
 							this.scrollToView = 'msg' + (this.msg.length - 1)
 						})
 					}
 				});
 			},
-			// 转换时间
 			changeTime(date) {
 				return dateTime.dateTime1(date);
 			},
-			////发送消息 接受输入内容
+			//发送消息
 			sendMessage(e) {
-				// console.log(e)
 				//发送的数据时间处理
 				let msgdata = {
-					"toUserId": this.otherId,
 					"fromUserId":this.meId,
 					"message":e,
 					"time":new Date()/1000
@@ -140,7 +148,7 @@
 				// 发送消息
 				if (this.isopen) {
 				    uni.sendSocketMessage({
-						data:'{"toUserId":"'+this.otherId+'","contentText":"'+e+'"}',
+						data:'{"contentText":"'+e+'"}',
 						success:()=>{
 							this.msg.push(msgdata);
 							// 跳转滚动到最后一条数据
@@ -150,26 +158,12 @@
 						}
 					});
 				}
-			
 			},
-			//输入框高度
-			heights(e) {
-				// console.log("高度:", e)
-				this.inputh = e;
-				this.goBottom();
-			},
-			// 滚动到底部
-			goBottom() {
-				this.scrollToView = '';
-				this.$nextTick(function() {
-					this.scrollToView = 'msg' + (this.msg.length - 1)
-				})
-			},
-			// // 开启websocket
+			// 打开websocket
 			openSocket(){
 				// 打开 websocket
 				this.socketTask = uni.connectSocket({
-					url: "wss://api.yuleng.top:38088/api/live-chat/"+this.roomId+"/" + this.token,
+					url: "wss://api.yuleng.top:38088/api/live-chat-group/"+this.roomId+"/" + this.token,
 					success(data) {
 						console.log("websocket连接成功");
 					},
@@ -185,7 +179,8 @@
 				});
 				//接收对方发来的消息
 				uni.onSocketMessage((res)=> {
-				  // console.log('收到服务器内容：' + res.data);
+					console.log(res)
+				  console.log('收到服务器内容：' + res.data);
 				  if(res.data!='连接成功'){
 					  res.data=JSON.parse(res.data)
 					  this.msg.push(res.data)
@@ -195,7 +190,19 @@
 				  })
 				});
 			},
-			//关闭Socket
+			//输入框高度
+			heights(e) {
+				// console.log("高度:", e)
+				this.inputh = e;
+				this.goBottom();
+			},
+			// 滚动到底部
+			goBottom() {
+				this.scrollToView = '';
+				this.$nextTick(function() {
+					this.scrollToView = 'msg' + (this.msg.length - 1)
+				})
+			},
 			closeSocket(){
 				uni.closeSocket(()=>{
 						this.isopen=false
@@ -203,7 +210,7 @@
 					}
 				)
 			},
-		},
+		}
 	}
 </script>
 
@@ -237,13 +244,13 @@
 				padding: 10rpx 0rpx;
 				text-align: center;
 			}
-			// .nameleft{
-			// 	display: inline-block;
-			// 	position: absolute;
-			// 	margin-left: 96rpx;
-			// 	font-size: 27rpx;
-			// 	color: rgba(39, 40, 50, 0.3);
-			// }
+			.nameleft{
+				display: inline-block;
+				position: absolute;
+				margin-left: 96rpx;
+				font-size: 27rpx;
+				color: rgba(39, 40, 50, 0.3);
+			}
 			// .nameright{
 			// 	display: inline-block;
 			// 	position: absolute;
@@ -333,7 +340,7 @@
 					margin-left: 16rpx;
 					background-color: #fff;
 					border-radius: 0rpx 20rpx 20rpx 20rpx;
-					// margin-top: 35rpx;
+					margin-top: 35rpx;
 				}
 
 				.ms-img {

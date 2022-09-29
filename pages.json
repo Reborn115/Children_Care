@@ -5,8 +5,24 @@
 	"pages": [
 		
 		
-		
-		
+		// {
+		//     "path" : "pages/parents/homepage/homepage",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
+		    
+		// },
+		// {
+		//     "path" : "pages/volunteer/volunteerhome/volunteerhome",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
+		    
+		// },
 		
 		//登录
 		{
@@ -97,7 +113,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "驿站",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
         },
@@ -141,15 +157,15 @@
             
         }
 		//父母端主页
-        ,{
-            "path" : "pages/parents/homepage/homepage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
+        // ,{
+        //     "path" : "pages/parents/homepage/homepage",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "",
+        //         "enablePullDownRefresh": false
+        //     }
             
-        }
+        // }
 		// 父母端解惑部分
         ,{
             "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
@@ -201,15 +217,15 @@
             
         }
 		//志愿者端主页
-        ,{
-            "path" : "pages/volunteer/volunteerhome/volunteerhome",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
+        // ,{
+        //     "path" : "pages/volunteer/volunteerhome/volunteerhome",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "",
+        //         "enablePullDownRefresh": false
+        //     }
             
-        }
+        // }
         ,{
             "path" : "pages/childs/home/details/summary/summary",
             "style" :                                                                                    
@@ -300,7 +316,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/chat/chatgroup",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "群聊",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/users/editInfo/editInfo",
             "style" :                                                                                    
