@@ -8,33 +8,33 @@
 				<view class="inside">
 					<view class="item">
 						<text class="text">姓名: </text>
-						<text class="answer">李哈哈</text>
+						<text class="answer">{{child.userName}}</text>
 					</view>
 					<view class="item">
 						<text class="text">性别: </text>
-						<text class="answer">女</text>
+						<text class="answer">{{child.gender}}</text>
 					</view>
 					<view class="item">
 						<text class="text">籍贯: </text>
-						<text class="answer">河北省保定市</text>
+						<text class="answer">{{child.nativePlace}}</text>
 					</view>
 					<view class="item">
 						<text class="text">年龄: </text>
-						<text class="answer">11岁</text>
+						<text class="answer">{{child.age}}</text>
 					</view>
 					<view class="item">
 						<text class="text">年级: </text>
-						<text class="answer">小学六年级</text>
+						<text class="answer">{{child.grade}}</text>
 					</view>
 					<view class="item">
 						<text class="text">个性签名: </text>
-						<text class="answer">哈哈哈哈哈哈哈哈哈</text>
+						<text class="answer">{{child.sign}}</text>
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="pic">
-			<image src="../../../../static/02郁金香团子.png" style="width: 260rpx;height: 260rpx;"></image>
+			<image :src="child.headPicUrl" style="width: 260rpx;height: 260rpx;"></image>
 		</view>
 		<view class="child2">
 			<view class="tit">
@@ -42,45 +42,61 @@
 			</view>
 			<view class="detail">
 				<view class="inside">
-					<view class="item">
+					<!-- <view class="item">
 						<text class="text">父亲姓名: </text>
-						<text class="answer">李二</text>
+						<text class="answer">{{parents.userName}}</text>
 					</view>
 					<view class="item">
 						<text class="text">父亲联系方式: </text>
-						<text class="answer">11111111111</text>
+						<text class="answer">{{parents.}}</text>
 					</view>
 					<view class="item">
 						<text class="text">父亲工作地址: </text>
-						<text class="answer">天津市西青区天津理工大学</text>
+						<text class="answer">{{parents.}}</text>
+					</view> -->
+					<view class="item">
+						<text class="text">姓名: </text>
+						<text class="answer">{{parents.userName}}</text>
 					</view>
 					<view class="item">
-						<text class="text">母亲姓名: </text>
-						<text class="answer">张二</text>
+						<text class="text">性别: </text>
+						<text class="answer">{{parents.gender}}</text>
 					</view>
 					<view class="item">
-						<text class="text">母亲联系方式: </text>
-						<text class="answer">22222222222</text>
+						<text class="text">年龄: </text>
+						<text class="answer">{{parents.age}}</text>
 					</view>
 					<view class="item">
-						<text class="text">母亲工作地址: </text>
-						<text class="answer">天津市西青区天津理工大学</text>
+						<text class="text">与孩子关系: </text>
+						<text class="answer">{{parents.relation}}</text>
 					</view>
 					<view class="item">
-						<text class="text">父母回家情况: </text>
-						<text class="answer">一年两次</text>
+						<text class="text">家长联系方式: </text>
+						<text class="answer">{{parents.phone}}</text>
+					</view>
+					<view class="item">
+						<text class="text">家庭地址: </text>
+						<text class="answer">{{parents.nativePlace}}</text>
+					</view>
+					<view class="item">
+						<text class="text">工作地址: </text>
+						<text class="answer">{{parents.workAddress}}</text>
+					</view>
+					<view class="item">
+						<text class="text">家长回家情况: </text>
+						<text class="answer">{{parents.homeSituation}}</text>
 					</view>
 					<view class="item">
 						<text class="text">关注软件情况: </text>
-						<text class="answer">每周两次</text>
+						<text class="answer">{{parents.softwareSituation}}</text>
 					</view>
 					<view class="item">
 						<text class="text">寄语儿童: </text>
-						<text class="answer">好好长大</text>
+						<text class="answer">{{parents.remarkChild}}</text>
 					</view>
 					<view class="item">
 						<text class="text">寄语志愿者: </text>
-						<text class="answer">感谢你的付出</text>
+						<text class="answer">{{parents.remarkVolunteer}}</text>
 					</view>
 				</view>
 			</view>
@@ -92,11 +108,55 @@
 	export default {
 		data() {
 			return {
-				
+				id:0,
+				child:{
+					"userName":"无数据",
+					"gender":'无',
+					"nativePlace":"无数据",
+					"age":'无数据',
+					"grade":"无数据",
+					"sign":"无数据",
+					"headPicUrl":""
+				},
+				parents:{
+					"userName":"无数据",
+					"gender":'无',
+					"relation":"无数据",
+					"nativePlace":"无数据",
+					"age":'无数据',
+					"phone":"无数据",
+					"workAddress":"无数据",
+					"homeSituation":'无数据',
+					"softwareSituation":'无数据',
+					"remarkChild":"无数据",
+					"remarkVolunteer":"无数据",
+					"headPicUrl":""
+				}
 			}
 		},
+		onLoad(e){
+			this.id = JSON.parse(e.id)
+			this.getdata()
+		},
 		methods: {
-			
+			getdata(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/personal-information', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						console.log(res);
+						this.child=res.data.data.childProfileResult
+						this.child.gender=this.child.gender==1?'男':'女'
+						this.parents=res.data.data.parentProfileResult
+						this.parents.gender=this.parents.gender==1?'男':'女'
+					}
+				});
+			}
 		}
 	}
 </script>

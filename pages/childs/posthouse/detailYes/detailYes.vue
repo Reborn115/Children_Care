@@ -1,11 +1,11 @@
 <template>
 	<view class="all">
-		<view class="toppic">
+		<!-- <view class="toppic">
 			<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 100rpx;height: 90rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 			<view style="margin-left: 55rpx;color: #595959;">
 				交流区
 			</view>
-		</view>
+		</view> -->
 		<view class="pic">
 			<image src="https://s2.loli.net/2022/09/12/ChR4B1uXUI86sTv.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
 		</view>
@@ -247,10 +247,10 @@
 	.all{
 		padding-bottom: 55rpx;
 	}
-	.toppic{
-		position: relative;
-		z-index: 10;
-	}
+	// .toppic{
+	// 	position: relative;
+	// 	z-index: 10;
+	// }
 	.pic{
 		display: flex;
 		justify-content: center;

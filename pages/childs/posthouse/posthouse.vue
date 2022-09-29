@@ -50,14 +50,12 @@
 				yeslist:[],
 			}
 		},
-		// onLoad() {
-		// 	this.nolist=[],
-		// 	this.yeslist=[],
-		// 	this.getList()
-		// },
-		onShow(){
+		onLoad() {
 			this.nolist=[],
 			this.yeslist=[],
+			this.getList()
+		},
+		onPullDownRefresh() {
 			this.getList()
 		},
 		methods: {
@@ -107,7 +105,7 @@
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
 					header: {
-						'token': uni.getStorageSync('token'), //自定义请求头信息
+						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
 						// console.log(res);
@@ -120,16 +118,15 @@
 							}
 							if(item.isFinish==1){
 								this.yeslist.push(item);
-							}
-							if(item.isFinish==0){
+							}else{
 								this.nolist.push(item);
 							}
 						})
-						// console.log(this.yeslist);
-						// console.log(this.nolist);
+						// wx.stopPullDownRefresh() 
 					}
 				});
-			}
+				
+			},
 		}
 	}
 </script>

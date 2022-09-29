@@ -2,15 +2,15 @@
 	<view class="body">
 		<view class="top">
 			<view class="hello">
-					家长你好！<br/>欢迎来到“护苗”
+					{{hellomsg}}<br/>欢迎来到“护苗”
 			</view>
 			<view class="pic">
-				<image src="https://s2.loli.net/2022/09/11/3oxwWE6GIiMfFbA.png" style="width: 120rpx;height: 120rpx;border-radius: 100rpx;"></image>
+				<image :src="headUrl" style="width: 120rpx;height: 120rpx;border-radius: 100rpx;"></image>
 			</view>
 		</view>
 		<view class="notice">
-			<uni-notice-bar show-icon scrollable backgroundColor="#fff" color="#1e1e1e73"
-				text="佳佳提出问题:爸爸什么时候回家" />
+			<uni-notice-bar show-icon speed="20" scrollable backgroundColor="#fff" color="#1e1e1e73"
+				:text="question" />
 		</view>
 		<view class="content">
 			<view class="box" @click="goParentSolveProblem">
@@ -46,8 +46,18 @@
 	export default {
 		data() {
 			return {
-				
+				hellomsg:'',
+				question:'暂时无人提问',
+				headUrl:'',
+				timer:'',
 			}
+		},
+		onShow() {
+			this.getdata()
+			this.timer=setInterval(this.getdata,10000)
+		},
+		onHide(){
+			clearInterval(this.timer)
 		},
 		methods: {
 			goParentSolveProblem(){
@@ -64,6 +74,22 @@
 				uni.navigateTo({
 					url:"/pages/parents/parentsme/parentsme"
 				})
+			},
+			getdata(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/home/parent', 
+					header: {
+						'token': uni.getStorageSync('token'),
+					},
+					success: (res) => {
+						// 处理后端返回来的数据格式
+						this.headUrl=res.data.data.headUrl
+						this.hellomsg=res.data.data.helloMessage.slice(0,4)
+						if(res.data.data.disabuseList.length!=0){
+							this.question=res.data.data.disabuseList[0]
+						}
+					}
+				});
 			}
 		}
 	}

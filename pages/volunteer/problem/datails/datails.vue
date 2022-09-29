@@ -1,7 +1,7 @@
 <template>
 	<view class="all">
 		<view class="toppic">
-			<view class="area">
+			<view class="area" v-if="show">
 				<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 52rpx;color: #595959;">
 					交流讨论
@@ -15,7 +15,7 @@
 				</view>
 			</view>
 			
-			<view class="area" @click="goEdit">
+			<view class="area" @click="goEdit" v-if="show">
 				<image src="https://s2.loli.net/2022/09/12/zDbapIBwWO2guSd.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 52rpx;color: #595959;">
 					情况记录
@@ -62,13 +62,13 @@
 				</view>
 			</view>
 		</view>
-		<button class="button" @click="dialogToggle"><text
+		<button class="button" @click="dialogToggle" :disabled="buttonDisusable"><text
 				class="button-text warn-text">{{problemSolved}}</text></button>
 		<view>
 			<!-- 提示窗示例 -->
 			<uni-popup ref="alertDialog" type="dialog">
 				<uni-popup-dialog type="info" cancelText="关闭" confirmText="确定"  content="是否确定问题已解决？" @confirm="dialogConfirm"
-					@close="dialogClose"></uni-popup-dialog>
+				></uni-popup-dialog>
 			</uni-popup>
 		</view>
 	</view>
@@ -84,6 +84,10 @@
 				isAnonymous:1,
 				// 是否显示儿童详细信息
 				showdetail:false,
+				//控制交流区与建议区的显示与隐藏
+				show:true,
+				//点击按钮的是否禁用
+				buttonDisusable:false
 			}
 		},
 		onLoad(e){
@@ -113,17 +117,29 @@
 			dialogToggle() {
 				this.$refs.alertDialog.open()
 			},
+			//点击修改问题状态的确认按钮
 			dialogConfirm() {
-				console.log('点击确认')
-				uni.showToast({
-					title: '修改成功',
-					icon:'success',
-					duration: 2000
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/solve', 
+					data:{
+						disabuseId:this.id,
+					},
+					method:'POST',
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: () => {
+						uni.showToast({
+							title: '修改成功',
+							icon:'success',
+							duration: 2000
+						});
+						this.show=false
+						this.showdetail=false
+						this.problemSolved="问题已解决"
+						this.buttonDisusable=true
+					}
 				});
-				this.problemSolved="问题已解决"
-			},
-			dialogClose() {
-				console.log('点击关闭')
 				
 			},
 			gedetail(){
