@@ -39,8 +39,8 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
-		}, */
-		
+		},
+		 */
 		
 		
 		//登录
@@ -184,7 +184,7 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+		}
 		// 父母端解惑部分
         ,{
             "path" : "pages/parents/parentSolveProblem/parentSolveProblem",

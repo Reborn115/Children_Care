@@ -135,12 +135,18 @@
 			},
 		},
 		onHide(){
-			this.pauseAudio()
-			this.contentAudio.destroy();
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			
 		},
 		onUnload(){
-			this.pauseAudio()
-			this.contentAudio.destroy();
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -149,6 +155,7 @@
 			this.contentInfoId=this.positionResult.id
 			this.name=this.positionResult.headName
 			this.originalAudioId=this.positionResult.originalAudioId
+			this.src=this.positionResult.src
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
 		    	method:"POST",

@@ -39,9 +39,19 @@
 		            this.back();  
 		            return true;  
 		        }, 
+		onHide() {
+			uni.switchTab({
+			    url:"/pages/childs/home/home"
+			})
+		},
+		onUnload() {
+			uni.switchTab({
+			    url:"/pages/childs/home/home"
+			})
+		},
 		methods:{
 			back(){
-				uni.navigateTo({
+				uni.switchTab({
 				    url:"/pages/childs/home/home"
 				})
 			},

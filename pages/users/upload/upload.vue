@@ -32,11 +32,14 @@
 				<u-icon name="server-fill" color="#377F7E" size="28" ></u-icon>
 				<text>试听录音</text>
 			</view>
-			<view class="box" @click="upload">
+			<!-- <view class="box" @click="upload">
 				<u-icon name="share-square" color="#377F7E" size="28" ></u-icon>
 				<text>上传录音</text>
-			</view>
+			</view> -->
 			
+		</view>
+		<view class="submit">
+			<u-button type="primary" text="上传录音" @click="upload" shape="circle" size="large"></u-button>
 		</view>
 		<view class='linkbox' v-if="!this.isCertification">
 			<text @click="goHome" >
@@ -60,6 +63,7 @@
 				src:"https://s2.loli.net/2022/09/11/cGDVIO75kn3rqey.jpg"
 			};
 		},
+		
 		onLoad() {
 			this.isCertification=uni.getStorageSync('isCertification')
 			let recorderManager = uni.getRecorderManager();
@@ -126,6 +130,7 @@
 							/* setTimeout(() => {
 								resolve(res.data.data)
 							}, 1000) */
+							this.goHome()
 						}
 					});
 				
@@ -138,6 +143,9 @@
 							duration:10000
 						}
 						this.recorder.start(format);
+						this.recorder.onStop(()=>{
+							this.isVoice=0;
+						})
 					},
 					endRecord() {
 						this.isVoice=!this.isVoice
@@ -157,6 +165,9 @@
 </script>
 
 <style lang="scss" scoped>
+.submit{
+	margin-top: 30rpx;
+}
 .linkbox{
 	margin-top: 200rpx;
 	display: flex;

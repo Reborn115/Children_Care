@@ -25,6 +25,10 @@
 			<u-line-progress :percentage="process">
 			</u-line-progress>
 		</view>
+		<view >
+			<u-modal :show="show" :content='content'></u-modal>
+			
+		</view>
 	</view>
 </template>
 
@@ -32,6 +36,8 @@
 	export default {
 		data() {
 			return {
+				content:'功能暂不可用',
+				show:false,
 				process:'0',
 				src:'https://s2.loli.net/2022/09/25/fkP8XNFCBIaAqlU.png',
 				positionResult:'',
@@ -42,6 +48,7 @@
 				processHead:'',
 				userId:'',
 				timer:'',
+				isFirst:true
 			};
 		},
 		onLoad(e){
@@ -55,6 +62,11 @@
 			
 		},
 		methods:{
+			goHome(){
+				uni.switchTab({
+				  url: "/pages/childs/home/home",
+				});
+			},
 			getProgress(){
 				uni.request({
 				    url: this.processHead, //仅为示例，并非真实接口地址。
@@ -67,24 +79,41 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-				        console.log(res.data);
-				        this.process=res.data.progress
-						console.log(this.process)
-						if(this.process=='100'){
-							clearInterval(this.timer)
-							/* let arr=[{smartAudio:this.smartAudio}]
-							console.log(this.positionResult) */
-							/* this.positionResult=JSON.stringify(this.positionResult) */
-							console.log(this.positionResult)
-							this.positionResult.smartAudio=this.smartAudio
+						if(res.data.code=='00000'){
+							console.log(res.data);
+							this.process=res.data.progress
+							console.log(this.process)
+							if(this.process=='100'){
+								clearInterval(this.timer)
+								/* let arr=[{smartAudio:this.smartAudio}]
+								console.log(this.positionResult) */
+								/* this.positionResult=JSON.stringify(this.positionResult) */
+								console.log(this.positionResult)
+								this.positionResult.smartAudio=this.smartAudio
+								this.timer = setTimeout(() => {
+								    
+								}, 1000);
+								clearTimeout(this.timer)
+								this.positionResult.isFirst=this.isFirst
+								uni.navigateTo({
+								    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(this.positionResult)
+								})
+							}
+						} else {
+							this.show=true
+							/* uni.showToast({
+								title: '功能暂不可用',
+								icon:'error'
+							});
 							this.timer = setTimeout(() => {
 							    
 							}, 1000);
 							clearTimeout(this.timer)
-							uni.navigateTo({
-							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(this.positionResult)
-							})
+							uni.switchTab({
+							  url: "/pages/childs/home/home",
+							}); */
 						}
+				        
 				    },
 					fail:(res)=>{
 						console.log("请求失败")
@@ -92,6 +121,7 @@
 				});
 			},
 			getAudio(){
+				
 				uni.request({
 					timeout:3000000,
 				    url: this.audioHead, //仅为示例，并非真实接口地址。
@@ -104,10 +134,24 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-				        console.log(res.data);
-				        this.text = 'request success';
-						this.smartAudio=res.data.fileUrl;
-						console.log(this.smartAudio)
+						if(res.data.code=='00000'){
+							console.log(res.data);
+							this.text = 'request success';
+							this.smartAudio=res.data.fileUrl;
+							console.log(this.smartAudio)
+						} else {
+							uni.showToast({
+								title: '功能暂不可用',
+								icon:'error'
+							});
+							/* this.timer = setTimeout(() => {
+							    
+							}, 1000);
+							clearTimeout(this.timer) */
+							this.show=true
+							this.goHome()
+						}
+				        
 						
 				    },
 					fail:(res)=>{

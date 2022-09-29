@@ -32,7 +32,11 @@
 			};
 		},
 		onLoad(e){
-			this.contentId=e.contentId
+			this.positionResult = JSON.parse(e.positionResult)
+			console.log(e.positionResult)
+			this.contentId=this.positionResult.contentId
+			this.order=this.positionResult.order
+			this.src=this.positionResult.coverPictureUrl
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/story-detail', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -47,6 +51,7 @@
 		        success: (res) => {
 					/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
 					this.handleText(res.data.data.mainText)
+					this.src=res.data.data.picUrl
 		            console.log(res.data);
 		            this.text = 'request success';
 		    		
