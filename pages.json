@@ -176,15 +176,15 @@
             
         }
 		//父母端主页
-        // ,{
-        //     "path" : "pages/parents/homepage/homepage",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "",
-        //         "enablePullDownRefresh": false
-        //     }
+        ,{
+            "path" : "pages/parents/homepage/homepage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
             
-        // }
+        }
 		// 父母端解惑部分
         ,{
             "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
@@ -236,15 +236,15 @@
             
         }
 		//志愿者端主页
-        // ,{
-        //     "path" : "pages/volunteer/volunteerhome/volunteerhome",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "",
-        //         "enablePullDownRefresh": false
-        //     }
+        ,{
+            "path" : "pages/volunteer/volunteerhome/volunteerhome",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
             
-        // }
+        }
         ,{
             "path" : "pages/childs/home/details/summary/summary",
             "style" :                                                                                    

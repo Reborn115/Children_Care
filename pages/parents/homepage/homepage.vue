@@ -18,7 +18,7 @@
 					<view class="textInline">
 						<text>解惑</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 37rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
 				</view>
 			</view>
 			<view class="box" @click="goLookall">
@@ -27,7 +27,7 @@
 						<text>成长</text><br/>
 						<text>档案</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 37rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
 				</view>
 			</view>
 			<view class="box" @click="goParentsMe">
@@ -35,7 +35,7 @@
 					<view class="textInline">
 						<text>我的</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 37rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
 				</view>
 			</view>
 		</view>

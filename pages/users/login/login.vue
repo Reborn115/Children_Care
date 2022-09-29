@@ -159,8 +159,8 @@
 								/* uni.switchTab({
 								  url: "/pages/childs/home/home",
 								}); */
-								uni.switchTab({
-								  url: "/pages/childs/home/home",
+								uni.navigateTo({
+								  url: "/pages/parents/homepage/homepage",
 								});
 							}
 							
