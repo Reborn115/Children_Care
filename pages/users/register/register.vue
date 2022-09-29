@@ -212,11 +212,19 @@
 								        "content-type":"application/json",
 								    },
 								    success: (res) => {
-								        console.log(res.data);
+										if(res.data.code=='00000'){
+											console.log(res.data);
+											
+											uni.navigateTo({
+												url:"/pages/users/login/login"
+											})
+										} else {
+											uni.showToast({
+												title: '手机号已注册',
+												icon:'error'
+											});
+										}
 								        
-										uni.navigateTo({
-											url:"/pages/users/login/login"
-										})
 								    }
 								});
 							}).catch(err => {

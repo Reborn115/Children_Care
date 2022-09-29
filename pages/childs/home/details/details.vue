@@ -175,13 +175,18 @@
 		},
 		methods:{
 			goRead(item){
+				item.src=this.src
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/goRead/goRead?positionResult="+JSON.stringify(item)
 				})
 			},
 			goSummary(){
+				let data={
+					contentId:this.contentId,
+					src:this.src
+				};
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/summary/summary?contentId="+this.contentId
+				    url:"/pages/childs/home/details/summary/summary?positionResult="+JSON.stringify(data)
 				})
 			},
 			goAudio1(item){
@@ -205,6 +210,7 @@
 						} else {
 							item.smartAudio=res.data.message
 							console.log(item)
+							item.src=this.src
 							uni.navigateTo({
 							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
 							})
@@ -216,7 +222,9 @@
 				}) */
 			},
 			goAudio2(item){
+				item.src=this.src
 				uni.navigateTo({
+					
 				    url:"/pages/childs/home/details/creatAudio/creatAudio?positionResult="+JSON.stringify(item)
 				})
 			},

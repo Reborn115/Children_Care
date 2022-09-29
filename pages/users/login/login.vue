@@ -71,7 +71,7 @@
 			}
 			
 		},
-		onLoad(){
+		/* onLoad(){
 			let token=uni.getStorageSync('token')
 			console.log(token)
 			if(token){
@@ -79,7 +79,7 @@
 				    url:"/pages/childs/home/home"
 				})
 			}
-		},
+		}, */
 		methods:{
 			recoverImg(){
 				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
@@ -127,42 +127,58 @@
 							/* uni.navigateTo({
 							    url:"/pages/users/upload/upload"
 							}) */
-							this.permission=res.data.data.permission
-							
-							console.log(res.data)
-							console.log(res.data.code)
-							uni.setStorage({
-								key:"token",
-								data:res.data.data.token
-							})
-							uni.setStorage({
-								key:"isCertification",
-								data:res.data.data.isCertification
-							})
-							uni.setStorage({
-								key:"userId",
-								data:res.data.data.id
-							})
-							if(!res.data.data.isSetIdentity/* &&!res.data.data.isCertification */){
-								uni.navigateTo({
-								    url:"/pages/users/actor/actor?positionResult="+JSON.stringify(res.data.data.isCertification)
+							if(res.data.code=='00000'){
+								uni.showToast({
+									title: '登录成功',
+									icon:'error'
+								});
+								this.permission=res.data.data.permission
+								
+								console.log(res.data)
+								console.log(res.data.code)
+								uni.setStorage({
+									key:"token",
+									data:res.data.data.token
 								})
-							} else if(!res.data.data.isCertification&&this.permission==1){
-								uni.navigateTo({
-								    url:"/pages/users/editChild/editChild"
+								
+								uni.setStorage({
+									key:"isCertification",
+									data:res.data.data.isCertification
 								})
-							} else if(!res.data.data.isCertification){
-								uni.navigateTo({
-								    url:"/pages/users/editInfo/editInfo"
+								uni.setStorage({
+									key:"userId",
+									data:res.data.data.id
 								})
-							} else{
-								/* uni.switchTab({
-								  url: "/pages/childs/home/home",
-								}); */
-								uni.switchTab({
-								  url: "/pages/childs/home/home",
+								if(!res.data.data.isSetIdentity/* &&!res.data.data.isCertification */){
+									uni.navigateTo({
+									    url:"/pages/users/actor/actor?positionResult="+JSON.stringify(res.data.data)
+									})
+								} else if(!res.data.data.isCertification&&this.permission==1){
+									uni.navigateTo({
+									    url:"/pages/users/editChild/editChild"
+									})
+								} else if(!res.data.data.isCertification){
+									uni.navigateTo({
+									    url:"/pages/users/editInfo/editInfo"
+									})
+								} else{
+									/* uni.switchTab({
+									  url: "/pages/childs/home/home",
+									}); */
+									uni.switchTab({
+									  url: "/pages/childs/home/home",
+									});
+								}
+							} else {
+								uni.showToast({
+									title: '账号密码错误',
+									icon:'error'
 								});
 							}
+							
+							
+						},
+						fail() {
 							
 						}
 					});

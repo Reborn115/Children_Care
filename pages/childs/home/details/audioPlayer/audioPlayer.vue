@@ -74,10 +74,11 @@
 				author:'',
 				name:'',
 				speed:1,
-				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
+				audioUrl:'',
 				src:'',
 				isPlay:false,
 				contentAudio:'',
+				isFirst:false
 			};
 		},
 		watch:{
@@ -150,12 +151,27 @@
 			},
 		},
 		onHide(){
-			this.pauseAudio()
-			this.contentAudio.destroy();
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			if(this.isFirst==true){
+				uni.switchTab({
+				  url: "/pages/childs/home/home",
+				});
+			}
+			
 		},
 		onUnload(){
-			this.pauseAudio()
-			this.contentAudio.destroy();
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			if(this.isFirst==true){
+				uni.switchTab({
+				  url: "/pages/childs/home/home",
+				});
+			}
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -164,6 +180,11 @@
 			this.contentInfoId=this.positionResult.id
 			this.name=this.positionResult.headName
 			this.originalAudioId=this.positionResult.originalAudioId
+			this.src=this.positionResult.src
+			if(this.positionResult.isFirst){
+				this.isFirst=this.positionResult.isFirst
+			}
+			
 			if(this.positionResult.smartAudio){
 				console.log("进入智能语音")
 				this.audioUrl=this.positionResult.smartAudio

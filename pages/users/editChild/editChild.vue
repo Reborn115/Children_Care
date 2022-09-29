@@ -156,7 +156,11 @@
 				}
 			};
 		},
-		
+		onLoad(e) {
+			/* console.log(e.isCertification);
+			this.isCertification=JSON.parse(e.positionResult) */
+			this.isCertification=uni.getStorageSync('isCertification')
+		},
 		methods:{
 			submit(ref){
 				this.$refs[ref].validate().then(res => {
@@ -182,9 +186,15 @@
 						},
 						success: (res) => {
 							console.log(res.data);
-							uni.navigateTo({
-								  url: "/pages/users/upload/upload",
-								});
+							if(this.isCertification==0){
+								uni.navigateTo({
+									  url: "/pages/users/upload/upload",
+									});
+							} else {
+								uni.switchTab({
+									  url: "/pages/childs/personal/personal",
+									});
+							}
 							/* uni.switchTab({
 								  url: "/pages/childs/home/home",
 								}); */
