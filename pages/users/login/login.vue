@@ -161,12 +161,26 @@
 									uni.navigateTo({
 									    url:"/pages/users/editInfo/editInfo"
 									})
-								} else{
-									/* uni.switchTab({
-									  url: "/pages/childs/home/home",
-									}); */
+								} else if(this.permission==1){
 									uni.switchTab({
 									  url: "/pages/childs/home/home",
+									});
+								}else if(this.permission==2){
+									/* uni.switchTab({
+									  url: "/pages/parents/homepage/homepage",
+									}); */
+									uni.navigateTo({
+									  url: "/pages/parents/homepage/homepage",
+									});
+									/* uni.reLaunch({
+									  url: "/pages/parents/homepage/homepage",
+									}); */
+								}else if(this.permission==3){
+									/* uni.switchTab({
+									  url: "pages/parents/homepage/homepage",
+									}); */
+									uni.reLaunch({
+									  url: "/pages/volunteer/volunteerhome/volunteerhome",
 									});
 								}
 							} else {

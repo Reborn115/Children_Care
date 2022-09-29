@@ -151,35 +151,58 @@
 			        this.tips = text;
 			      },
 			getCode() {
-			        if (this.$refs.uCode.canGetCode) {
-			          // 模拟向后端请求验证码
-					  uni.request({
-					  	url: 'https://api.yuleng.top:38088/api/seed-code', //仅为示例，并非真实接口地址。
-					  	method:"POST",
-					  	data: {
-					  	    phone:this.formData.phone,
-					  	},
-					  	header: {
-					  	    "content-type":"application/json",
-					  	},
-					  	success: (res) => {
-					  		console.log(res.data);
-					  		this.text = 'request success';
-					  	 }
-					  });
-			          uni.showLoading({
-			            title: '正在获取验证码'
-			          })
-			          setTimeout(() => {
-			            uni.hideLoading();
-			            // 这里此提示会被this.start()方法中的提示覆盖
-			            uni.$u.toast('验证码已发送');
-			            // 通知验证码组件内部开始倒计时
-			            this.$refs.uCode.start();
-			          }, 2000);
-			        } else {
-			          uni.$u.toast('倒计时结束后再发送');
-			        }
+				uni.request({
+				  url: "https://api.yuleng.top:38088/api/verify-phone/", //仅为示例，并非真实接口地址。
+				  method: "POST",
+				  data: {
+				    phone:this.formData.phone,
+				  },
+				  header: {
+				    "content-type": "application/json",
+				   /* token: uni.getStorageSync("token"), */
+				  },
+				  success: (res) => {
+				    console.log(res.data);
+				    if(res.data.code=="A0400"){
+						uni.showToast({
+							title: res.data.message,
+							icon:"error"
+						});
+					}else{
+						if (this.$refs.uCode.canGetCode) {
+						  // 模拟向后端请求验证码
+						  uni.request({
+						  	url: 'https://api.yuleng.top:38088/api/seed-code', //仅为示例，并非真实接口地址。
+						  	method:"POST",
+						  	data: {
+						  	    phone:this.formData.phone,
+						  	},
+						  	header: {
+						  	    "content-type":"application/json",
+						  	},
+						  	success: (res) => {
+						  		console.log(res.data);
+						  		this.text = 'request success';
+						  	 }
+						  });
+						  uni.showLoading({
+						    title: '正在获取验证码'
+						  })
+						  setTimeout(() => {
+						    uni.hideLoading();
+						    // 这里此提示会被this.start()方法中的提示覆盖
+						    uni.$u.toast('验证码已发送');
+						    // 通知验证码组件内部开始倒计时
+						    this.$refs.uCode.start();
+						  }, 2000);
+						} else {
+						  uni.$u.toast('倒计时结束后再发送');
+						}
+					}
+				    
+				  },
+				});
+			       
 			},
 			recoverImg(){
 				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
@@ -220,7 +243,7 @@
 											})
 										} else {
 											uni.showToast({
-												title: '手机号已注册',
+												title: '验证码错误',
 												icon:'error'
 											});
 										}

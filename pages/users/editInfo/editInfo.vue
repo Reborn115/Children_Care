@@ -307,9 +307,9 @@
 										  url: "/pages/users/upload/upload",
 										});
 								} else {
-									uni.switchTab({
-										  url: "pages/parents/parentsme/parentsme",
-										});
+									uni.navigateTo({
+									  url: "/pages/parents/homepage/homepage",
+									});
 								}
 								
 								/* uni.switchTab({

@@ -187,9 +187,9 @@
 						success: (res) => {
 							console.log(res.data);
 							if(this.isCertification==0){
-								uni.navigateTo({
-									  url: "/pages/users/upload/upload",
-									});
+								uni.switchTab({
+								  url: "/pages/childs/home/home",
+								});
 							} else {
 								uni.switchTab({
 									  url: "/pages/childs/personal/personal",

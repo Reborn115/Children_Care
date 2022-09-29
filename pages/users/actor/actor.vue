@@ -55,6 +55,7 @@ export default {
           console.log(res.data);
           this.text = "request success";
           this.permission = res.data.data.permission;
+		  console.log(this.isCertification,"这是isCertification")
           if (!this.isCertification) {
             if (this.permission == 1) {
               uni.navigateTo({
