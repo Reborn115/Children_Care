@@ -105,7 +105,12 @@
 					value: 1
 				}],
 				
-				
+				relationship:[
+				          { value: 0, text: "父亲" },
+				          { value: 1, text: "母亲" },
+				          { value: 2, text: "其他" },
+						  
+				        ],
 				frequence: [
 				          { value: 0, text: "一月一次" },
 				          { value: 1, text: "三月一次" },
@@ -292,10 +297,12 @@
 							},
 							success: (res) => {
 								console.log(res.data);
-								
-								uni.switchTab({
-									  url: "/pages/childs/home/home",
+								uni.navigateTo({
+									  url: "/pages/users/upload/upload",
 									});
+								/* uni.switchTab({
+									  url: "/pages/childs/home/home",
+									}); */
 								
 							}
 						});

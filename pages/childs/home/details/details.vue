@@ -8,8 +8,8 @@
 				<u--image
 					radius="10"
 				    :src="src"
-				    width="120px"
-				    height="120px"
+				    width="220rpx"
+				    height="220rpx"
 					mode="widthFit"
 				>
 					<template v-slot:loading>
@@ -21,6 +21,7 @@
 				<text class="title">《{{title}}》</text>
 				<text class="type">类型：{{type}}</text>
 				<text class="idea">主题：{{idea}}</text>
+				<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
 			</view>
 		</view>
 		<view class="main">
@@ -38,29 +39,42 @@
 				<view v-if="current === 0">
 					<view class="audio">
 						<!-- <u-icon name="play-circle" size='35' @click='playAudio'></u-icon> -->
-						<u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
+						<!-- <u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
 						<u-icon name="pause-circle-fill" size='35' @click='pauseAudio' v-if="isPlay"></u-icon>
-						<text>播放全部</text>
+						<text>播放全部</text> -->
 						<text>（共{{total}}集）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
+						<!-- <u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button> -->
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio1(item)">
-							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
-						</text>
+						<view v-for="(item, index) in chapter" :key="index" @click="goAudio1(item)">
+							<text class="list-item" >
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
+							</text>
+							<u-divider ></u-divider>
+						</view>
+						
+						
 					</view>
 				</view>
 				<view v-if="current === 1">
 					<view class="audio">
-						<u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
-						<text>播放全部</text>
+						<!-- <u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
+						<text>播放全部</text> -->
 						<text>（共{{total}}集）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
+						<!-- <u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button> -->
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio2(item)">
+						<!-- <text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goAudio2(item)">
 							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
-						</text>
+						</text> -->
+						<view v-for="(item, index) in chapter" :key="index" @click="goAudio2(item)">
+							<text class="list-item" >
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
+							</text>
+							<u-divider ></u-divider>
+						</view>
 					</view>
 				</view>
 				<view v-if="current === 2">
@@ -68,12 +82,19 @@
 						<!-- <u-icon name="play-circle" size='35' @click='playAudio'></u-icon>
 						<text>播放全部</text> -->
 						<text>（共{{total}}章）</text>
-						<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
+						<!-- <u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button> -->
 					</view>
 					<view class="list">
-						<text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead(item)">
+						<!-- <text class="list-item" v-for="(item, index) in chapter" :key="index" @click="goRead(item)">
 							{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
-						</text>
+						</text> -->
+						<view v-for="(item, index) in chapter" :key="index" @click="goRead(item)">
+							<text class="list-item" >
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
+							</text>
+							<u-divider ></u-divider>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -94,7 +115,7 @@
 				positionResult:'',
 				contentId:'',
 				chapter:[],
-				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
+				audioUrl:'',
 				sumAudio:38,
 				sumRead:98,
 				list: ['亲属智慧语音', '原声朗读', '文字阅读'],
@@ -102,8 +123,22 @@
 				// list: [{name: '未付款'}, {name: '待评价'}, {name: '已付款'}],
 				current: 1,
 				/* src:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg', */
-				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg'
+				src:''
 			};
+		},
+		onBackPress(e) {
+		    console.log(e);
+		    if(e.from == 'backbutton'){
+		    this.$utils.showModal('提示','房型尚未保存,确认退出吗?',true,'继续编辑','确定').then(()=>{
+		    	console.log('确定')
+		    	uni.navigateBack({
+		    		delta:1
+		    	})
+		    }).catch(()=>{
+		    	console.log('继续编辑')
+		    })
+		    return true;//阻止默认返回行为
+		    }
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -113,6 +148,7 @@
 			this.title=this.positionResult[0].name
 			this.type=this.positionResult[0].type
 			this.idea=this.positionResult[0].theme
+			this.src=this.positionResult[0].coverPictureUrl
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/list', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -130,7 +166,12 @@
 					this.total=res.data.data.total
 		        }
 		    });
-			
+			let innerAudioContext = uni.createInnerAudioContext();
+			innerAudioContext.src = this.audioUrl;
+			this.contentAudio=innerAudioContext;
+		},
+		onHide(){
+			this.contentAudio.destroy();
 		},
 		methods:{
 			goRead(item){
@@ -140,7 +181,7 @@
 			},
 			goSummary(){
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/summary/summary"
+				    url:"/pages/childs/home/details/summary/summary?contentId="+this.contentId
 				})
 			},
 			goAudio1(item){
@@ -186,12 +227,11 @@
 			},
 			playAudio(){
 				/* this.innerAudioContext.play(); */
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = this.audioUrl;
-				innerAudioContext.play();
+				
+				this.contentAudio.play();
 				this.isPlay=!this.isPlay;
 				/* console.log(this.isPlay); */
-				this.contentAudio=innerAudioContext;
+				
 			},
 			change(index) {
 				this.current = index
@@ -202,6 +242,12 @@
 </script>
 
 <style lang="scss" scoped>
+.list-item{
+	white-space: nowrap; 
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	width:600rpx
+}
 .read{
 	display: flex;
 	align-items: center;
@@ -269,6 +315,8 @@
 	border-radius: 25px;
 }
 .u-page__image-item{
+	height:220rpx;
+	width:220rpx;
 	border-radius: 10px;
 	padding: 10rpx;
 	background-color: white;
@@ -280,6 +328,7 @@ text{
 	margin-left: 50rpx;
 	font-size: 15px;
 	width: 400rpx;
+	margin-bottom: 1vh;
 }
 .type{
 	font-size: 15px;
@@ -304,6 +353,7 @@ text{
 	/* flex-direction: column; */
 }
 .introduce{
+	height:300rpx;
 	display: flex;
 	margin-left: 30rpx;
 	margin-right: 30rpx;

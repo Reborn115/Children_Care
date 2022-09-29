@@ -38,7 +38,12 @@
 			</view>
 			
 		</view>
-		
+		<view class='linkbox' v-if="!this.isCertification">
+			<text @click="goHome" >
+				稍后进行录音
+			</text>
+			<u-icon name="arrow-right-double"></u-icon>
+		</view>
 	</view>
 </template>
 
@@ -46,6 +51,7 @@
 	export default {
 		data() {
 			return {
+				isCertification:0,
 				myurl:'',
 				innerAudio:'',
 				voicePath: '',
@@ -55,6 +61,7 @@
 			};
 		},
 		onLoad() {
+			this.isCertification=uni.getStorageSync('isCertification')
 			let recorderManager = uni.getRecorderManager();
 			let innerAudioContext = uni.createInnerAudioContext();
 			this.recorder=recorderManager;
@@ -69,7 +76,12 @@
 				});
 			},
 		methods:{
-			
+			goHome(){
+				console.log('555')
+				uni.switchTab({
+				    url:"/pages/childs/home/home"
+				})
+			},
 			initVoice(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/audio/init', //仅为示例，并非真实接口地址。
@@ -145,6 +157,11 @@
 </script>
 
 <style lang="scss" scoped>
+.linkbox{
+	margin-top: 200rpx;
+	display: flex;
+	color: #3c9cff;
+}
 .box{
 	display: flex;
 	flex-direction: column;
@@ -162,6 +179,7 @@
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
+	height:100vh;
 }
 .textbox{
 	display: flex;

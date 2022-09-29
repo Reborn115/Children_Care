@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
-		<uni-search-bar v-model="searchValue" @cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
-		</uni-search-bar>
+		<!-- <uni-search-bar v-model="searchValue" @cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
+		</uni-search-bar> -->
 		<view class="imgBox">
 			<u--image
 				radius="50"
@@ -32,7 +32,19 @@
 				src:'https://s2.loli.net/2022/09/19/WZxymYqzAt2BGbF.png'
 			};
 		},
+		onBackPress(options) {
+		            if (options.from === 'navigateBack') {  
+		                return false;  
+		            }  
+		            this.back();  
+		            return true;  
+		        }, 
 		methods:{
+			back(){
+				uni.navigateTo({
+				    url:"/pages/childs/home/home"
+				})
+			},
 			search(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
@@ -69,6 +81,9 @@
 .container{
 	background-color: #F4F4F4;
 	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .imgBox{
 	display: flex;

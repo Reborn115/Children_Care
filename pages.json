@@ -4,7 +4,6 @@
 	},
 	"pages": [
 		
-		
 		// {
 		//     "path" : "pages/parents/homepage/homepage",
 		//     "style" :                                                                                    
@@ -23,6 +22,26 @@
 		//     }
 		    
 		// },
+		/* {
+		    "path" : "pages/users/editInfo/editInfo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		/* {
+		    "path" : "pages/users/upload/upload",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		
+		
 		
 		//登录
 		{
@@ -333,8 +352,7 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
-        }
+		}
         ,{
             "path" : "pages/users/editChild/editChild",
             "style" :                                                                                    
@@ -414,19 +432,19 @@
 		"backgroundColor": "#fff",
 		"list": [{
 			"pagePath": "pages/childs/home/home",
-			"iconPath": "static/首页-面性.png",
-			"selectedIconPath": "static/首页-面性 (1).png",
+			"iconPath": "static/home.png",
+			"selectedIconPath": "static/home1.png",
 			"text": "主页"
 		}, {
 			"pagePath": "pages/childs/posthouse/posthouse",
-			"iconPath": "static/喜欢-面性.png",
-			"selectedIconPath": "static/喜欢-面性 (1).png",
+			"iconPath": "static/like.png",
+			"selectedIconPath": "static/like1.png",
 			"text": "驿站"
 		},
 		{
 			"pagePath": "pages/childs/personal/personal",
-			"iconPath": "static/个人中心-m.png",
-			"selectedIconPath": "static/个人中心-m (1).png",
+			"iconPath": "static/person.png",
+			"selectedIconPath": "static/person1.png",
 			"text": "个人中心"
 		}]
 	}

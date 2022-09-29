@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<uni-search-bar v-model="searchValue" 
-						@cancel="search" @clear="clear" bgColor="white" cancel-text='搜索'>
+						@cancel="search" @clear="clear" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
 		</uni-search-bar>
 		<!-- <u-search placeholder="日照香炉生紫烟" v-model="keyword" bgColor="white" :showAction="true" actionText="搜索" :animation="true"></u-search> -->
 					<uni-card :cover="cover" @click="onClick">
@@ -46,9 +46,9 @@
 				tips:[],
 				swiper:[],
 				/* src:'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg', */
-				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
-				cover: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/094a9dc0-50c0-11eb-b680-7980c8a877b8.jpg',
-				avatar: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png',
+				src:'',
+				cover: '',
+				avatar: '',
 				extraIcon:{
 					color: '#4cd964',
 					size: '22',
@@ -180,6 +180,10 @@ text{
 .idea{
 	margin-left: 13vw;
 	font-size: 12px;
+	white-space: nowrap; 
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	width:330rpx
 }
 .type{
 	font-size: 12px;
@@ -187,9 +191,14 @@ text{
 	margin-left: 13vw;
 }
 .title{
+	white-space: nowrap; 
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+
+	display:inline-block;
 	border-radius: 8px;
 	background-color: #A4B3DA;
-	width: 170rpx;
+	/* width: 170rpx; */
 	font-size: 18px;
 	margin-top: 1vh;
 	margin-left: 13vw;
@@ -219,8 +228,10 @@ text{
 	margin-bottom:40rpx;
 }
 ::v-deep .uni-card{
+	margin-left: 80rpx !important;
 	border-radius: 10px;
-	height: 600rpx;
+	height: 550rpx;
+	width:550rpx;
 	box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.2)!important;
 }
 .uni-card .uni-card__cover{
@@ -243,11 +254,11 @@ image{
 	padding-left: 12.5vw;
 }
 .uni-margin-wrap {
-		width: 690rpx;
+		width: 500rpx;
 		width: 100%;
 	}
 	.swiper {
-		height: 600rpx;
+		height: 500rpx;
 	}
 	.swiper-item {
 		display: block;
@@ -268,7 +279,7 @@ image{
 		right: 20rpx;
 	}
 	.uni-padding-wrap {
-		width: 550rpx;
+		width: 500rpx;
 		padding: 0 100rpx;
 	}
 </style>
