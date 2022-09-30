@@ -31,12 +31,14 @@
 export default {
   data() {
     return {
+		positionResult:'',
       permission: "",
       isCertification: 0,
     };
   },
   onLoad(e) {
-    this.isCertification = JSON.parse(e.positionResult);
+    this.positionResult = JSON.parse(e.positionResult);
+	this.isCertification=this.positionResult.isCertification
     console.log(this.isCertification);
   },
   methods: {

@@ -143,7 +143,7 @@
 							duration:10000
 						}
 						this.recorder.start(format);
-						this.recorder.onStop(()=>{
+						this.voicePath=this.recorder.onStop(()=>{
 							this.isVoice=0;
 						})
 					},
