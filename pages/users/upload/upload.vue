@@ -82,9 +82,9 @@
 		methods:{
 			goHome(){
 				console.log('555')
-				uni.switchTab({
-				    url:"/pages/childs/home/home"
-				})
+				uni.navigateTo({
+				  url: "/pages/parents/homepage/homepage",
+				});
 			},
 			initVoice(){
 				uni.request({

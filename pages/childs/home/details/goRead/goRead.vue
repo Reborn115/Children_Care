@@ -1,5 +1,18 @@
 <template>
 	<view class="container">
+		<u-sticky offset-top="0" bgColor="white">
+			<view class="botton">
+				<view class="tips" @click="last">
+					<u-icon name="arrow-left-double" color="#2979ff" size="28"></u-icon>
+					<text>上一章节</text>
+				</view>
+				<view class="tips" @click="next">
+					
+					<text>下一章节</text>
+					<u-icon name="arrow-right-double" color="#2979ff" size="28"></u-icon>
+				</view>
+			</view>
+		</u-sticky>
 		<!-- <u-text :text='lastContent'>
 			
 		</u-text> -->
@@ -26,8 +39,8 @@
 		data() {
 			return {
 				src:'',
-				contentId:'1',
-				order:'1',
+				contentId:'',
+				order:'',
 				lastContent:''
 			};
 		},
@@ -59,12 +72,45 @@
 		    });
 		},
 		methods:{
+			last(){
+				this.order=this.order-1
+				this.getText()
+			},
+			next(){
+				this.order=this.order+1
+				this.getText()
+			},
+			getText(){
+				this.lastContent=''
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/home-interface/text', //仅为示例，并非真实接口地址。
+					method:"POST",
+				    data: {
+				        contentId:this.contentId,
+						order:this.order
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+						/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
+						this.lastContent=this.handleText(res.data.data.mainText)
+						this.src=res.data.data.picUrl
+				        console.log(res.data);
+				        this.text = 'request success';
+						
+				    }
+				});
+			},
 			handleText(content){
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
 				    this.lastContent= this.lastContent + addContent
+					
 				}
+				return this.lastContent
 				
 			},
 			phaseWrapList(str, length, style) {
@@ -92,6 +138,17 @@
 </script>
 
 <style lang="scss" scoped>
+.tips{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.botton{
+	height: 100rpx;
+	justify-content: space-between;
+	display:flex;
+	
+}
 p{
 	margin: 50rpx;
 }

@@ -68,11 +68,19 @@ export default {
                 url: "/pages/users/editInfo/editInfo",
               });
             }
-          } else {
+          } else if(this.permission==1){
             uni.switchTab({
               url: "/pages/childs/home/home",
             });
-          }
+          } else if(this.permission==2){
+			  uni.navigateTo({
+			    url: "/pages/parents/homepage/homepage",
+			  });
+		  } else{
+			  uni.reLaunch({
+			    url: "/pages/volunteer/volunteerhome/volunteerhome",
+			  });
+		  }
         },
       });
     },

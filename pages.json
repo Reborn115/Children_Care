@@ -3,7 +3,15 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		
+		/* {
+			"path" : "pages/childs/home/details/audioPlayer/audioPlayer",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+			
+		}, */
 		// {
 		//     "path" : "pages/parents/homepage/homepage",
 		//     "style" :                                                                                    

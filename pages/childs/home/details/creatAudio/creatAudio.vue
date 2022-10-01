@@ -25,10 +25,10 @@
 					</text>
 				</view>
 				<view class="icon">
-					<u-icon name="rewind-left-fill" size='35'></u-icon>
+					<u-icon name="rewind-left-fill" size='35' @click="lastAudio"></u-icon>
 					<u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
 					<u-icon name="pause-circle-fill" size='35' @click='pauseAudio' v-if="isPlay"></u-icon>
-					<u-icon name="rewind-right-fill" size='35'></u-icon>
+					<u-icon name="rewind-right-fill" size='35' @click="nextAudio"></u-icon>
 					
 				</view>
 				<view class="speed">
@@ -79,6 +79,7 @@
 				src:'',
 				isPlay:false,
 				contentAudio:'',
+				order:'',
 			};
 		},
 		watch:{
@@ -87,6 +88,14 @@
 			}
 		},
 		methods:{
+			lastAudio(){
+				this.originalAudioId=this.originalAudioId-1
+				this.getAudio()
+			},
+			nextAudio(){
+				this.originalAudioId=this.originalAudioId+1
+				this.getAudio()
+			},
 			getAudio(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
@@ -102,14 +111,19 @@
 				    success: (res) => {
 				        console.log(res.data);
 				        this.text = 'request success';
-						
+						this.name=res.data.data.storyName
 						this.audioUrl=res.data.data.audioUrl
+						this.author=res.data.data.writer
 				    }
 				});
 			},
 			goRead(){
+				let item={
+					order:this.order,
+					contentId:this.contentId
+					}
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/goRead/goRead"
+				    url:"/pages/childs/home/details/goRead/goRead?positionResult="+JSON.stringify(item)
 				})
 			},
 			speedChange(){
@@ -156,6 +170,7 @@
 			this.name=this.positionResult.headName
 			this.originalAudioId=this.positionResult.originalAudioId
 			this.src=this.positionResult.src
+			this.order=this.positionResult.order
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
 		    	method:"POST",

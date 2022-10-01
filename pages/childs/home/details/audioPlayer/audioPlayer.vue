@@ -78,7 +78,8 @@
 				src:'',
 				isPlay:false,
 				contentAudio:'',
-				isFirst:false
+				isFirst:false,
+				order:'',
 			};
 		},
 		watch:{
@@ -124,8 +125,13 @@
 				});
 			}, */
 			goRead(){
+				let item={
+					order:this.order,
+					contentId:this.contentId
+					}
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/goRead/goRead"
+				    url:"/pages/childs/home/details/goRead/goRead?positionResult="+JSON.stringify(item)
+				    
 				})
 			},
 			speedChange(){
@@ -181,6 +187,7 @@
 			this.name=this.positionResult.headName
 			this.originalAudioId=this.positionResult.originalAudioId
 			this.src=this.positionResult.src
+			this.order=this.positionResult.order
 			if(this.positionResult.isFirst){
 				this.isFirst=this.positionResult.isFirst
 			}
