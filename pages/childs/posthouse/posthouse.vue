@@ -122,7 +122,7 @@
 								this.nolist.push(item);
 							}
 						})
-						// wx.stopPullDownRefresh() 
+						wx.stopPullDownRefresh() 
 					}
 				});
 				

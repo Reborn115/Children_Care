@@ -120,6 +120,20 @@
 						this.$nextTick(function() {
 							this.scrollToView = 'msg' + (this.msg.length - 1)
 						})
+						this.clearMesssage()
+					}
+				});
+			},
+			//清空未读消息数
+			clearMesssage(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-read?roomId='+this.roomId+'&type=1', 
+					method:'POST',
+					header: {
+						'token': uni.getStorageSync('token'),
+					},
+					success: (res) => {
+						console.log('清空消息成功')
 					}
 				});
 			},

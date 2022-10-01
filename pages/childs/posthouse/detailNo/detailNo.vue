@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<view class="toppic">
-			<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 100rpx;height: 90rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+		<view class="toppic" @click="gochat">
+			<image src="../../../../static/chat.png" style="width: 100rpx;height: 90rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 			<view style="margin-left: 55rpx;color: #595959;">
 				交流区
 			</view>
 		</view>
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/12/ChR4B1uXUI86sTv.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
+			<image src="../../../../static/baby5.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -54,6 +54,7 @@
 			return {
 				id:0,
 				data:{},
+				chatRoomId:0,
 			}
 		},
 		onLoad(e){
@@ -73,6 +74,7 @@
 					success: (res) => {
 						this.data=res.data.data
 						// console.log(this.data,"问题详情")
+						this.chatRoomId=res.data.data.groupLiveChatRoomId
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{
@@ -80,6 +82,11 @@
 						}
 					}
 				});
+			},
+			gochat(){
+				uni.navigateTo({
+					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
+				})
 			}
 		}
 	}
@@ -98,6 +105,7 @@
 		// background-color: #ffaa00;
 		display: flex;
 		justify-content: center;
+		margin-top: 15rpx;
 		.content{
 				width: 653rpx;
 				background-color: #fee3c8;

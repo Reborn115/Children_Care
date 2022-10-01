@@ -3,7 +3,6 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		
 		// {
 		//     "path" : "pages/parents/homepage/homepage",
 		//     "style" :                                                                                    
@@ -408,6 +407,24 @@
         }
         ,{
             "path" : "pages/childs/home/details/waitAudio/waitAudio",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/childs/personal/bind/bind",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/parents/parentsme/parentBind/parentBind",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
