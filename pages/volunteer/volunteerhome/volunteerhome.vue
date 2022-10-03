@@ -43,6 +43,10 @@
 			}
 		},
 		onShow() {
+			uni.setStorage({
+				key:"isCertification",
+				data:1
+			})
 			this.getdata()
 			this.timer=setInterval(this.getdata,10000)
 		},

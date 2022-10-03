@@ -83,7 +83,10 @@
 			});
 		},
 		onLoad(){
-
+			uni.setStorage({
+				key:"isCertification",
+				data:1
+			})
 			uni.request({
 			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
 				method:"POST",

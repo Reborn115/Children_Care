@@ -304,7 +304,7 @@
 								console.log(res.data);
 								if(this.isCertification==0){
 									uni.navigateTo({
-										  url: "/pages/users/upload/upload",
+										  url: "/pages/users/upload/upload?show=true",
 										});
 								} else {
 									uni.navigateTo({
@@ -395,6 +395,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .uni-forms-item__label{
+	width: 200rpx !important;
+}
 .example{
 	margin-top: 30rpx;
 }

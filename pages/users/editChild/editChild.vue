@@ -279,6 +279,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .uni-forms-item__label{
+	width: 200rpx !important;
+}
 .example{
 	margin-top: 30rpx;
 }

@@ -38,7 +38,6 @@
 					<!-- 我发的消息-->
 					<view class="msg-m msg-right" v-if="item.fromUserId == meId">
 						<image class="user-img" :src="mymessage.headPicUrl"></image>
-						<!-- <text class="nameright">家长</text> -->
 						<view class="message">
 							<view class="msg-text">{{item.message}}</view>
 						</view>
@@ -120,7 +119,8 @@
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/message-group-detail', 
 					data:{
-						roomId:this.roomId
+						roomId:this.roomId,
+						type:2
 					},
 					header: {
 						'token': uni.getStorageSync('token'),
@@ -131,6 +131,20 @@
 						this.$nextTick(function() {
 							this.scrollToView = 'msg' + (this.msg.length - 1)
 						})
+						this.clearMesssage()
+					}
+				});
+			},
+			//清空消息
+			clearMesssage(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-read?roomId='+this.roomId+'&type=2', 
+					method:'POST',
+					header: {
+						'token': uni.getStorageSync('token'),
+					},
+					success: (res) => {
+						console.log('清空消息成功')
 					}
 				});
 			},

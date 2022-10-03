@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/11/tIPSMb9pc4o2Qlr.jpg" style="width: 700rpx;height: 350rpx;margin-top: 20rpx;"></image>
+			<image src="../../../../static/baby.jpg" style="width: 700rpx;height: 350rpx;margin-top: 20rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -193,6 +193,7 @@
 		// background-color: #ffaa00;
 		display: flex;
 		justify-content: center;
+		margin-top: 15rpx;
 		.content{
 			width: 653rpx;
 			background-color: #fee3c8;

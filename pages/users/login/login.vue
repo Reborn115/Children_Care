@@ -28,7 +28,7 @@
 		data() {
 			return {
 				permission:'',
-				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
+				img:'../../../static/neither.png',
 				formData:{
 					account:'阿东',
 					password:'123456'
@@ -82,7 +82,7 @@
 		}, */
 		methods:{
 			recoverImg(){
-				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
+				this.img='../../../static/neither.png'
 			},
 			changeImg(num){
 				/* if(num==2){
@@ -92,7 +92,7 @@
 					this.$refs.normalImage.style.height="110px";
 				} */
 				if(num==3){
-					this.img='https://s2.loli.net/2022/09/11/4OaWfdqHkl1xpMc.png'
+					this.img='../../../static/password.png'
 				}
 			},
 			goForget(){
@@ -130,7 +130,7 @@
 							if(res.data.code=='00000'){
 								uni.showToast({
 									title: '登录成功',
-									icon:'error'
+									icon:'success'
 								});
 								this.permission=res.data.data.permission
 								

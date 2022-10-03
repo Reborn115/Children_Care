@@ -1,22 +1,22 @@
 <template>
 	<view class="all">
 		<view class="toppic">
-			<view class="area" v-if="show">
-				<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+			<view class="area" v-if="show" @click="gochat">
+				<image src="../../../../static/chat.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 52rpx;color: #595959;">
 					交流讨论
 				</view>
 			</view>
 			
 			<view class="area" @click="goinformation" v-if="showdetail">
-				<image src="https://s2.loli.net/2022/09/12/9gwRV6tlsqXfLY3.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<image src="../../../../static/message.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 47rpx;color: #595959;">
 					儿童详情
 				</view>
 			</view>
 			
 			<view class="area" @click="goEdit" v-if="show">
-				<image src="https://s2.loli.net/2022/09/12/zDbapIBwWO2guSd.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<image src="../../../../static/write.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 52rpx;color: #595959;">
 					情况记录
 				</view>
@@ -24,7 +24,7 @@
 			
 		</view>
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/12/ChR4B1uXUI86sTv.jpg" style="width: 550rpx;height: 500rpx;margin-top: -40rpx;"></image>
+			<image src="../../../../static/baby5.jpg" style="width: 550rpx;height: 500rpx;margin-top: -40rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -65,7 +65,7 @@
 		<button class="button" @click="dialogToggle" :disabled="buttonDisusable"><text
 				class="button-text warn-text">{{problemSolved}}</text></button>
 		<view>
-			<!-- 提示窗示例 -->
+			<!-- 提示窗 -->
 			<uni-popup ref="alertDialog" type="dialog">
 				<uni-popup-dialog type="info" cancelText="关闭" confirmText="确定"  content="是否确定问题已解决？" @confirm="dialogConfirm"
 				></uni-popup-dialog>
@@ -87,11 +87,11 @@
 				//控制交流区与建议区的显示与隐藏
 				show:true,
 				//点击按钮的是否禁用
-				buttonDisusable:false
+				buttonDisusable:false,
+				chatRoomId:0,
 			}
 		},
 		onLoad(e){
-			console.log(e)
 			this.id = JSON.parse(e.id)
 			this.isAnonymous=JSON.parse(e.isAnonymous)
 			if(this.isAnonymous==0){
@@ -111,6 +111,12 @@
 			goinformation(){
 				uni.navigateTo({
 					url:"/pages/volunteer/problem/information/information?id="+JSON.stringify(this.id)
+				})
+			},
+			// 进入交流讨论界面
+			gochat(){
+				uni.navigateTo({
+					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
 				})
 			},
 			//打开修改问题状态弹窗
@@ -153,7 +159,7 @@
 					},
 					success: (res) => {
 						this.data=res.data.data
-						console.log(this.data,"问题详情")
+						this.chatRoomId=res.data.data.groupLiveChatRoomId
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{
@@ -161,7 +167,8 @@
 						}
 					}
 				});
-			}
+			},
+			
 		}
 	}
 </script>

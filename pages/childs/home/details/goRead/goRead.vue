@@ -41,7 +41,8 @@
 				src:'',
 				contentId:'',
 				order:'',
-				lastContent:''
+				lastContent:'',
+				total:'',
 			};
 		},
 		onLoad(e){
@@ -50,6 +51,7 @@
 			this.contentId=this.positionResult.contentId
 			this.order=this.positionResult.order
 			this.src=this.positionResult.src
+			this.total=this.positionResult.total
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/text', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -73,12 +75,28 @@
 		},
 		methods:{
 			last(){
-				this.order=this.order-1
-				this.getText()
+				
+				if(this.order==1){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.order=this.order-1
+					this.getText()
+				}
+				
 			},
 			next(){
-				this.order=this.order+1
-				this.getText()
+				if(this.order==this.total){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.order=this.order+1
+					this.getText()
+				}
 			},
 			getText(){
 				this.lastContent=''
@@ -94,16 +112,25 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
+						
+							
+							
+							
+						
+							this.lastContent=this.handleText(res.data.data.mainText)
+							this.src=res.data.data.picUrl
+							console.log(res.data);
+							this.text = 'request success';
+						
 						/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
-						this.lastContent=this.handleText(res.data.data.mainText)
-						this.src=res.data.data.picUrl
-				        console.log(res.data);
-				        this.text = 'request success';
+						
 						
 				    }
 				});
 			},
 			handleText(content){
+				
+				content=content.slice(25)　
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'

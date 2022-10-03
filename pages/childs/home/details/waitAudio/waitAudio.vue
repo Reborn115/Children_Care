@@ -39,7 +39,7 @@
 				content:'功能暂不可用',
 				show:false,
 				process:'0',
-				src:'https://s2.loli.net/2022/09/25/fkP8XNFCBIaAqlU.png',
+				src:'../../../../static/nostorage.png',
 				positionResult:'',
 				contentInfoId:'',
 				serveSrc:'',

@@ -41,11 +41,11 @@
 		<view class="submit">
 			<u-button type="primary" text="上传录音" @click="upload" shape="circle" size="large"></u-button>
 		</view>
-		<view class='linkbox' v-if="!this.isCertification">
-			<text @click="goHome" >
+		<view class='linkbox'  v-if="!isCertification">
+			<text @click="goHome">
 				稍后进行录音
 			</text>
-			<u-icon name="arrow-right-double"></u-icon>
+			<u-icon name="arrow-right-double" color=#3c9cff;></u-icon>
 		</view>
 	</view>
 </template>
@@ -54,32 +54,72 @@
 	export default {
 		data() {
 			return {
+				timer1:'',
+				timer2:'',
+				show:true,
 				isCertification:0,
 				myurl:'',
 				innerAudio:'',
 				voicePath: '',
 				recorder:'',
-				isVoice:0,
-				src:"https://s2.loli.net/2022/09/11/cGDVIO75kn3rqey.jpg"
+				isVoice:false,
+				home:false,
+				src:"../../../../static/upload.jpg"
 			};
 		},
-		
-		onLoad() {
+		onHide(){
+			
+				this.pauseAudio()
+				this.innerAudio.destroy();
+			
+			
+			
+		},
+		onUnload(){
+			
+				this.pauseAudio()
+				this.innerAudio.destroy();
+			
+			
+		},
+		onLoad(e) {
+			console.log(e)
+			this.show=e.show
+			
+			
 			this.isCertification=uni.getStorageSync('isCertification')
 			let recorderManager = uni.getRecorderManager();
 			let innerAudioContext = uni.createInnerAudioContext();
 			this.recorder=recorderManager;
 			this.innerAudio=innerAudioContext;
 			this.recorder.start.format="wav";
-			this.recorder.start.duration=15000;
-				let self = this;
-				this.recorder.onStop(function (res) {
-					console.log('recorder stop' + JSON.stringify(res));
-					self.voicePath = res.tempFilePath;
-					this.isVoice=!this.isVoice
-				});
+			this.recorder.start.duration=10000;
+				
 			},
+		watch:{
+			voicePath(newVal, oldVal){
+				this.isVoice=!this.isVoice
+			},
+			home(newVal, oldVal){
+				this.goHome()
+			}
+		},
+		onUnload() {
+			if(this.timer1) {  
+				clearTimeout(this.timer1);  
+				this.timer1 = null;  
+			}  
+			if(this.timer2) {
+				clearTimeout(this.timer2);  
+				this.timer2 = null;  
+			}  
+		},
 		methods:{
+			pauseAudio(){
+				this.innerAudio.pause();
+				
+				/* console.log(this.isPlay); */
+			},
 			goHome(){
 				console.log('555')
 				uni.navigateTo({
@@ -130,7 +170,17 @@
 							/* setTimeout(() => {
 								resolve(res.data.data)
 							}, 1000) */
-							this.goHome()
+							uni.showToast({
+								title: '录音上传成功',
+								icon:'success'
+							});
+							this.timer2 = setTimeout(() => {
+								this.home=!this.home
+							}, 3000);
+							
+							
+							
+							
 						}
 					});
 				
@@ -143,9 +193,19 @@
 							duration:10000
 						}
 						this.recorder.start(format);
-						this.voicePath=this.recorder.onStop(()=>{
+						let self = this;
+						this.recorder.onStop(function (res) {
+							console.log('recorder stop' + JSON.stringify(res));
+							self.voicePath = res.tempFilePath;
+							/* this.isVoice=!this.isVoice */
+						});
+						/* this.voicePath=this.recorder.onStop(()=>{
 							this.isVoice=0;
-						})
+						}) */
+						/* this.timer1 = setTimeout(() => {
+						    this.isVoice=!this.isVoice
+						}, 10000);
+						clearTimeout(this.timer1) */
 					},
 					endRecord() {
 						this.isVoice=!this.isVoice

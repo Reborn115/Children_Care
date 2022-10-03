@@ -42,18 +42,6 @@
 			</view>
 			<view class="detail">
 				<view class="inside">
-					<!-- <view class="item">
-						<text class="text">父亲姓名: </text>
-						<text class="answer">{{parents.userName}}</text>
-					</view>
-					<view class="item">
-						<text class="text">父亲联系方式: </text>
-						<text class="answer">{{parents.}}</text>
-					</view>
-					<view class="item">
-						<text class="text">父亲工作地址: </text>
-						<text class="answer">{{parents.}}</text>
-					</view> -->
 					<view class="item">
 						<text class="text">姓名: </text>
 						<text class="answer">{{parents.userName}}</text>
@@ -151,9 +139,41 @@
 					success: (res) => {
 						console.log(res);
 						this.child=res.data.data.childProfileResult
-						this.child.gender=this.child.gender==1?'男':'女'
+						this.child.gender=this.child.gender==0?'男':'女'
 						this.parents=res.data.data.parentProfileResult
-						this.parents.gender=this.parents.gender==1?'男':'女'
+						this.parents.gender=this.parents.gender==0?'男':'女'
+						switch(this.parents.homeSituation){
+							case 0:
+								this.parents.homeSituation='一月一次';
+								break;
+							case 1:
+								this.parents.homeSituation='三月一次';
+								break;
+							case 2:
+								this.parents.homeSituation='半年一次';
+								break;
+							case 3:
+								this.parents.homeSituation='一年一次';
+								break;
+							case 4:
+								this.parents.homeSituation='超过一年';
+								break;
+							default:
+								this.parents.homeSituation='无数据';
+						}
+						switch(this.parents.softwareSituation){
+							case 0:
+								this.parents.softwareSituation='偶尔';
+								break;
+							case 1:
+								this.parents.softwareSituation='时常';
+								break;
+							case 2:
+								this.parents.softwareSituation='经常';
+								break;
+							default:
+								this.parents.softwareSituation='无数据';
+						}
 					}
 				});
 			}

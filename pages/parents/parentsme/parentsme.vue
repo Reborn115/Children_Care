@@ -10,29 +10,45 @@
 			<view class="item1" @click="goChatlist">
 				<text>我的消息</text>
 				<uni-badge class="uni-badge-left-margin" :text="messageNumber" />
-				<image src="https://s2.loli.net/2022/09/11/8TcwdmNuDxKW1aO.png" style="width: 50rpx;height: 50rpx;"></image>
+				<image src="../../../static/email.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
 			<view class="item2">
 				<text>父母模式</text>
-				<image src="https://s2.loli.net/2022/09/11/Hmr2g85unltcToP.png" style="width: 50rpx;height: 50rpx;"></image>
+				<image src="../../../static/model.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
 		</view>
-		<view class="two">
-			<image src="https://s2.loli.net/2022/09/11/NEpQiRIDKlOCWUs.png" style="width: 50rpx;height: 40rpx;" class="icon"></image>
+		<view class="two" @click="bind">
+			<image src="../../../static/parents.png" style="width: 45rpx;height: 40rpx;" class="icon"></image>
 			<text class="content">孩子账号</text>
-			<image src="https://s2.loli.net/2022/09/11/nIwfsF7rDemSMER.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
+			<image src="../../../static/inter2.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
+		</view>
+		<view class="two" @click="govedio">
+			<image src="../../../static/voice.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
+			<text class="content">录入声音</text>
+			<image src="../../../static/inter4 .png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
 		</view>
 		<view class="two" @click="goInfo">
-			<image src="https://s2.loli.net/2022/09/11/cvsUMmNJOGHjB4r.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
+			<image src="../../../static/me.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
 			<text class="content">我的资料</text>
-			<image src="https://s2.loli.net/2022/09/11/w9XmrnbvWBaUckI.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
+			<image src="../../../static/inter1.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
 		</view>
 		<view class="two">
-			<image src="https://s2.loli.net/2022/09/11/BmYTZ2HqIFLkCpy.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
+			<image src="../../../static/we.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
 			<text class="content">关于我们</text>
-			<image src="https://s2.loli.net/2022/09/11/KSUzeq2DCvaO1Qd.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
+			<image src="../../../static/inter3.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
 		</view>
-		
+		<view class="two" @click="out">
+			<image src="../../../static/out.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
+			<text class="content">退出登录</text>
+			<image src="../../../static/inter5.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
+		</view>
+		<view>
+			<!-- 提示窗 -->
+			<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="info" cancelText="关闭" confirmText="确定"  content="是否退出登录？" @confirm="dialogConfirm"
+				></uni-popup-dialog>
+			</uni-popup>
+		</view>
 		<!-- 切换模式弹窗 -->
 		<!-- <uni-popup ref="popup1" background-color="#fff" style="border-radius: 30rpx;">
 			<view class="change">
@@ -62,6 +78,7 @@
 			this.getdata()
 		},
 		methods: {
+			//进入个人资料页面
 			goInfo(){
 				uni.navigateTo({
 					url:"/pages/childs/personal/personalInfo/personalInfo"
@@ -71,11 +88,13 @@
 			// changeType(){
 			// 	this.$refs.popup1.open()
 			// },
+			//进入我的消息
 			goChatlist(){
 				uni.navigateTo({
 					url:"/pages/chat/chatlist/chatlist"
 				})
 			},
+			//获取数据
 			getdata(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/my-interface/parent', 
@@ -92,7 +111,34 @@
 						this.myLove=res.data.data.myLove
 					}
 				});
-			}
+			},
+			// 进入录音界面
+			govedio(){
+				uni.navigateTo({
+					url:"/pages/users/upload/upload?show=false"
+				})
+			},
+			//进入绑定账号界面
+			bind(){
+				uni.navigateTo({
+					url:"/pages/parents/parentsme/parentBind/parentBind"
+				})
+			},
+			//退出登录
+			out() {
+				this.$refs.alertDialog.open()
+			},
+			//点击确定退出
+			dialogConfirm() {
+				uni.removeStorage({
+					key: 'token',
+					success: function () {
+						uni.navigateTo({
+							url:"/pages/users/login/login"
+						})
+					}
+				});
+			},
 		}
 	}
 </script>

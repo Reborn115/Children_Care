@@ -176,6 +176,7 @@
 		methods:{
 			goRead(item){
 				item.src=this.src
+				item.total=this.total
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/goRead/goRead?positionResult="+JSON.stringify(item)
 				})
@@ -190,6 +191,8 @@
 				})
 			},
 			goAudio1(item){
+				
+				
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/audio/ai-cache', //仅为示例，并非真实接口地址。
 					method:"GET",
@@ -210,6 +213,7 @@
 						} else {
 							item.smartAudio=res.data.message
 							console.log(item)
+							item.total=this.total
 							item.src=this.src
 							uni.navigateTo({
 							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
@@ -222,6 +226,7 @@
 				}) */
 			},
 			goAudio2(item){
+				item.total=this.total
 				item.src=this.src
 				uni.navigateTo({
 					

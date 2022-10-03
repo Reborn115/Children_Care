@@ -1,13 +1,7 @@
 <template>
 	<view class="all">
-		<!-- <view class="toppic">
-			<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 100rpx;height: 90rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
-			<view style="margin-left: 55rpx;color: #595959;">
-				交流区
-			</view>
-		</view> -->
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/12/ChR4B1uXUI86sTv.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
+			<image src="../../../../static/baby.jpg" style="width: 700rpx;height: 350rpx;margin-top: 10rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -260,6 +254,7 @@
 		display: flex;
 		justify-content: center;
 		margin-bottom: 30rpx;
+		margin-top: 15rpx;
 		.content{
 				width: 653rpx;
 				background-color: #fee3c8;

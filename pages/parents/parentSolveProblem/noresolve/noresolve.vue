@@ -1,22 +1,22 @@
 <template>
 	<view>
-		<view class="toppic">
+		<view class="toppic" @click="gochat">
 			<view class="area1">
-				<image src="https://s2.loli.net/2022/09/12/KnGWJv98kQ1ycRA.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<image src="../../../../static/chat.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 58rpx;color: #595959;">
 					交流区
 				</view>
 			</view>
 			
 			<view class="area2" @click="goEdit(id)">
-				<image src="https://s2.loli.net/2022/09/12/zDbapIBwWO2guSd.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
+				<image src="../../../../static/message.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 58rpx;color: #595959;">
 					建议区
 				</view>
 			</view>
 		</view>
 		<view class="pic">
-			<image src="https://s2.loli.net/2022/09/12/ChR4B1uXUI86sTv.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
+			<image src="../../../../static/baby5.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -63,14 +63,13 @@
 			return {
 				id:0,
 				data:{},
+				chatRoomId:0,
 			}
 		},
 		onLoad(e){
 			this.id = JSON.parse(e.id)
-			
-		},
-		onShow() {
 			this.gedetail()
+			
 		},
 		methods: {
 			goEdit(id){
@@ -89,6 +88,7 @@
 					},
 					success: (res) => {
 						this.data=res.data.data
+						this.chatRoomId=res.data.data.groupLiveChatRoomId
 						console.log(this.data,"问题详情")
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
@@ -97,6 +97,11 @@
 						}
 					}
 				});
+			},
+			gochat(){
+				uni.navigateTo({
+					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
+				})
 			}
 		}
 	}
@@ -128,6 +133,7 @@
 		// background-color: #ffaa00;
 		display: flex;
 		justify-content: center;
+		margin-top: 15rpx;
 		.content{
 				width: 653rpx;
 				background-color: #fee3c8;
