@@ -2,6 +2,9 @@
 	<view>
 		<view class="submit">
 			<view class="submit-chat">
+				<view class="bt-img" @click="changeType">
+					<image src="../../static/phone (1).png"></image>
+				</view>
 				<!-- 输入文本框 -->
 				<textarea auto-height="true" class="chat-send btn" :class="{displaynone:isrecord}" @input="inputs2"
 					@focus="focus" v-model="msg"></textarea>
@@ -10,11 +13,11 @@
 					<image src="https://s2.loli.net/2022/09/21/r2K1pLDCHFlkfhx.png"></image>
 				</view> -->
 				<view class="bt-img" @click="inputs">
-					<image src="https://s2.loli.net/2022/09/21/r2K1pLDCHFlkfhx.png"></image>
+					<image src="../../static/send.png"></image>
 				</view>
-				<view class="bt-img" @tap="more">
+				<!-- <view class="bt-img" @tap="more">
 					<image src="https://s2.loli.net/2022/09/21/8F34wpjsdCPeKYJ.png"></image>
-				</view>
+				</view> -->
 			</view>
 			<!-- 表情 -->
 			<!-- <view class="emoji" :class="{displaynone:!isemoji}">
@@ -27,12 +30,22 @@
 				<emoji @emotion="emotion" :height="260"></emoji>
 			</view> -->
 			<!-- 更多 -->
-			<view class="more" :class="{displaynone:!ismore}">
+			<!-- <view class="more" :class="{displaynone:!ismore}">
 				<view class="more-list">
 					<image src="https://s2.loli.net/2022/09/21/2fRcLpNJ8qzjMeY.png"></image>
 					<view class="more-list-title">视频</view>
 				</view>
-			</view>
+			</view> -->
+			<!-- 切换模式弹窗 -->
+			<uni-popup ref="popup" background-color="#fff" style="border-radius: 30rpx;">
+				<view class="change">
+					<image src="../../static/baby3.jpg" style="width: 300rpx;height: 400rpx;margin-top: 60rpx;"></image>
+					<view class="button">
+						<button class="mini-btn1 btncolor1" type="default" size="mini">语言通话</button>
+						<button class="mini-btn1 btncolor2" type="default" size="mini">视频通话</button>
+					</view>
+				</view>
+			</uni-popup>
 		</view>
 	</view>
 </template>
@@ -92,6 +105,10 @@
 					// 0为表情和文字
 					this.send(this.msg)
 				}
+			},
+			//打开视频通话弹窗
+			changeType(){
+				this.$refs.popup.open()
 			},
 			// 回车发送
 			inputs2(e) {
@@ -333,6 +350,36 @@
 			text-align: center;
 			color: #fff;
 			font-size: 28rpx;
+		}
+	}
+	.change{
+		height: 520rpx;
+		width: 600rpx;
+		.button{
+			display: inline-block;
+			// background-color: #fff0a1;
+			width:300rpx;
+			height: 400rpx;
+			.mini-btn1{
+				font-size: 36rpx;
+				font-weight: 700;
+				color: #ffffff;
+				height: 7vh;
+				width: 36vw;
+				line-height: 7vh;
+				margin-top: 10rpx;
+				margin-bottom: 42rpx;
+				border-radius: 23rpx;
+			}
+			.btncolor1{
+				background: linear-gradient(#eeb7ec, #9f84e0);
+			}
+			.btncolor2{
+				background: linear-gradient(#55caf3, #3c82df)
+			}
+			.btncolor3{
+				background: linear-gradient(#d9c0fa, #abc1f9)
+			}
 		}
 	}
 </style>

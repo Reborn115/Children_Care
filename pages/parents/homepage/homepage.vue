@@ -56,7 +56,7 @@
 				timer:'',
 			}
 		},
-		onLoad() {
+		mounted() {
 			this.getdata()
 		},
 		onShow() {
