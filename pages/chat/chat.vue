@@ -3,7 +3,7 @@
 
 		<!-- 聊天内容 -->
 		<!-- scroll-view滚动视图  scroll-into-view设置哪个方向可滚动，则在哪个方向滚动到该元素 -->
-		<scroll-view class="chat" scroll-y="true" scroll-with-animation="false" :scroll-into-view="scrollToView">
+		<scroll-view class="chat" scroll-y="true" :scroll-into-view="scrollToView">
 			<!-- 下内边距可滚动 -->
 			<view class="chat-main" :style="{paddingBottom:inputh+'px'}">
 				<!-- 遍历消息列表 -->
@@ -76,6 +76,9 @@
 			this.getPrevious()
 			this.openSocket()
 		},
+		onShow() {
+			this.getPrevious()
+		},
 		onUnload() {
 			this.closeSocket()
 		},
@@ -124,7 +127,7 @@
 						//定时器解决不能跳转到底部
 						setTimeout(()=>{
 							this.goBottom()
-						},1)
+						},80)
 						this.clearMesssage()
 					}
 				});
@@ -179,9 +182,9 @@
 			// 滚动到底部
 			goBottom() {
 				this.scrollToView = '';
-				this.$nextTick(function() {
+				// this.$nextTick(function() {
 					this.scrollToView = 'msg' + (this.msg.length - 1)
-				})
+				// })
 			},
 			// // 开启websocket
 			openSocket(){

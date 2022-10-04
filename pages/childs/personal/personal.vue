@@ -184,6 +184,7 @@
 			align-items: center;
 			.uni-badge-left-margin{
 				position: absolute;
+				z-index: 10;
 				right: 14rpx;
 				top: 3rpx;
 			}

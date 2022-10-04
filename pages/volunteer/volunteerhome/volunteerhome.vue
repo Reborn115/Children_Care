@@ -42,7 +42,7 @@
 				headUrl:'',
 			}
 		},
-		onLoad() {
+		mounted() {
 			this.getdata()
 		},
 		onShow() {

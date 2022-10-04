@@ -85,6 +85,11 @@
 					{title:tit}
 			)
 			this.openSocket()
+			console.log('111')
+		},
+		onShow() {
+			this.getPrevious()
+			console.log('222')
 		},
 		onUnload() {
 			this.closeSocket()
@@ -134,7 +139,7 @@
 						//定时器解决不能跳转到底部
 						setTimeout(()=>{
 							this.goBottom()
-						},1)
+						},80)
 						this.clearMesssage()
 					}
 				});
