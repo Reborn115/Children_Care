@@ -25,7 +25,25 @@
 												></u-upload>
 										</uni-forms-item>
 										<uni-forms-item label="年龄" required name="age">
-											<uni-easyinput type="number" v-model.number="baseFormData.age" placeholder="请输入年龄" />
+											<!-- <uni-easyinput type="number" v-model.number="baseFormData.age" placeholder="请输入年龄" /> -->
+											<u-cell-group>
+														<u-cell
+															@click="showPicker(1)"
+															title="点击选择年龄"
+															isLink
+														>
+															
+														</u-cell>
+													</u-cell-group>
+													<u-picker
+														v-model="baseFormData.age"
+														:value="baseFormData.age"
+														:show="showForm.show1"
+														:columns="Columns1"
+														@change="change(1)"
+														@cancel="cancel(1)"
+														@confirm="confirm1()"
+													></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="性别" required name="sex">
 											<!-- <uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" /> -->
@@ -40,7 +58,25 @@
 											      ></uni-data-select>
 										</uni-forms-item> -->
 										<uni-forms-item label="与儿童关系" required name="relationship">
-											<uni-easyinput v-model="baseFormData.relationship" placeholder="请输入与儿童关系" />
+											<!-- <uni-easyinput v-model="baseFormData.relationship" placeholder="请输入与儿童关系" /> -->
+											<u-cell-group>
+														<u-cell
+															@click="showPicker(2)"
+															title="点击选择与儿童关系"
+															isLink
+														>
+															
+														</u-cell>
+													</u-cell-group>
+													<u-picker
+														v-model="baseFormData.relationship"
+														:value="baseFormData.relationship"
+														:show="showForm.show2"
+														:columns="Columns2"
+														@change="change(2)"
+														@cancel="cancel(2)"
+														@confirm="confirm2()"
+													></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="籍贯" required name="hometown">
 											<uni-easyinput v-model="baseFormData.hometown" placeholder="请输入省市区" />
@@ -49,18 +85,54 @@
 											<uni-easyinput v-model="baseFormData.work" placeholder="请输入工作地址" />
 										</uni-forms-item>
 										<uni-forms-item label="回家情况" name="frequence">
-											<uni-data-select
+											<!-- <uni-data-select
 											        v-model="baseFormData.frequence"
 											        :localdata="frequence"
 											        @change="change"
-											      ></uni-data-select>
+											      ></uni-data-select> -->
+												  <u-cell-group>
+												  			<u-cell
+												  				@click="showPicker(3)"
+												  				title="点击选择回家情况"
+												  				isLink
+												  			>
+												  				
+												  			</u-cell>
+												  		</u-cell-group>
+												  		<u-picker
+												  			v-model="baseFormData.frequence"
+												  			:value="baseFormData.frequence"
+												  			:show="showForm.show3"
+												  			:columns="Columns3"
+												  			@change="change(3)"
+												  			@cancel="cancel(3)"
+												  			@confirm="confirm3()"
+												  		></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="关注软件情况" name="care">
-											<uni-data-select
+											<!-- <uni-data-select
 											        v-model="baseFormData.care"
 											        :localdata="care"
 											        @change="change"
-											      ></uni-data-select>
+											      ></uni-data-select> -->
+												  <u-cell-group>
+												  			<u-cell
+												  				@click="showPicker(4)"
+												  				title="点击选择关注软件情况"
+												  				isLink
+												  			>
+												  				
+												  			</u-cell>
+												  		</u-cell-group>
+												  		<u-picker
+												  			v-model="baseFormData.care"
+												  			:value="baseFormData.care"
+												  			:show="showForm.show4"
+												  			:columns="Columns4"
+												  			@change="change(4)"
+												  			@cancel="cancel(4)"
+												  			@confirm="confirm4()"
+												  		></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="寄语儿童" required name="sayChild">
 											<uni-easyinput v-model="baseFormData.sayChild" placeholder="请输入对儿童的寄语" />
@@ -105,7 +177,24 @@
 					text: '女',
 					value: 1
 				}],
-				
+				showForm:{
+					show1:false,
+					show2:false,
+					show3:false,
+					show4:false
+				},
+				Columns1:[
+					[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+				],
+				Columns2:[
+					["父亲","母亲","其他"]
+				],
+				Columns3:[
+					["一月一次","三月一次","半年一次","一年一次","超过一年才回一次"]
+				],
+				Columns4:[
+					["偶尔","时常","经常"]
+				],
 				relationship:[
 				          { value: 0, text: "父亲" },
 				          { value: 1, text: "母亲" },
@@ -276,6 +365,55 @@
 			this.isCertification=uni.getStorageSync('isCertification')
 		},
 		methods:{
+			change(e) {
+				console.log('change', e);
+			},
+			close(order) {
+				// console.log('close');
+				this.showForm[`show${order}`] = false
+			},
+			confirm1(order) {
+				console.log('confirm', order);
+				this.showForm.show1 = false
+				this.baseFormData.age=order.value[0]
+			},
+			confirm2(order) {
+				console.log('confirm', order);
+				this.showForm.show2 = false
+				this.baseFormData.relationship=order.value[0]
+			},
+			confirm3(order) {
+				console.log('confirm', order);
+				this.showForm.show3 = false
+				this.baseFormData.frequence=order.value[0]
+			},
+			confirm4(order) {
+				console.log('confirm', order);
+				this.showForm.show4 = false
+				this.baseFormData.care=order.value[0]
+			},
+			cancel(order) {
+				// console.log('cancel');
+				this.showForm[`show${order}`] = false
+			},
+			showPicker(order){
+				switch (order){
+					case 1:
+						this.showForm.show1=true;
+						break;
+					case 2:
+						this.showForm.show2=true;
+						break;
+					case 3:
+						this.showForm.show3=true;
+						break;
+					case 4:
+						this.showForm.show4=true;
+						break;
+					default:
+						break;
+				}
+			},
 			submit(ref){
 				this.$refs[ref].validate().then(res => {
 					this.age=this.age-0
@@ -332,9 +470,9 @@
 					console.log('err', err);
 				})
 			},
-			change(e) {
+			/* change(e) {
 			        console.log("e:", e);
-			      },
+			      }, */
 			// 删除图片
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
@@ -395,6 +533,10 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-cell__title-text{
+	font-size: 12px !important;
+	color: #ACACAC !important;
+}
 ::v-deep .uni-forms-item__label{
 	width: 200rpx !important;
 }
@@ -402,11 +544,11 @@
 	margin-top: 30rpx;
 }
 ::v-deep .uni-card{
-	height: 100vh;
+	height: 110vh;
 	padding-bottom: 20rpx;
 }
 .content{
-	height: 100vh;
+	height: 110vh;
 	padding-bottom: 80rpx;
 }
 </style>

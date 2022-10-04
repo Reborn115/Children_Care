@@ -4,6 +4,15 @@
 	},
 	"pages": [
 		/* {
+		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		/* {
 			"path" : "pages/childs/home/details/audioPlayer/audioPlayer",
 			"style" :                                                                                    
 			{
@@ -434,6 +443,15 @@
         }
         ,{
             "path" : "pages/parents/parentsme/parentBind/parentBind",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

@@ -130,7 +130,7 @@
 			},
 			handleText(content){
 				
-				content=content.slice(25)　
+				content=content.slice(18)　
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
