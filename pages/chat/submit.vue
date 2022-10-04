@@ -265,8 +265,8 @@
 
 	.more {
 		width: 100%;
-		// height: 436rpx;
-		height: 556rpx;
+		height: 436rpx;
+		// height: 556rpx;
 		background: rgba(236, 237, 238, 1);
 		box-shadow: 0px 11rpx 0px 0px rgba(0, 0, 0, 0.1);
 		bottom: env(safe-area-inset-bottom);
