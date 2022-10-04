@@ -13,10 +13,15 @@
 		<view class="two">
 			<view class="advise">
 				<view class="tit">
-					实拍图:
+					解决过程图片:
 				</view>
 				<view class="upPic">
-					<!-- <uni-file-picker limit="4"  @select="select" @delete="delete2" file-mediatype="image" title="请提交2-4张互动图片" v-model="imageValue" ></uni-file-picker> -->
+					<image v-for="(item,index) in image" :key="index" :src="item" style="width: 200rpx;height: 200rpx;margin-right: 30rpx;margin-top: 20rpx;"></image>
+				</view>
+				<view class="tit">
+					修改图片:
+				</view>
+				<view class="upPic">
 					<u-upload
 							:fileList="fileList1"
 							@afterRead="afterRead"
@@ -69,16 +74,15 @@
 				number: 0,
 				//一共有多少次
 				volunteerCount:0,
+				//请求回来的实拍图
+				image:[],
 				//第几次列表
 				range: [
 				  // { value: 0, text: "第一次建议" },
-				  // { value: 1, text: "第二次建议" },
-				  // { value: 2, text: "第三次建议" },
 				],
 				//图片列表
-				fileList1:[
-					
-				],
+				fileList1:[],
+				// 上传给后端的图片列表
 				imageList:[],
 				//孩子的状态
 				childmood:'',
@@ -101,36 +105,74 @@
 			},
 		},
 		methods: {
-			//删除图片
 				deletePic(event) {
 					this[`fileList${event.name}`].splice(event.index, 1)
-					this.imageList=this.fileList1.map((item,index)=>{
-						return item.url
+					// console.log(event.index)
+					let arr=this.imageList.filter((item,index)=>{
+						return index!=event.index
 					})
-					// console.log(this.fileList1,'**')
-					console.log(this.imageList,'**')
+					this.imageList=arr
 				},
 				// 新增图片
-				afterRead(event) {
+				async afterRead(event) {
 					// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 					let lists = [].concat(event.file)
-					lists.forEach((item) => {
+					let fileListLen = this[`fileList${event.name}`].length
+					lists.map((item) => {
 						this[`fileList${event.name}`].push({
 							...item,
-							// status: 'uploading',
-							// message: '上传中'
+							status: 'uploading',
+							message: '上传中'
 						})
 					})
-					this.imageList=this.fileList1.map((item,index)=>{
-						return item.url
-					})
-					console.log(this.imageList,'+++')
-					// console.log(this.fileList1,'//')
+					for (let i = 0; i < lists.length; i++) {
+						const result = await this.uploadFilePromise(lists[i].url)
+						let item = this[`fileList${event.name}`][fileListLen]
+						this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
+							status: 'success',
+							message: '',
+							url: result
+						}))
+						fileListLen++
+					}
 				},
-			
+				uploadFilePromise(url) {
+					return new Promise((resolve, reject) => {
+						let a = uni.uploadFile({
+							url: 'https://api.yuleng.top:38088/api/upload',
+							filePath: url,
+							name: 'file',
+							formData: {
+								fileType:1
+							},
+							header: {
+							    "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+							},
+							success: (res) => {
+								res=JSON.parse(res.data)
+								// console.log(res,'1111');
+								// console.log(res.data.files[0].fileUrl,'2222')
+								this.imageList.push(res.data.files[0].fileUrl)
+								setTimeout(() => {
+									resolve(res.data.data)
+								}, 1000)
+							}
+						});
+					})
+				},
+				// 提交
 				submit(){
-					if(this.childmood==''||this.other==''||this.advise==''){
+					if(this.number==0){
+						uni.showToast({
+							title: '请点击添加按钮进行添加',
+							icon:'error',
+							duration: 2000
+						});
+					}
+					else if(this.childmood==''||this.other==''||this.advise==''){
 						console.log(this.imageList.length)
+						console.log(this.fileList1)
 						uni.showToast({
 							title: '请填写完整建议',
 							icon:'error',
@@ -141,13 +183,6 @@
 						uni.showToast({
 							title: '至少添加两个图片',
 							icon:'none',
-							duration: 2000
-						});
-					}
-					else if(this.number==0){
-						uni.showToast({
-							title: '请点击添加按钮进行添加',
-							icon:'error',
 							duration: 2000
 						});
 					}
@@ -173,29 +208,32 @@
 									duration: 2000
 								});
 								// this.number=1
-								this.getnum()
+								this.getnum2()
 								this.show=false
 								this.clickclick=0
 							}
 						});
 					}
 				},
+				// 点击取消
 				cancel(){
 					this.range.pop()
 					this.clickclick=0
 					this.childmood=''
 					this.advise=''
 					this.other=''
-					this.imageValue=[]
+					this.image=[]
+					this.imageList=[]
 					//判断
 					this.number=0
 					if(this.range.length!=0){
 						this.number=1
-						this.getparents()
+						this.getvolunter()
 					}
 					this.show=false
 					// this.disable=false
 				},
+				// 获取建议
 				getvolunter(){
 					if(this.number>0&&this.number<=this.volunteerCount){
 						uni.request({
@@ -220,19 +258,20 @@
 									if(mesg.data.emotionalState){
 										this.childmood=mesg.data.emotionalState
 									}	
-									// if(mesg.data.imageUrlList){
-									// 	this.imageValue=mesg.data.imageUrlList
-									// }	
+									if(mesg.data.imageUrlList){
+										this.image=mesg.data.imageUrlList
+									}
 								}else{
 									this.childmood=''
 									this.advise=''
 									this.other=''
-									this.imageValue=[]
+									this.imageList=[]
 								}
 							}
 						});
 					}
 				},
+				// 获取次数
 				getnum(){
 					this.number=0
 					this.range=[]
@@ -256,14 +295,40 @@
 						}
 					});
 				},
+				// 提交成功后调用
+				getnum2(){
+					this.number=0
+					this.range=[]
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/disabuse/num', 
+						data:{
+							disabuseId:this.id,
+						},
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							if(res.data.data.volunteerCount!=0){
+								this.volunteerCount=res.data.data.volunteerCount
+								let i=1
+								for(i=1;i<=res.data.data.volunteerCount;i++){
+									this.range.push({value:i,text:'第'+i+'次建议'})
+								}
+								this.number=res.data.data.volunteerCount
+							}
+						}
+					});
+				},
+				// 点击增加
 				add(){
 					this.clickclick++
 					if(this.clickclick==1){
 						this.childmood=''
 						this.advise=''
 						this.other=''
-						this.imageValue=[]
-						
+						this.imageList=[]
+						this.image=[]
+						this.fileList1=[]
 						let d=this.volunteerCount+1
 						this.range.push({value:d,text:'第'+d+'次建议'})
 						this.number=this.volunteerCount+1
@@ -271,22 +336,7 @@
 						// this.disable=true
 					}
 				},
-				select(e){
-					console.log(e)
-					this.imageValue.push(...e.tempFilePaths)
-					console.log(this.imageValue,'666')
-					
-				},
-				delete2(e){
-					console.log(e)
-					// for(let i=0;i<this.imageValue.length;i++){
-					// 	if(this.imageValue[i]==e.tempFile){
-					// 		this.imageValue.splice(i,1)
-					// 	}
-					// }
-					// console.log(this.imageValue,'555')
-				}
-			},
+			}
 			
 		}
 </script>

@@ -64,8 +64,9 @@
 				myLove:0,
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getdata()
+			this.getmessageNumber()
 		},
 		methods: {
 			//打开切换模式弹窗
@@ -85,12 +86,23 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
-						// console.log(this.data,"ziliao")
 						this.img=res.data.data.headPicUrl
 						this.name=res.data.data.userName
-						this.messageNumber=res.data.data.messageNumber
-						this.download=res.data.data.download
-						this.myLove=res.data.data.myLove
+						// this.messageNumber=res.data.data.messageNumber
+						// this.download=res.data.data.download
+						// this.myLove=res.data.data.myLove
+					}
+				});
+			},
+			// 单独获取未读消息数{
+			getmessageNumber(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-num-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.messageNumber=res.data.data.total
 					}
 				});
 			},
@@ -103,7 +115,7 @@
 				uni.removeStorage({
 					key: 'token',
 					success: function () {
-						uni.navigateTo({
+						uni.reLaunch({
 							url:"/pages/users/login/login"
 						})
 					}
@@ -152,7 +164,7 @@
 			align-items: center;
 			.uni-badge-left-margin{
 				position: absolute;
-				right: 8rpx;
+				right: 14rpx;
 				top: 3rpx;
 			}
 		}

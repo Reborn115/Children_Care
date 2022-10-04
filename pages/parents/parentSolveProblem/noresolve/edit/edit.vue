@@ -49,8 +49,6 @@
 				parentCount:0,
 				range: [
 				  // { value: 1, text: "第一次建议" },
-				  // { value: 2, text: "第二次建议" },
-				  // { value: 3, text: "第三次建议" },
 				],
 				// 输入的建议
 				advise:'',
@@ -66,7 +64,6 @@
 		},
 		onLoad(e){
 			this.id = JSON.parse(e.id)
-			// this.disable=false
 			this.getnum()
 		},
 		watch:{
@@ -77,16 +74,16 @@
 		methods: {
 			// 点击提交
 			submit(){
-				if(this.advise==''||this.other==''){
+				if(this.number==0){
 					uni.showToast({
-						title: '请填写完整建议',
+						title: '请点击添加按钮',
 						icon:'error',
 						duration: 2000
 					});
 				}
-				else if(this.number==0){
+				else if(this.advise==''||this.other==''){
 					uni.showToast({
-						title: '请点击添加按钮进行添加',
+						title: '请填写完整建议',
 						icon:'error',
 						duration: 2000
 					});
@@ -113,9 +110,8 @@
 								duration: 2000
 							});
 							this.clickclick=0
-							this.getnum()
+							this.getnum2()
 							this.show=false
-							// this.disable=false
 						}
 					});
 				}
@@ -132,19 +128,6 @@
 					this.getparents()
 				}
 				this.show=false
-				
-				// if(this.range.length==0){
-				// 	this.range=[{ value: 0, text: "暂无数据" },]
-				// 	this.number=0
-				// 	this.advise=''
-				// 	this.other=''
-				// }else{
-				// 	//判断
-				// 	this.number=1
-				// 	this.getparents()
-				// }
-				// this.show=false
-				
 			},
 			//获取之前的建议
 			getparents(){
@@ -191,14 +174,37 @@
 					success: (res) => {
 						// console.log(res,'次数')
 						if(res.data.data.parentCount!=0){
-							// if(this.number==0){
-								this.number=1
-							// }
+							this.number=1
 							this.parentCount=res.data.data.parentCount
 							let i=1
 							for(i=1;i<=res.data.data.parentCount;i++){
 								this.range.push({value:i,text:'第'+i+'次建议'})
 							}
+						}
+					}
+				});
+			},
+			//成功提交以后
+			getnum2(){
+				this.number=0
+				this.range=[]
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/num', 
+					data:{
+						disabuseId:this.id,
+					},
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						// console.log(res,'次数')
+						if(res.data.data.parentCount!=0){
+							this.parentCount=res.data.data.parentCount
+							let i=1
+							for(i=1;i<=res.data.data.parentCount;i++){
+								this.range.push({value:i,text:'第'+i+'次建议'})
+							}
+							this.number=res.data.data.parentCount
 						}
 					}
 				});
@@ -213,28 +219,6 @@
 					this.range.push({value:d,text:'第'+d+'次建议'})
 					this.number=this.parentCount+1
 					this.show=true
-				
-				// this.clickclick++
-				// if(this.clickclick==1){
-				// 	this.advise=''
-				// 	this.other=''
-				// 	let d=this.parentCount+1
-				// 	if(this.range.length==0){
-				// 		this.range.push({value:d,text:'第'+d+'次建议'})
-				// 		this.number=this.parentCount+1
-				// 	}else{
-				// 		if(this.range[0].value==0){
-				// 			this.range=[]
-				// 			this.range.push({value:1,text:'第'+1+'次建议'})
-				// 			this.number=1
-				// 		}else{
-				// 			this.range.push({value:d,text:'第'+d+'次建议'})
-				// 			this.number=this.parentCount+1
-				// 		}
-				// 	}
-				// 	this.show=true
-				// 	this.disable=true
-				
 				}
 			}
 		}

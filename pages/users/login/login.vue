@@ -169,7 +169,7 @@
 									/* uni.switchTab({
 									  url: "/pages/parents/homepage/homepage",
 									}); */
-									uni.navigateTo({
+									uni.reLaunch({
 									  url: "/pages/parents/homepage/homepage",
 									});
 									/* uni.reLaunch({

@@ -67,15 +67,19 @@
 	export default {
 		data() {
 			return {
+				// 头像
 				img:'',
+				// 名字
 				name:'',
+				// 未读消息
 				messageNumber:0,
 				download:0,
 				myLove:0,
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getdata()
+			this.getmessageNumber()
 		},
 		methods: {
 			//进入个人资料页面
@@ -106,9 +110,9 @@
 						// console.log(this.data,"ziliao")
 						this.img=res.data.data.headPicUrl
 						this.name=res.data.data.userName
-						this.messageNumber=res.data.data.messageNumber
-						this.download=res.data.data.download
-						this.myLove=res.data.data.myLove
+						// this.messageNumber=res.data.data.messageNumber
+						// this.download=res.data.data.download
+						// this.myLove=res.data.data.myLove
 					}
 				});
 			},
@@ -133,12 +137,24 @@
 				uni.removeStorage({
 					key: 'token',
 					success: function () {
-						uni.navigateTo({
+						uni.reLaunch({
 							url:"/pages/users/login/login"
 						})
 					}
 				});
 			},
+			// 获取未读消息
+			getmessageNumber(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-num-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.messageNumber=res.data.data.total
+					}
+				});
+			}
 		}
 	}
 </script>
@@ -182,7 +198,7 @@
 			align-items: center;
 			.uni-badge-left-margin{
 				position: absolute;
-				right: 8rpx;
+				right: 14rpx;
 				top: 3rpx;
 			}
 		}

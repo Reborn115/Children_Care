@@ -126,10 +126,7 @@
 			//点击修改问题状态的确认按钮
 			dialogConfirm() {
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/disabuse/solve', 
-					data:{
-						disabuseId:this.id,
-					},
+					url: 'https://api.yuleng.top:38088/api/disabuse/solve?disabuseId='+JSON.stringify(this.id), 
 					method:'POST',
 					header: {
 						'token': uni.getStorageSync('token'), //自定义请求头信息
@@ -256,6 +253,6 @@
 			line-height: 80rpx;
 			margin-top: 55rpx;
 			background-color: #ffedbc;
-			border: 1px solid #fff5d0;
+			// border: 1px solid #fff5d0;
 		}
 </style>

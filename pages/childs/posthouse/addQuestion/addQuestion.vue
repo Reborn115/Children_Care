@@ -67,14 +67,7 @@
 	export default {
 		data() {
 			return {
-				//按钮背景色
-				active1:false,
-				active2:false,
-				active3:false,
-				active4:false,
-				active5:false,
-				active6:false,
-				active7:false,
+				// 问题类型
 				typelist:[{
 					text: '心理',
 					value: 1
@@ -161,10 +154,7 @@
 						header: {
 							'token': uni.getStorageSync('token'), //自定义请求头信息
 						},
-						success: (res) => {
-							uni.switchTab({
-								url:"/pages/childs/posthouse/posthouse"
-							})
+						success: () => {
 							uni.showToast({
 								title: '提交成功',
 								icon:'success',
@@ -175,6 +165,7 @@
 					});
 				}
 			},
+			// 取消添加退出页面
 			cancel(){
 				uni.switchTab({
 					url:"/pages/childs/posthouse/posthouse"
@@ -263,9 +254,10 @@
 					line-height: 63rpx;
 				}
 				.mini-btn2{
+					float: right;
 					font-size: 29rpx;
 					color: #424242;
-					margin-left: 55rpx;
+					margin-right: 55rpx;
 					background-color: #999a9a;
 					height: 63rpx;
 					width: 226rpx;

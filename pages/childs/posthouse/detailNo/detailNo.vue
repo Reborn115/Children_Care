@@ -62,6 +62,7 @@
 			this.gedetail()
 		},
 		methods: {
+			// 获取问题详情
 			gedetail(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse', 
@@ -83,6 +84,7 @@
 					}
 				});
 			},
+			// 去往交流区
 			gochat(){
 				uni.navigateTo({
 					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
