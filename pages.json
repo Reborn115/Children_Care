@@ -3,15 +3,15 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		{
-		    "path" : "pages/chat/vedio/vedio",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
+		// {
+		//     "path" : "pages/chat/vedio/vedio",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
 		    
-		},
+		// },
 		/* {
 		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
 		    "style" :                                                                                    
