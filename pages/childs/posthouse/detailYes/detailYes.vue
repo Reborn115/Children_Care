@@ -123,9 +123,16 @@
 				// 志愿者选择的第几次
 				range2: [],
 				//父母建议
-				parentsAdvise:'',
+				parentsAdvise:{
+					advise:'暂无数据',
+					other:'暂无数据'
+				},
 				//志愿者建议
-				volunterAdvise:'',
+				volunterAdvise:{
+					emotionalState:'暂无数据',
+					suggestion:'暂无数据',
+					other:'暂无数据',
+				},
 			}
 		},
 		onLoad(e){

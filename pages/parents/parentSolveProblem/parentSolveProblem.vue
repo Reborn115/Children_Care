@@ -1,6 +1,9 @@
 <!-- 不用 -->
 <template>
 	<view class="body">
+		<view class="picture" v-if="show">
+			<image src="../../../static/nodata.png" style="width: 700rpx;height: 640rpx;"></image>
+		</view>
 		<!-- //未解决 -->
 		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id)">
 			<view class="one">
@@ -45,6 +48,7 @@
 			return {
 				nolist:[],
 				yeslist:[],
+				show:false
 			}
 		},
 		onLoad() {
@@ -102,6 +106,11 @@
 					success: (res) => {
 						this.nolist=[]
 						this.yeslist=[]
+						if(res.data.data.disabuseResultList.length==0){
+							this.show=true
+						}else{
+							this.show=false
+						}
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
 							item.itme=this.changeTime(item.time)
@@ -130,6 +139,11 @@
 .body{
 	padding-bottom: 7vh;
 }
+.picture{
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
  .box{
 	width: 86vw;
 	height: 17vh;

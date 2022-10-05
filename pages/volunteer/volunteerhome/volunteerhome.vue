@@ -65,16 +65,15 @@ export default {
       hellomsg: "",
       question: "",
       headUrl: "",
+	  timer:""
     };
-  },
-  onLoad() {
-    this.getdata();
   },
   onShow() {
     uni.setStorage({
       key: "isCertification",
       data: 1,
     });
+	this.timer = setInterval(this.getdata, 60000);
     this.getdata();
   },
   mounted() {

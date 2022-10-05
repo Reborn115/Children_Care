@@ -1,20 +1,23 @@
 <template>
 	<view>
+		<view class="picture" v-if="show">
+			<image src="../../../static/nodata.png" style="width: 700rpx;height: 640rpx;"></image>
+		</view>
 		<!-- //未解决 -->
-		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id)">
-			<view class="one">
-				<view class="title">提出的问题</view>
-				<view class="status">
+		<view class="box1" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id)">
+			<view class="one1">
+				<view class="title1">提出的问题</view>
+				<view class="status1">
 					未解决
 				</view>
 			</view>
-			<view class="two">
-				<view class="every">{{item.type}}</view>
-				<view class="every">{{item.solveType}}</view>
-				<view class="every">{{item.isNowSolve}}</view>
+			<view class="two1">
+				<view class="every1">{{item.type}}</view>
+				<view class="every1">{{item.solveType}}</view>
+				<view class="every1">{{item.isNowSolve}}</view>
 			</view>
-			<view class="three">
-				<text class="time">{{item.itme}}</text>
+			<view class="three1">
+				<text class="time1">{{item.itme}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
@@ -48,6 +51,7 @@
 			return {
 				nolist:[],
 				yeslist:[],
+				show:false
 			}
 		},
 		onLoad() {
@@ -118,6 +122,11 @@
 					success: (res) => {
 						this.nolist=[]
 						this.yeslist=[]
+						if(res.data.data.disabuseResultList.length==0){
+							this.show=true
+						}else{
+							this.show=false
+						}
 						// 数组翻转
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
@@ -145,24 +154,82 @@
 </script>
 
 <style lang="scss" scoped>
+.picture{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+ .box1{
+	width: 84vw;
+	height: 17vh;
+	background-color: #f9dad5;
+	margin-left: 7vw;
+	border-radius: 6px;
+	margin-top: 3vh;
+	// box-shadow: 0px 0px 8px #88888873;
+	border: 1px solid #f9dad5;
+	border-left: 20rpx solid #ff938c;
+	.one1{
+		margin-top: 1.5vh;
+		.title1{
+			display: inline-block;
+			font-size: 42rpx;
+			color: #424242;
+			font-weight: 700;
+			margin-left: 5vw;
+		}
+		.status1{
+			display: inline-block;
+			color: #d1292f;
+			float: right;
+			margin-right: 50rpx;
+		}
+		.status2{
+			display: inline-block;
+			color: #797979;
+			float: right;
+			margin-right: 50rpx;
+		}
+	}
+	.two1{
+		margin-top: 2vh;
+		.every1{
+			display: inline-block;
+			// background-color: #a7d9c8;
+			margin-left: 5vw;
+			color: #6f6f6f;
+			border-radius: 10rpx;
+		}
+	}
+	.three1{
+		margin-top: 2vh;
+		.time1{
+			color: #6f6f6f;
+			float: right;
+			margin-right: 4vw;
+		}
+	}
+ }
+
 
  .box{
-	width: 86vw;
+	width: 84vw;
 	height: 17vh;
-	background-color: #f3c9ac;
-	// background-color: #b0def7;
+	background-color: #d5eae3;
 	margin-left: 7vw;
-	border-radius: 10px;
+	border-radius: 6px;
 	margin-top: 3vh;
-	box-shadow: 0px 0px 8px #88888873;
-	border: 1px solid #f3c9ac;
+	// box-shadow: 0px 0px 8px #88888873;
+	border: 1px solid #d5eae3;
+	border-left: 20rpx solid #a7d9c8;
 	.one{
 		margin-top: 1.5vh;
 		.title{
 			display: inline-block;
 			font-size: 42rpx;
 			color: #424242;
-			font-weight: 600;
+			font-weight: 700;
 			margin-left: 5vw;
 		}
 		.status{
@@ -182,7 +249,7 @@
 		margin-top: 2vh;
 		.every{
 			display: inline-block;
-			background-color: #ffdc4c;
+			// background-color: #ffdc4c;
 			margin-left: 5vw;
 			color: #6f6f6f;
 			border-radius: 10rpx;

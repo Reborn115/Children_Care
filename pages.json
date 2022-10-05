@@ -246,7 +246,7 @@
             "path" : "pages/parents/parentsme/parentsme",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false
             }
             
@@ -274,7 +274,7 @@
             "path" : "pages/volunteer/problem/problem",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "问题列表",
                 "enablePullDownRefresh": true
             }
         }
@@ -291,7 +291,7 @@
             "path" : "pages/volunteer/volunterMe/volunterMe",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false
             }
             

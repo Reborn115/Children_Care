@@ -1,20 +1,23 @@
 <template>
 	<view class="body">
+		<view class="picture" v-if="show">
+			<image src="../../../static/nodata5.png" style="width: 700rpx;height: 640rpx;"></image>
+		</view>
 		<!-- //未解决 -->
-		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id,item.isAnonymous)">
-			<view class="one">
-				<view class="title">{{item.name}}提出问题</view>
-				<view class="status">
+		<view class="box1" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.id,item.isAnonymous)">
+			<view class="one1">
+				<view class="title1">{{item.name}}提出问题</view>
+				<view class="status1">
 					未解决
 				</view>
 			</view>
-			<view class="two">
-				<view class="every">{{item.type}}</view>
-				<view class="every">{{item.solveType}}</view>
-				<view class="every">{{item.isNowSolve}}</view>
+			<view class="two1">
+				<view class="every1">{{item.type}}</view>
+				<view class="every1">{{item.solveType}}</view>
+				<view class="every1">{{item.isNowSolve}}</view>
 			</view>
-			<view class="three">
-				<text class="time">{{item.itme}}</text>
+			<view class="three1">
+				<text class="time1">{{item.itme}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
@@ -34,7 +37,7 @@
 				<text class="time">{{item.itme}}</text>
 			</view>
 		</view>
-		<view class="tip"><text class="content">仅展示最近三天的提问情况</text></view>
+		<view class="tip"><text class="content">仅展示最近{{text}}的提问情况</text></view>
 	</view>
 </template>
 
@@ -46,10 +49,12 @@
 				yeslist:[],
 				where:0,
 				day:0,
-				text:'无数据'
+				text:'无数据',
+				show:false
 			}
 		},
 		onLoad(e) {
+			console.log(e)
 			this.where=JSON.parse(e.where)
 			this.day=JSON.parse(e.day)
 			if(this.day==7){
@@ -119,6 +124,11 @@
 					success: (res) => {
 						this.nolist=[]
 						this.yeslist=[]
+						if(res.data.data.disabuseResultList.length==0){
+							this.show=true
+						}else{
+							this.show=false
+						}
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
 							item.itme=this.changeTime(item.time)
@@ -147,66 +157,211 @@
 .body{
 	padding-bottom: 7vh;
 }
- .box{
-	width: 86vw;
-	height: 17vh;
-	background-color: #f3c9ac;
-	// background-color: #f7ba92;
-	margin-left: 7vw;
-	border-radius: 10px;
-	margin-top: 3vh;
-	box-shadow: 0px 0px 8px #88888873;
-	border: 1px solid #f3c9ac;
-	.one{
-		margin-top: 1.5vh;
-		.title{
-			display: inline-block;
-			font-size: 42rpx;
-			color: #424242;
-			font-weight: 600;
-			margin-left: 5vw;
-		}
-		.status{
-			display: inline-block;
-			color: #d1292f;
-			float: right;
-			margin-right: 50rpx;
-		}
-		.status2{
-			display: inline-block;
-			color: #797979;
-			float: right;
-			margin-right: 50rpx;
-		}
+.picture{
+		display: flex;
+		justify-content: center;
+		width: 100%;
 	}
-	.two{
-		margin-top: 2vh;
-		.every{
-			display: inline-block;
-			background-color: #ffdc4c;
-			margin-left: 5vw;
-			color: #6f6f6f;
-			border-radius: 10rpx;
+	
+	.box1{
+		width: 84vw;
+		height: 17vh;
+		background-color: #f9dad5;
+		margin-left: 7vw;
+		border-radius: 6px;
+		margin-top: 3vh;
+		// box-shadow: 0px 0px 8px #88888873;
+		border: 1px solid #f9dad5;
+		border-left: 20rpx solid #ff938c;
+		.one1{
+			margin-top: 1.5vh;
+			.title1{
+				display: inline-block;
+				font-size: 42rpx;
+				color: #424242;
+				font-weight: 700;
+				margin-left: 5vw;
+			}
+			.status1{
+				display: inline-block;
+				color: #d1292f;
+				float: right;
+				margin-right: 50rpx;
+			}
+			.status2{
+				display: inline-block;
+				color: #797979;
+				float: right;
+				margin-right: 50rpx;
+			}
 		}
-	}
-	.three{
-		margin-top: 2vh;
-		.time{
-			color: #6f6f6f;
-			float: right;
-			margin-right: 4vw;
+		.two1{
+			margin-top: 2vh;
+			.every1{
+				display: inline-block;
+				// background-color: #a7d9c8;
+				margin-left: 5vw;
+				color: #6f6f6f;
+				border-radius: 10rpx;
+			}
 		}
-	}
- }
- 
- .tip{
-	 height: 3vh;
-	 margin-top: 1.5vh;
-	 .content{
-		 font-size: 28rpx;
-		 color: #6f6f6f;
-		 margin-right: 8vw;
-		 float: right;
+		.three1{
+			margin-top: 2vh;
+			.time1{
+				color: #6f6f6f;
+				float: right;
+				margin-right: 4vw;
+			}
+		}
 	 }
- }
+	
+	
+	 .box{
+		width: 84vw;
+		height: 17vh;
+		background-color: #d5eae3;
+		margin-left: 7vw;
+		border-radius: 6px;
+		margin-top: 3vh;
+		// box-shadow: 0px 0px 8px #88888873;
+		border: 1px solid #d5eae3;
+		border-left: 20rpx solid #a7d9c8;
+		.one{
+			margin-top: 1.5vh;
+			.title{
+				display: inline-block;
+				font-size: 42rpx;
+				color: #424242;
+				font-weight: 700;
+				margin-left: 5vw;
+			}
+			.status{
+				display: inline-block;
+				color: #d1292f;
+				float: right;
+				margin-right: 50rpx;
+			}
+			.status2{
+				display: inline-block;
+				color: #797979;
+				float: right;
+				margin-right: 50rpx;
+			}
+		}
+		.two{
+			margin-top: 2vh;
+			.every{
+				display: inline-block;
+				// background-color: #ffdc4c;
+				margin-left: 5vw;
+				color: #6f6f6f;
+				border-radius: 10rpx;
+			}
+		}
+		.three{
+			margin-top: 2vh;
+			.time{
+				color: #6f6f6f;
+				float: right;
+				margin-right: 4vw;
+			}
+		}
+	 }
+	 
+	 .tip{
+		 height: 3vh;
+		 margin-top: 1.5vh;
+		 .content{
+			 font-size: 28rpx;
+			 color: #6f6f6f;
+			 margin-right: 8vw;
+			 float: right;
+		 }
+	 }
+	.button{
+		margin-top:3vh;
+		height: 9vh;
+		.mini-btn1{
+			font-size: 29rpx;
+			color: #424242;
+			margin-left: 7vw;
+			background-color: #b0def7;
+			height: 6vh;
+			width: 38vw;
+			line-height: 6vh;
+		}
+		.mini-btn2{
+			font-size: 29rpx;
+			color: #424242;
+			margin-left: 10vw;
+			background-color: #ebbda4;
+			height: 6vh;
+			width: 38vw;
+			line-height: 6vh;
+		}
+	}
+	
+	
+ // .box{
+	// width: 86vw;
+	// height: 17vh;
+	// background-color: #f3c9ac;
+	// // background-color: #f7ba92;
+	// margin-left: 7vw;
+	// border-radius: 10px;
+	// margin-top: 3vh;
+	// box-shadow: 0px 0px 8px #88888873;
+	// border: 1px solid #f3c9ac;
+	// .one{
+	// 	margin-top: 1.5vh;
+	// 	.title{
+	// 		display: inline-block;
+	// 		font-size: 42rpx;
+	// 		color: #424242;
+	// 		font-weight: 600;
+	// 		margin-left: 5vw;
+	// 	}
+	// 	.status{
+	// 		display: inline-block;
+	// 		color: #d1292f;
+	// 		float: right;
+	// 		margin-right: 50rpx;
+	// 	}
+	// 	.status2{
+	// 		display: inline-block;
+	// 		color: #797979;
+	// 		float: right;
+	// 		margin-right: 50rpx;
+	// 	}
+	// }
+	// .two{
+	// 	margin-top: 2vh;
+	// 	.every{
+	// 		display: inline-block;
+	// 		background-color: #ffdc4c;
+	// 		margin-left: 5vw;
+	// 		color: #6f6f6f;
+	// 		border-radius: 10rpx;
+	// 	}
+	// }
+	// .three{
+	// 	margin-top: 2vh;
+	// 	.time{
+	// 		color: #6f6f6f;
+	// 		float: right;
+	// 		margin-right: 4vw;
+	// 	}
+	// }
+ // }
+ 
+ // .tip{
+	//  height: 3vh;
+	//  margin-top: 1.5vh;
+	//  .content{
+	// 	 font-size: 28rpx;
+	// 	 color: #6f6f6f;
+	// 	 margin-right: 8vw;
+	// 	 float: right;
+	//  }
+ // }
 </style>
