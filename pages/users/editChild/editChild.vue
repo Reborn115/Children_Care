@@ -25,7 +25,25 @@
 												></u-upload>
 										</uni-forms-item>
 										<uni-forms-item label="年龄" required name="age">
-											<uni-easyinput v-model="baseFormData.age" placeholder="请输入年龄" />
+											<!-- <uni-easyinput type="number" v-model.number="baseFormData.age" placeholder="请输入年龄" /> -->
+											<u-cell-group>
+														<u-cell
+															@click="showPicker(1)"
+															title="点击选择年龄"
+															isLink
+														>
+															
+														</u-cell>
+													</u-cell-group>
+													<u-picker
+														v-model="baseFormData.age"
+														:value="baseFormData.age"
+														:show="showForm.show1"
+														:columns="Columns1"
+														@change="change(1)"
+														@cancel="cancel(1)"
+														@confirm="confirm1()"
+													></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="性别" required name="sex">
 											<!-- <uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" /> -->
@@ -38,7 +56,25 @@
 										</uni-forms-item>
 																				
 										<uni-forms-item label="年级" required name="level">
-											<uni-easyinput v-model="baseFormData.level" placeholder="请输入年级" />
+											<!-- <uni-easyinput v-model="baseFormData.level" placeholder="请输入年级" /> -->
+											<u-cell-group>
+														<u-cell
+															@click="showPicker(2)"
+															title="点击选择年级"
+															isLink
+														>
+															
+														</u-cell>
+													</u-cell-group>
+													<u-picker
+														v-model="baseFormData.level"
+														:value="baseFormData.level"
+														:show="showForm.show2"
+														:columns="Columns2"
+														@change="change(2)"
+														@cancel="cancel(2)"
+														@confirm="confirm2()"
+													></u-picker>
 										</uni-forms-item>
 										<uni-forms-item label="个性签名" required name="sign">
 											<uni-easyinput v-model="baseFormData.sign" placeholder="请输入个性签名" />
@@ -66,6 +102,10 @@
 					level:'',
 					sign:'',
 				},
+				showForm:{
+					show1:false,
+					show2:false
+				},
 				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				fileList1: [],
 				sex: [{
@@ -75,13 +115,21 @@
 					text: '女',
 					value: 1
 				}],
+				Columns1:[
+					[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+					
+				],
+				Columns2:[
+					["学龄前","幼儿园","一年级","二年级","三年级","四年级","五年级","六年级","初一","初二","初三","高一","高二","高三","大一","大二"],
+					
+				],
 				rules:{
 					sign:{
 						//账号检验
 						rules:[
 							{
 								required:true,
-								errorMessage:'请填写年级'
+								errorMessage:'请填写个性签名'
 							},
 							{
 								minLength:1,
@@ -89,7 +137,7 @@
 								errorMessage:'{label}长度在{minLength}到{maxLength}个字符'
 							}
 						],
-						label:'年级',
+						label:'个性签名',
 						validateTrigger:'submit'
 					},
 					level:{
@@ -97,13 +145,13 @@
 						rules:[
 							{
 								required:true,
-								errorMessage:'请填写年级'
+								errorMessage:'请选择年级'
 							},
-							{
+							/* {
 								minLength:1,
 								maxLength:10,
 								errorMessage:'{label}长度在{minLength}到{maxLength}个字符'
-							}
+							} */
 						],
 						label:'年级',
 						validateTrigger:'submit'
@@ -113,13 +161,13 @@
 						rules:[
 							{
 								required:true,
-								errorMessage:'请填写年龄'
+								errorMessage:'请选择年龄'
 							},
-							{
+							/* {
 								minLength:1,
 								maxLength:2,
 								errorMessage:'{label}长度在{minLength}到{maxLength}个字符'
-							}
+							} */
 						],
 						label:'年龄',
 						validateTrigger:'submit'
@@ -162,6 +210,42 @@
 			this.isCertification=uni.getStorageSync('isCertification')
 		},
 		methods:{
+			close(order) {
+				// console.log('close');
+				this.showForm[`show${order}`] = false
+			},
+			confirm1(order) {
+				console.log('confirm', order);
+				this.showForm.show1 = false
+				this.baseFormData.age=order.value[0]
+			},
+			confirm2(order) {
+				console.log('confirm', order);
+				this.showForm.show2 = false
+				this.baseFormData.level=order.value[0]
+			},
+			cancel(order) {
+				// console.log('cancel');
+				this.showForm[`show${order}`] = false
+			},
+			showPicker(order){
+				switch (order){
+					case 1:
+						this.showForm.show1=true;
+						break;
+					case 2:
+						this.showForm.show2=true;
+						break;
+					case 3:
+						this.showForm.show3=true;
+						break;
+					case 4:
+						this.showForm.show4=true;
+						break;
+					default:
+						break;
+				}
+			},
 			submit(ref){
 				this.$refs[ref].validate().then(res => {
 					this.age=this.age-0
@@ -279,6 +363,10 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-cell__title-text{
+	font-size: 12px !important;
+	color: #ACACAC !important;
+}
 ::v-deep .uni-forms-item__label{
 	width: 200rpx !important;
 }

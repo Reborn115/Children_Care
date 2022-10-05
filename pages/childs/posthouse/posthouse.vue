@@ -55,7 +55,10 @@
 			this.yeslist=[],
 			this.getList()
 		},
+		//下拉刷新更新数据
 		onPullDownRefresh() {
+			// this.nolist=[],
+			// this.yeslist=[],
 			this.getList()
 		},
 		methods: {
@@ -81,26 +84,31 @@
 				}
 				return Y+'/'+M+'/'+D +' '+' '+ h+':'+m
 			},
+			//进入增加问题界面
 			addQuestion(){
 				uni.navigateTo({
 					url:'/pages/childs/posthouse/addQuestion/addQuestion'
 				})
 			},
+			//进入成长档案界面
 			lookAll(){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/lookAll/lookAll'
+					url:'/pages/childs/posthouse/lookAll/lookAll?where=1'
 				})
 			},
+			// 未解决问题
 			detailNo(id){
 				uni.navigateTo({
 					url:"/pages/childs/posthouse/detailNo/detailNo?id="+JSON.stringify(id)
 				})
 			},
+			// 已解决问题
 			detailYes(id){
 				uni.navigateTo({
 					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
 			},
+			// 获取问题列表
 			getList(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
@@ -108,8 +116,11 @@
 						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
-						// console.log(res);
-						res.data.data.disabuseResultList.forEach((item)=>{
+						this.nolist=[]
+						this.yeslist=[]
+						// 数组翻转
+						let list=res.data.data.disabuseResultList.reverse()
+						list.forEach((item)=>{
 							item.itme=this.changeTime(item.time)
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
@@ -122,7 +133,9 @@
 								this.nolist.push(item);
 							}
 						})
-						wx.stopPullDownRefresh() 
+						setTimeout(function(){
+							uni.stopPullDownRefresh();
+						},1000)
 					}
 				});
 				

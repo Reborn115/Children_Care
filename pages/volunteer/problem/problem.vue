@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<!-- 已解决 -->
-		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.id,item.isAnonymous)">
+		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.id)">
 			<view class="one">
 				<view class="title">{{item.name}}提出问题</view>
 				<view class="status2">
@@ -44,19 +44,29 @@
 			return {
 				nolist:[],
 				yeslist:[],
+				where:0,
+				day:0,
+				text:'无数据'
 			}
 		},
-		// onLoad() {
-		// 	this.nolist=[],
-		// 	this.yeslist=[],
-		// 	this.getList()
-		// },
-		onShow(){
+		onLoad(e) {
+			this.where=JSON.parse(e.where)
+			this.day=JSON.parse(e.day)
+			if(this.day==7){
+				this.text='一周'
+			}
+			if(this.day==3){
+				this.text='三天'
+			}
 			this.nolist=[],
 			this.yeslist=[],
 			this.getList()
 		},
+		onPullDownRefresh() {
+			this.getList()
+		},
 		methods: {
+			//时间转换
 			changeTime(e){
 				let old = new Date(e*1000);
 				//获取old具体时间
@@ -80,16 +90,26 @@
 				}
 				return Y+'/'+M+'/'+D +' '+' '+ h+':'+m
 			},
+			//未解决问题
 			detailNo(id,isAnonymous){
+				if(this.where==2){
+					uni.navigateTo({
+						url:"/pages/parents/parentSolveProblem/noresolve/noresolve?id="+JSON.stringify(id)
+					})
+				}
+				if(this.where==3){
+					uni.navigateTo({
+						url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
+					})
+				}
+			},
+			//已解决问题
+			detailYes(id){
 				uni.navigateTo({
-					url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
+					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
 			},
-			detailYes(id,isAnonymous){
-				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
-				})
-			},
+			// 获取问题列表
 			getList(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
@@ -97,8 +117,10 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
-						// console.log(res);
-						res.data.data.disabuseResultList.forEach((item)=>{
+						this.nolist=[]
+						this.yeslist=[]
+						let list=res.data.data.disabuseResultList.reverse()
+						list.forEach((item)=>{
 							item.itme=this.changeTime(item.time)
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
@@ -107,13 +129,13 @@
 							}
 							if(item.isFinish==1){
 								this.yeslist.push(item);
-							}
-							if(item.isFinish==0){
+							}else{
 								this.nolist.push(item);
 							}
 						})
-						// console.log(this.yeslist);
-						// console.log(this.nolist);
+						setTimeout(function(){
+							uni.stopPullDownRefresh();
+						},1000)
 					}
 				});
 			}

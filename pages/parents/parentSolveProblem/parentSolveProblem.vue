@@ -1,3 +1,4 @@
+<!-- 不用 -->
 <template>
 	<view class="body">
 		<!-- //未解决 -->
@@ -46,17 +47,16 @@
 				yeslist:[],
 			}
 		},
-		// onLoad() {
-		// 	this.nolist=[],
-		// 	this.yeslist=[],
-		// 	this.getList()
-		// },
-		onShow(){
+		onLoad() {
 			this.nolist=[],
 			this.yeslist=[],
 			this.getList()
 		},
+		onPullDownRefresh() {
+			this.getList()
+		},
 		methods: {
+			//转换时间
 			changeTime(e){
 				let old = new Date(e*1000);
 				//获取old具体时间
@@ -80,25 +80,30 @@
 				}
 				return Y+'/'+M+'/'+D +' '+' '+ h+':'+m
 			},
+			//未解决问题
 			detailNo(id){
 				uni.navigateTo({
 					url:"/pages/parents/parentSolveProblem/noresolve/noresolve?id="+JSON.stringify(id)
 				})
 			},
+			//已解决问题
 			detailYes(id){
 				uni.navigateTo({
 					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
 			},
+			// 获取解惑列表
 			getList(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
 					header: {
-						'token': uni.getStorageSync('token'), //自定义请求头信息
+						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
-						// console.log(res);
-						res.data.data.disabuseResultList.forEach((item)=>{
+						this.nolist=[]
+						this.yeslist=[]
+						let list=res.data.data.disabuseResultList.reverse()
+						list.forEach((item)=>{
 							item.itme=this.changeTime(item.time)
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
@@ -107,13 +112,13 @@
 							}
 							if(item.isFinish==1){
 								this.yeslist.push(item);
-							}
-							if(item.isFinish==0){
+							}else{
 								this.nolist.push(item);
 							}
 						})
-						// console.log(this.yeslist);
-						// console.log(this.nolist);
+						setTimeout(function(){
+							uni.stopPullDownRefresh();
+						},1000)
 					}
 				});
 			},

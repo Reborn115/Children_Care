@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="toppic" @click="gochat">
-			<view class="area1">
+		<view class="toppic">
+			<view class="area1" @click="gochat">
 				<image src="../../../../static/chat.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
 				<view style="margin-left: 58rpx;color: #595959;">
 					交流区
@@ -72,11 +72,13 @@
 			
 		},
 		methods: {
+			// 提出建议
 			goEdit(id){
 				uni.navigateTo({
 					url:"/pages/parents/parentSolveProblem/noresolve/edit/edit?id="+JSON.stringify(this.id)
 				})
 			},
+			// 获取数据
 			gedetail(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse', 
@@ -98,6 +100,7 @@
 					}
 				});
 			},
+			// 去往聊天区
 			gochat(){
 				uni.navigateTo({
 					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)

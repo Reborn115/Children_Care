@@ -69,10 +69,12 @@
 				myLove:0,
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getdata()
+			this.getmessageNumber()
 		},
 		methods: {
+			// 儿童端我的资料
 			goInfo(){
 				uni.navigateTo({
 					url:"/pages/childs/personal/childInfo/childInfo"
@@ -91,12 +93,13 @@
 				uni.removeStorage({
 					key: 'token',
 					success: function () {
-						uni.navigateTo({
+						uni.reLaunch({
 							url:"/pages/users/login/login"
 						})
 					}
 				});
 			},
+			//去聊天列表界面
 			goChatlist(){
 				uni.navigateTo({
 					url:"/pages/chat/chatlist/chatlist"
@@ -120,9 +123,21 @@
 						// console.log(this.data,"ziliao")
 						this.img=res.data.data.headPicUrl
 						this.name=res.data.data.userName
-						this.messageNumber=res.data.data.messageNumber
-						this.download=res.data.data.download
-						this.myLove=res.data.data.myLove
+						// this.messageNumber=res.data.data.messageNumber
+						// this.download=res.data.data.download
+						// this.myLove=res.data.data.myLove
+					}
+				});
+			},
+			// 单独获取未读消息数{
+			getmessageNumber(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-num-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.messageNumber=res.data.data.total
 					}
 				});
 			}
@@ -169,7 +184,7 @@
 			align-items: center;
 			.uni-badge-left-margin{
 				position: absolute;
-				right: 8rpx;
+				right: 14rpx;
 				top: 3rpx;
 			}
 		}

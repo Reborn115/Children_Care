@@ -3,6 +3,15 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
+		{
+		    "path" : "pages/chat/vedio/vedio",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
 		/* {
 		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
 		    "style" :                                                                                    
@@ -166,10 +175,10 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "成长档案",
-                "enablePullDownRefresh": false,
-				"app-plus": {
-					"titleNView": "false"
-				}
+                "enablePullDownRefresh": false
+				// "app-plus": {
+				// 	"titleNView": "false"
+				// }
             }
             
         }
@@ -208,7 +217,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "孩子的问题",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
         }
@@ -228,16 +237,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "意见建议",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		// 父母端查看成长档案
-        ,{
-            "path" : "pages/parents/parentLookall/parentLookall",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "成长档案",
                 "enablePullDownRefresh": false
             }
             
@@ -276,9 +275,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
-            
         }
         ,{
             "path" : "pages/childs/home/details/goRead/goRead",
@@ -459,6 +457,15 @@
             }
             
         }
+        /* ,{
+            "path" : "pages/chat/vedio/vedio",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        } */
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

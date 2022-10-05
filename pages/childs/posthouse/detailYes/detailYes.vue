@@ -49,10 +49,7 @@
 						
 					</view>
 					<view class="text1">
-						<!-- <view class="parent"> -->
-							<!-- <text style="font-weight: 600;color: #6f6f6f;">父母：</text> -->
-							<!-- <text>加油宝贝，相信你是最棒</text>
-						</view> -->
+						
 						<view class="text4">
 							建议:
 						</view>
@@ -65,10 +62,6 @@
 						<view class="text5">
 							{{parentsAdvise.other}}
 						</view>
-						<!-- <view class="volunter" style="margin-top: 15rpx;">
-							<text style="font-weight: 600;color: #6f6f6f;">志愿者：</text>
-							<text>小朋友相信你自己</text>
-						</view> -->
 					</view>
 				</view>
 				<view class="item">
@@ -89,7 +82,7 @@
 							{{volunterAdvise.suggestion}}
 						</view>
 						<view class="text4">
-							线下直拍:
+							解决过程图片:
 						</view>
 						<image v-for="(item,index) in volunterAdvise.imageUrlList" :key="index" :src="item" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
 						
@@ -141,9 +134,11 @@
 			this.getnum()
 		},
 		watch:{
+			// 父母第几次建议改变
 			parentnum(){
 				this.getparents()
 			},
+			// 志愿者第几次建议改变
 			volunternum(){
 				this.getvolunter()
 			}
@@ -157,7 +152,7 @@
 						disabuseId:this.id,
 					},
 					header: {
-						'token': uni.getStorageSync('token'), //自定义请求头信息
+						'token': uni.getStorageSync('token'),
 					},
 					success: (res) => {
 						this.data=res.data.data
@@ -170,7 +165,7 @@
 					}
 				});
 			},
-			// 获取有几次
+			// 获取志愿者和家长的建议都有几次
 			getnum(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse/num', 
@@ -197,6 +192,7 @@
 					}
 				});
 			},
+			// 获取家长的第n次建议
 			getparents(){
 				if(this.parentnum){
 					uni.request({
@@ -206,7 +202,7 @@
 							order:this.parentnum
 						},
 						header: {
-							'token': uni.getStorageSync('token'), //自定义请求头信息
+							'token': uni.getStorageSync('token'), 
 						},
 						success: (res) => {
 							// console.log(res,"parents")
@@ -215,6 +211,7 @@
 					});
 				}
 			},
+			// 获取志愿者的第n次建议
 			getvolunter(){
 				if(this.volunternum){
 					uni.request({
@@ -224,7 +221,7 @@
 							order:this.volunternum
 						},
 						header: {
-							'token': uni.getStorageSync('token'), //自定义请求头信息
+							'token': uni.getStorageSync('token'), 
 						},
 						success: (res) => {
 							// console.log(res,"volunter")

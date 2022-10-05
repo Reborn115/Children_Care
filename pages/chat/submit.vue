@@ -65,6 +65,7 @@
 			getElementHeight() {
 				const query = uni.createSelectorQuery().in(this);
 				query.select('.submit').boundingClientRect(data => {
+					console.log(data,'height')
 					this.$emit('heights', data.height);
 				}).exec();
 			},
@@ -109,7 +110,9 @@
 				//关闭其他项
 				this.isemoji = false;
 				this.ismore = false;
-				this.getElementHeight()
+				setTimeout(() => {
+					this.getElementHeight();
+				}, 0)
 			},
 			// 表情内发送
 			// emojiSend() {
@@ -139,7 +142,7 @@
 				this.isrecord = false;
 				setTimeout(() => {
 					this.getElementHeight();
-				}, 10)
+				}, 0)
 			},
 			//发送
 			send(msg) {
@@ -262,7 +265,8 @@
 
 	.more {
 		width: 100%;
-		height: 436rpx;
+		// height: 436rpx;
+		height: 556rpx;
 		background: rgba(236, 237, 238, 1);
 		box-shadow: 0px 11rpx 0px 0px rgba(0, 0, 0, 0.1);
 		bottom: env(safe-area-inset-bottom);

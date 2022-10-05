@@ -18,7 +18,7 @@
 					<view class="textInline">
 						<text>解惑</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 37rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;bottom: 0rpx;right:25rpx;"></image>
 				</view>
 			</view>
 			<view class="box" @click="goVolunteerMe">
@@ -26,7 +26,7 @@
 					<view class="textInline">
 						<text>我的</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 37rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;bottom: 0rpx;right:25rpx;"></image>
 				</view>
 			</view>
 		</view>
@@ -42,28 +42,34 @@
 				headUrl:'',
 			}
 		},
+		onLoad() {
+			this.getdata()
+		},
 		onShow() {
 			uni.setStorage({
 				key:"isCertification",
 				data:1
 			})
 			this.getdata()
-			this.timer=setInterval(this.getdata,10000)
+			this.timer=setInterval(this.getdata,60000)
 		},
 		onHide(){
 			clearInterval(this.timer)
 		},
 		methods: {
+			// 志愿者端解惑界面
 			goVolunteerSolve(){
 				uni.navigateTo({
-					url:"/pages/volunteer/problem/problem"
+					url:"/pages/volunteer/problem/problem?where=3&day=3"
 				})
 			},
+			// 志愿者端我的界面
 			goVolunteerMe(){
 				uni.navigateTo({
 					url:"/pages/volunteer/volunterMe/volunterMe"
 				})
 			},
+			// 获取数据
 			getdata(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/home/parent', 
@@ -77,7 +83,6 @@
 						if(res.data.data.disabuseList.length!=0){
 							this.question=res.data.data.disabuseList[0]
 						}
-						// this.question=res.data.data.disabuseList[0]+'\xa0'+'\xa0'+'\xa0'+'\xa0'+'\xa0'+'\xa0'+res.data.data.disabuseList[1]+'\xa0'+'\xa0'+'\xa0'+'\xa0'+'\xa0'+'\xa0'+res.data.data.disabuseList[2]
 					}
 				});
 			}
@@ -124,11 +129,11 @@
 	}
 	.content{
 		.textInline {
-		  margin-top: 3vh;
+		  margin-top: 2vh;
 		  margin-left: 8vw;
 		  font-size: 36px;
 		  color: #fff;
-		  font-weight: 600;
+		  font-weight: 700;
 		  // text-shadow: 0 0 5px #fff;
 		}
 		#card1 {

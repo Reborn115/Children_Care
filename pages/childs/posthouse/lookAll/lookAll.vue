@@ -10,7 +10,7 @@
 		<!-- 未解决 -->
 		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.disabuseId)">
 			<view class="one">
-				<view class="title">提出的问题</view>
+				<view class="title">{{item.name}}提出问题</view>
 				<view class="status">
 					未解决
 				</view>
@@ -27,7 +27,7 @@
 		<!-- 已解决 -->
 		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.disabuseId)">
 			<view class="one">
-				<view class="title">提出的问题</view>
+				<view class="title">{{item.name}}提出问题</view>
 				<view class="status2">
 					已解决
 				</view>
@@ -44,7 +44,7 @@
 		
 		<view class="box" v-for="(item,index) in otherlist"  :key="index">
 			<view class="one">
-				<view class="title">学习{{item.bookName}}</view>
+				<view class="title">{{item.name}}学习{{item.bookName}}</view>
 				<!-- <view class="status2">
 					已解决
 				</view> -->
@@ -54,9 +54,9 @@
 				<!-- <view class="every">线下</view>
 				<view class="every">无需立即解决</view> -->
 			</view>
-			<!-- <view class="three">
-				<text class="time">2022/9/7&nbsp;&nbsp;&nbsp;19:00</text>
-			</view> -->
+			<view class="three">
+				<text class="time">{{item.time}}</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -66,19 +66,27 @@
 		data() {
 			return {
 				info: {
+					//日历上的标点日期
 					selected: [
 					// {
 					// 	date: "2022-09-13",
 					// },
 					]
 				},
+				// 列表上方显示的时间
 				time:'',
+				// 未解决问题列表
 				nolist:[],
+				// 已解决问题列表
 				yeslist:[],
+				// 其他问题列表
 				otherlist:[],
+				// 未解决问题跳转到哪儿
+				where:0,
 			}
 		},
-		onLoad(){
+		onLoad(e){
+			this.where=JSON.parse(e.where)
 			this.time=this.changeTime3(new Date())
 			this.gettime()
 			this.getlist()
@@ -138,6 +146,7 @@
 				}
 				return Y+'-'+M+'-'+D 
 			},
+			// 改变日历时间
 			change1(e) {
 				this.nolist=[],
 				this.yeslist=[],
@@ -148,9 +157,15 @@
 			},
 			// 跳转携带id
 			detailNo(id){
-				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailNo/detailNo?id='+JSON.stringify(id)
-				})
+				if(this.where==1){
+					uni.navigateTo({
+						url:'/pages/childs/posthouse/detailNo/detailNo?id='+JSON.stringify(id)
+					})
+				}else{
+					uni.navigateTo({
+						url:'/pages/parents/parentSolveProblem/noresolve/noresolve?id='+JSON.stringify(id)
+					})
+				}
 			},
 			// 跳转携带id
 			detailYes(id){
@@ -158,23 +173,42 @@
 					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
 				})
 			},
+			// 获取有列表的日期
 			gettime(){
-				uni.request({
-					url: 'https://api.yuleng.top:38088/api/track-record', 
-					method:"POST",
-					header: {
-						'token': uni.getStorageSync('token'), //自定义请求头信息
-					},
-					success: (res) => {
-						let hh=res.data.data.scheduleTime
-						hh.forEach((item)=>{
-							item=this.changeTime2(item)
-							this.info.selected.push({date: item})
-						})
-						// console.log(this.info.selected)
-					}
-				});
+				if(this.where==1){
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/track-record', 
+						method:"POST",
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							let hh=res.data.data.scheduleTime
+							hh.forEach((item)=>{
+								item=this.changeTime2(item)
+								this.info.selected.push({date: item})
+							})
+						}
+					});
+				}else{
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/track-record/parent', 
+						method:"POST",
+						header: {
+							'token': uni.getStorageSync('token'), //自定义请求头信息
+						},
+						success: (res) => {
+							let hh=res.data.data.scheduleTime
+							hh.forEach((item)=>{
+								item=this.changeTime2(item)
+								this.info.selected.push({date: item})
+							})
+						}
+					});
+				}
+				
 			},
+			// 获取具体某一个日期的列表
 			getlist(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/track-record/list', 
@@ -183,38 +217,55 @@
 						time:Date.parse(new Date(this.time).toString())/1000,
 					},
 					header: {
-						'token': uni.getStorageSync('token'), //自定义请求头信息
+						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
 						console.log(res,'成长档案列表数据')
+						// 问题列表
 						let data1=res.data.data.postResultList
-						this.otherlist=res.data.data.selectContentList
 						data1.forEach((item)=>{
 							//转换类型
-							if(item.type==1){
-								item.type='心理'
-							}else if(item.type==2){
-								item.type='学习'
-							}else if(item.type==3){
-								item.type='安全'
-							}else if(item.type==4){
-								item.type='生活'
-							}else if(item.type==5){
-								item.type='兴趣'
-							}else if(item.type==6){
-								item.type='感情'
-							}else{
-								item.type='健康'
+							switch(item.type){
+								case 1:
+									item.type='心理'
+									break;
+								case 2:
+									item.type='学习'
+									break;
+								case 3:
+									item.type='安全'
+									break;
+								case 4:
+									item.type='生活'
+									break;
+								case 5:
+									item.type='兴趣'
+									break;
+								case 6:
+									item.type='感情'
+									break;
+								case 7:
+									item.type='健康'
+									break;
+								default:
+									item.type='无数据'
 							}
 							//转换解决方式
-							if(item.solveType==1){
-								item.solveType='线下'
-							}else if(item.solveType==2){
-								item.solveType='视频'
-							}else if(item.solveType==3){
-								item.solveType='语音'
-							}else{
-								item.solveType='文字'
+							switch(item.solveType){
+								case 1:
+									item.solveType='线下'
+									break;
+								case 2:
+									item.solveType='视频'
+									break;
+								case 3:
+									item.solveType='语音'
+									break;
+								case 4:
+									item.solveType='文字'
+									break;
+								default:
+									item.solveType='无数据'
 							}
 							//转换是否立即解决
 							if(item.isNowSolve==1){
@@ -230,11 +281,14 @@
 								this.yeslist.push(item)
 							}
 						})
-						
+						// 学习列表
+						this.otherlist=res.data.data.selectContentList
+						this.otherlist.forEach((item)=>{
+							item.time=this.changeTime(item.time)
+						})
 					}
 				});
 			}
-			
 		}
 	}
 </script>
@@ -288,12 +342,12 @@
 		// box-shadow: 0px 0px 8px #88888873;
 		border: 1px solid #f3f2f2;
 		.one{
-			margin-top: 1.5vh;
+			margin-top: 2vh;
 			.title{
 				display: inline-block;
-				font-size: 42rpx;
+				font-size: 40rpx;
 				color: #424242;
-				font-weight: 600;
+				font-weight: 700;
 				margin-left: 5vw;
 			}
 			.status{
@@ -313,8 +367,6 @@
 			margin-top: 2vh;
 			.every{
 				display: inline-block;
-				// background-color: #ffdc4c;
-				// background-color: #e0e0e0;
 				margin-left: 5vw;
 				color: #6d6d6d;
 				border-radius: 10rpx;

@@ -71,15 +71,28 @@
 			}
 			
 		},
-		/* onLoad(){
+		onLoad(){
 			let token=uni.getStorageSync('token')
+			let permission=uni.getStorageSync('permission')
 			console.log(token)
+			console.log(permission)
 			if(token){
-				uni.switchTab({
-				    url:"/pages/childs/home/home"
-				})
+				if(permission==1){
+					uni.switchTab({
+					    url:"/pages/childs/home/home"
+					})
+				} else if(permission==2){
+					uni.reLaunch({
+					  url: "/pages/parents/homepage/homepage",
+					});
+				} else if(permission==3){
+					uni.reLaunch({
+					  url: "/pages/volunteer/volunteerhome/volunteerhome",
+					});
+				}
+				
 			}
-		}, */
+		},
 		methods:{
 			recoverImg(){
 				this.img='../../../static/neither.png'
@@ -140,7 +153,10 @@
 									key:"token",
 									data:res.data.data.token
 								})
-								
+								uni.setStorage({
+									key:"permission",
+									data:res.data.data.permission
+								})
 								uni.setStorage({
 									key:"isCertification",
 									data:res.data.data.isCertification
@@ -169,7 +185,7 @@
 									/* uni.switchTab({
 									  url: "/pages/parents/homepage/homepage",
 									}); */
-									uni.navigateTo({
+									uni.reLaunch({
 									  url: "/pages/parents/homepage/homepage",
 									});
 									/* uni.reLaunch({

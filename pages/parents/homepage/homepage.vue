@@ -18,7 +18,7 @@
 					<view class="textInline">
 						<text>解惑</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;bottom: 0rpx;right:25rpx;"></image>
 				</view>
 			</view>
 			<view class="box" @click="goLookall">
@@ -27,7 +27,7 @@
 						<text>成长</text><br/>
 						<text>档案</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;bottom: 0rpx;right:25rpx;"></image>
 				</view>
 			</view>
 			<view class="box" @click="goParentsMe">
@@ -35,7 +35,7 @@
 					<view class="textInline">
 						<text>我的</text>
 					</view>
-					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;top: 38rpx;right:25rpx;"></image>
+					<image src="../../../static/panda.png" style="width: 350rpx;height: 230rpx;position: absolute;bottom: 0rpx;right:25rpx;"></image>
 				</view>
 			</view>
 		</view>
@@ -46,11 +46,18 @@
 	export default {
 		data() {
 			return {
+				// 问候语
 				hellomsg:'',
+				// 问题滚动内容
 				question:'暂时无人提问',
+				// 头像
 				headUrl:'',
+				// 定时器
 				timer:'',
 			}
+		},
+		onLoad() {
+			this.getdata()
 		},
 		onShow() {
 			uni.setStorage({
@@ -58,27 +65,31 @@
 				data:1
 			})
 			this.getdata()
-			this.timer=setInterval(this.getdata,10000)
+			this.timer=setInterval(this.getdata,60000)
 		},
 		onHide(){
 			clearInterval(this.timer)
 		},
 		methods: {
+			// 进入父母端解惑
 			goParentSolveProblem(){
 				uni.navigateTo({
-					url:"/pages/parents/parentSolveProblem/parentSolveProblem"
+					url:"/pages/volunteer/problem/problem?where=2&day=7"
 				})
 			},
+			// 成长档案
 			goLookall(){
 				uni.navigateTo({
-					url:"/pages/parents/parentLookall/parentLookall"
+					url:"/pages/childs/posthouse/lookAll/lookAll?where=2"
 				})
 			},
+			// 父母端我的界面
 			goParentsMe(){
 				uni.navigateTo({
 					url:"/pages/parents/parentsme/parentsme"
 				})
 			},
+			// 获取数据
 			getdata(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/home/parent', 
@@ -138,11 +149,11 @@
 	}
 	.content{
 		.textInline {
-		  margin-top: 3vh;
+		  margin-top: 2vh;
 		  margin-left: 8vw;
 		  font-size: 36px;
 		  color: #fff;
-		  font-weight: 600;
+		  font-weight: 700;
 		  // text-shadow: 0 0 5px #fff;
 		}
 		#card1 {

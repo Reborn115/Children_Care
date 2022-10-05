@@ -3,7 +3,7 @@
 
 		<!-- 聊天内容 -->
 		<!-- scroll-view滚动视图  scroll-into-view设置哪个方向可滚动，则在哪个方向滚动到该元素 -->
-		<scroll-view class="chat" scroll-y="true" scroll-with-animation="true" :scroll-into-view="scrollToView">
+		<scroll-view class="chat" scroll-y="true" scroll-with-animation="false" :scroll-into-view="scrollToView">
 			<!-- 下内边距可滚动 -->
 			<view class="chat-main" :style="{paddingBottom:inputh+'px'}">
 				<!-- 遍历消息列表 -->
@@ -68,11 +68,15 @@
 		},
 		onLoad(e) {
 			this.roomId=JSON.parse(e.roomId)
+			let tit=JSON.parse(e.name)
+			uni.setNavigationBarTitle({
+				title:tit,
+			})
 			this.getperson()
 			this.getPrevious()
 			this.openSocket()
 		},
-		beforeDestroy() {
+		onUnload() {
 			this.closeSocket()
 		},
 		// 组件注册
@@ -117,9 +121,10 @@
 					success: (res) => {
 						// console.log(res,'room')
 						this.msg=res.data.data.messageResultList
-						this.$nextTick(function() {
-							this.scrollToView = 'msg' + (this.msg.length - 1)
-						})
+						//定时器解决不能跳转到底部
+						setTimeout(()=>{
+							this.goBottom()
+						},1)
 						this.clearMesssage()
 					}
 				});
@@ -143,7 +148,6 @@
 			},
 			////发送消息 接受输入内容
 			sendMessage(e) {
-				// console.log(e)
 				//发送的数据时间处理
 				let msgdata = {
 					"toUserId": this.otherId,
@@ -168,7 +172,7 @@
 			},
 			//输入框高度
 			heights(e) {
-				// console.log("高度:", e)
+				console.log("高度:", e)
 				this.inputh = e;
 				this.goBottom();
 			},
@@ -199,8 +203,9 @@
 				});
 				//接收对方发来的消息
 				uni.onSocketMessage((res)=> {
-				  // console.log('收到服务器内容：' + res.data);
+				  console.log('收到服务器内容：' + res.data);
 				  if(res.data!='连接成功'){
+					  // this.$api.msg('你有新的消息');
 					  res.data=JSON.parse(res.data)
 					  this.msg.push(res.data)
 				  }
@@ -211,6 +216,7 @@
 			},
 			//关闭Socket
 			closeSocket(){
+				console.log('关闭Socket');
 				uni.closeSocket(()=>{
 						this.isopen=false
 						console.log('关闭Socket成功');

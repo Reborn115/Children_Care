@@ -3,7 +3,7 @@
 		<uni-list>
 			<uni-list-chat  v-for="(item,index) in list" 
 			:key="index" 
-			@click="gochat(item.roomId,item.type)" 
+			@click="gochat(item.roomId,item.type,item.name)" 
 			clickable="true" 
 			:avatar-circle="true" 
 			:title="item.name" 
@@ -21,23 +21,31 @@
 		data() {
 			return {
 				list:[],
+				timer:'',
 			}
 		},
 		onShow() {
 			this.getMessageList()
+			this.timer=setInterval(()=>{
+				this.getMessageList()
+			},2000)
+		},
+		onUnload() {
+			clearInterval(this.timer)
 		},
 		methods: {
-			gochat(roomId,type){
+			gochat(roomId,type,name){
 				if(type==1){
+					clearInterval(this.timer)
 					uni.navigateTo({
-						url:"/pages/chat/chat?roomId="+JSON.parse(roomId)
+						url:"/pages/chat/chat?roomId="+JSON.stringify(roomId)+"&name="+JSON.stringify(name)
 					})
 				}else{
+					clearInterval(this.timer)
 					uni.navigateTo({
-						url:"/pages/chat/chatgroup?roomId="+JSON.parse(roomId)
+						url:"/pages/chat/chatgroup?roomId="+JSON.stringify(roomId)+"&name="+JSON.stringify(name)
 					})
 				}
-				
 			},
 			getMessageList(){
 				uni.request({

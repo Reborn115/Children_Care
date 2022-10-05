@@ -17,7 +17,7 @@
 				<image src="../../../static/model.png" style="width: 50rpx;height: 50rpx;"></image>
 			</view>
 		</view>
-		<view class="two">
+		<view class="two" @click="goInfo">
 			<image src="../../../static/me.png" style="width: 40rpx;height: 40rpx;" class="icon"></image>
 			<text class="content">我的资料</text>
 			<image src="../../../static/inter1.png" style="width: 50rpx;height: 50rpx;" class="inter"></image>
@@ -64,10 +64,17 @@
 				myLove:0,
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getdata()
+			this.getmessageNumber()
 		},
 		methods: {
+			goInfo(){
+				console.log("点击了")
+				uni.navigateTo({
+					url:"/pages/volunteer/volunterMe/volunInfo/volunInfo"
+				})
+			},
 			//打开切换模式弹窗
 			// changeType(){
 			// 	this.$refs.popup1.open()
@@ -85,12 +92,23 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
-						// console.log(this.data,"ziliao")
 						this.img=res.data.data.headPicUrl
 						this.name=res.data.data.userName
-						this.messageNumber=res.data.data.messageNumber
-						this.download=res.data.data.download
-						this.myLove=res.data.data.myLove
+						// this.messageNumber=res.data.data.messageNumber
+						// this.download=res.data.data.download
+						// this.myLove=res.data.data.myLove
+					}
+				});
+			},
+			// 单独获取未读消息数{
+			getmessageNumber(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/message-num-list', 
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						this.messageNumber=res.data.data.total
 					}
 				});
 			},
@@ -103,7 +121,7 @@
 				uni.removeStorage({
 					key: 'token',
 					success: function () {
-						uni.navigateTo({
+						uni.reLaunch({
 							url:"/pages/users/login/login"
 						})
 					}
@@ -152,7 +170,7 @@
 			align-items: center;
 			.uni-badge-left-margin{
 				position: absolute;
-				right: 8rpx;
+				right: 14rpx;
 				top: 3rpx;
 			}
 		}
