@@ -216,11 +216,12 @@
 			},
 			confirm1(order) {
 				console.log('confirm', order);
+				
 				this.showForm.show1 = false
 				this.baseFormData.age=order.value[0]
 			},
 			confirm2(order) {
-				console.log('confirm', order);
+				console.log('confirm', order.indexs[0]);
 				this.showForm.show2 = false
 				this.baseFormData.level=order.value[0]
 			},
@@ -288,7 +289,8 @@
 						console.log('success', res);
 					} else {
 						uni.showToast({
-							title: `请上传头像`
+							title: `请上传头像`,
+							icon:'error'
 						})
 					}
 					

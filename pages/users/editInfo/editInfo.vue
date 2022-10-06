@@ -386,12 +386,12 @@
 			confirm3(order) {
 				console.log('confirm', order);
 				this.showForm.show3 = false
-				this.baseFormData.frequence=order.value[0]
+				this.baseFormData.frequence=order.indexs[0]
 			},
 			confirm4(order) {
 				console.log('confirm', order);
 				this.showForm.show4 = false
-				this.baseFormData.care=order.value[0]
+				this.baseFormData.care=order.indexs[0]
 			},
 			cancel(order) {
 				// console.log('cancel');
@@ -460,7 +460,8 @@
 						console.log('success', res);
 					} else {
 						uni.showToast({
-							title: `请上传头像`
+							title: `请上传头像`,
+							icon:'error'
 						})
 					}
 					

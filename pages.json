@@ -3,7 +3,16 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		{
+		/* {
+		    "path" : "pages/volunteer/volunterMe/editVolun/editVolun",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		/* {
 		    "path" : "pages/chat/vedio/vedio",
 		    "style" :                                                                                    
 		    {
@@ -11,7 +20,7 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
-		},
+		}, */
 		/* {
 		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
 		    "style" :                                                                                    
@@ -466,6 +475,15 @@
             }
             
         } */
+        ,{
+            "path" : "pages/volunteer/volunterMe/editVolun/editVolun",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
