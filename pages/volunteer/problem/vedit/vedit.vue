@@ -208,9 +208,12 @@
 									duration: 2000
 								});
 								// this.number=1
+								this.clickclick=0
+								this.image=[]
+								this.imageList=[]
+								this.fileList1=[]
 								this.getnum2()
 								this.show=false
-								this.clickclick=0
 							}
 						});
 					}
@@ -224,6 +227,7 @@
 					this.other=''
 					this.image=[]
 					this.imageList=[]
+					this.fileList1=[]
 					//判断
 					this.number=0
 					if(this.range.length!=0){

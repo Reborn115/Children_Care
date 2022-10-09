@@ -109,11 +109,19 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-				        console.log(res.data);
-				        this.text = 'request success';
-						this.name=res.data.data.storyName
-						this.audioUrl=res.data.data.audioUrl
-						this.author=res.data.data.writer
+						if(res.data.code=="A0400"){
+							uni.showToast({
+								title: res.data.message,
+								icon:'error'
+							});
+						} else {
+							console.log(res.data);
+							this.text = 'request success';
+							this.name=res.data.data.storyName
+							this.audioUrl=res.data.data.audioUrl
+							this.author=res.data.data.writer
+						}
+				        
 				    }
 				});
 			},
@@ -183,11 +191,19 @@
 		    		"token":uni.getStorageSync('token')
 		        },
 		        success: (res) => {
-		            console.log(res.data);
-		            this.text = 'request success';
-		    		this.name=res.data.data.storyName
-					this.author=res.data.data.writer
-					this.audioUrl=res.data.data.audioUrl
+					if(res.data.code=="A0400"){
+						uni.showToast({
+							title: res.data.message,
+							icon:'error'
+						});
+					} else {
+						console.log(res.data);
+						this.text = 'request success';
+						this.name=res.data.data.storyName
+						this.author=res.data.data.writer
+						this.audioUrl=res.data.data.audioUrl
+					}
+		            
 		        }
 		    });
 			this.getAudio()

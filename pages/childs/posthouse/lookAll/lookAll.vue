@@ -7,6 +7,9 @@
 		<view class="toptime">
 			{{time}}
 		</view>
+		<view class="pic" v-if="show">
+			<image src="../../../../static/nomessage.png" style="width: 700rpx;height: 640rpx;"></image>
+		</view>
 		<!-- 未解决 -->
 		<view class="box" v-for="(item,index) in nolist"  :key="index" @click="detailNo(item.disabuseId)">
 			<view class="one">
@@ -83,6 +86,8 @@
 				otherlist:[],
 				// 未解决问题跳转到哪儿
 				where:0,
+				//没有数据的图片
+				show:false
 			}
 		},
 		onLoad(e){
@@ -220,7 +225,12 @@
 						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
-						console.log(res,'成长档案列表数据')
+						// console.log(res,'成长档案列表数据')
+						if(res.data.data.postResultList.length==0&&res.data.data.selectContentList==0){
+							this.show=true
+						}else{
+							this.show=false
+						}
 						// 问题列表
 						let data1=res.data.data.postResultList
 						data1.forEach((item)=>{
@@ -317,6 +327,11 @@
 		align-items: center;
 		// background-color: #ffaa7f;
 	}
+	.pic{
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
 	/deep/.uni-calendar__content{
 		width: 88vw;
 		height: 53vh;
@@ -331,21 +346,23 @@
 		border-top-left-radius: 26rpx;
 		border-top-right-radius: 26rpx;
 	}
+	
 	.box{
-		width: 86vw;
+		width: 84vw;
 		height: 17vh;
 		background-color: #f3f2f2;
 		// background-color: #b0def7;
 		margin-left: 7vw;
-		border-radius: 10px;
+		border-radius: 6px;
 		margin-top: 2vh;
 		// box-shadow: 0px 0px 8px #88888873;
 		border: 1px solid #f3f2f2;
+		border-left: 20rpx solid #b1b1b1;
 		.one{
 			margin-top: 2vh;
 			.title{
 				display: inline-block;
-				font-size: 40rpx;
+				font-size: 39rpx;
 				color: #424242;
 				font-weight: 700;
 				margin-left: 5vw;

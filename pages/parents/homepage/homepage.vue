@@ -90,16 +90,16 @@ export default {
       timer: "",
     };
   },
-  onLoad() {
-    this.getdata();
-  },
   onShow() {
     uni.setStorage({
       key: "isCertification",
       data: 1,
     });
+  	this.timer = setInterval(this.getdata, 60000);
     this.getdata();
-    this.timer = setInterval(this.getdata, 60000);
+  },
+  mounted() {
+    this.getdata();
   },
   onHide() {
     clearInterval(this.timer);

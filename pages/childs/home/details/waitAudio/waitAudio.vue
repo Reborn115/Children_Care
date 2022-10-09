@@ -101,6 +101,7 @@
 							}
 						} else {
 							this.show=true
+							clearInterval(this.timer)
 							/* uni.showToast({
 								title: '功能暂不可用',
 								icon:'error'

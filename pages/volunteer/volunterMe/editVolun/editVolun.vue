@@ -25,38 +25,37 @@
 												></u-upload>
 										</uni-forms-item>
 										<uni-forms-item label="年龄" required name="age">
+											<uni-data-select
+											        v-model="baseFormData.age"
+											        :localdata="age"
+											        @change="change"
+											      ></uni-data-select>
 											<!-- <uni-easyinput type="number" v-model.number="baseFormData.age" placeholder="请输入年龄" /> -->
-											<u-cell-group>
+											<!-- <u-cell-group>
 														<u-cell
 															@click="showPicker(1)"
-															title="点击选择年龄"
-															isLink
+															:title="baseFormData.age"
+															
+															
 														>
 															
 														</u-cell>
 													</u-cell-group>
 													<u-picker
 														v-model="baseFormData.age"
-														:value="baseFormData.age"
+														
 														:show="showForm.show1"
 														:columns="Columns1"
 														@change="change(1)"
 														@cancel="cancel(1)"
 														@confirm="confirm1()"
-													></u-picker>
+													></u-picker> -->
 										</uni-forms-item>
 										<uni-forms-item label="性别" required name="sex">
 											<!-- <uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" /> -->
 											<uni-data-checkbox v-model="baseFormData.sex" :localdata="sex"></uni-data-checkbox>
 										</uni-forms-item>
 										
-										<!-- <uni-forms-item label="与儿童关系" name="relationship">
-											<uni-data-select
-											        v-model="baseFormData.relationship"
-											        :localdata="relationship"
-											        @change="change"
-											      ></uni-data-select>
-										</uni-forms-item> -->
 										
 										<uni-forms-item label="籍贯" required name="hometown">
 											<uni-easyinput v-model="baseFormData.hometown" placeholder="请输入省市区" />
@@ -66,14 +65,7 @@
 											<uni-easyinput v-model="baseFormData.address" placeholder="请输入长居地址" />
 										</uni-forms-item>
 										<uni-forms-item label="擅长解决儿童问题的类型" name="type">
-											<!-- <uni-data-select
-											        v-model="baseFormData.frequence"
-											        :localdata="frequence"
-											        @change="change"
-											      ></uni-data-select> -->
-												  <!-- <view class="text">
-												  	{{baseFormData.type}}
-												  </view> -->
+											
 												  <view class="tagbox">
 													  <view
 													  				    class="tags"
@@ -94,43 +86,41 @@
 										</uni-forms-item>
 										
 										<uni-forms-item label="平均每周登录软件的时长" name="time">
-											<!-- <uni-data-select
-											        v-model="baseFormData.frequence"
-											        :localdata="frequence"
+											<uni-data-select
+											        v-model="baseFormData.time"
+											        :localdata="time"
 											        @change="change"
-											      ></uni-data-select> -->
-												  <u-cell-group>
+											      ></uni-data-select>
+												  <!-- <u-cell-group>
 												  			<u-cell
 												  				@click="showPicker(2)"
-												  				title="点击选择平均每周登录软件的时长"
-												  				isLink
+												  				:title="baseFormData.time"
+												  				
+																
 												  			>
 												  				
 												  			</u-cell>
 												  		</u-cell-group>
 												  		<u-picker
 												  			v-model="baseFormData.time"
-												  			:value="baseFormData.time"
+												  			
 												  			:show="showForm.show2"
 												  			:columns="Columns2"
 												  			@change="change(2)"
 												  			@cancel="cancel(2)"
 												  			@confirm="confirm2()"
-												  		></u-picker>
+												  		></u-picker> -->
 										</uni-forms-item>
 										<uni-forms-item label="寄语儿童" required name="sayChild">
 											<uni-easyinput v-model="baseFormData.sayChild" placeholder="请输入对儿童的寄语" />
 										</uni-forms-item>
 										
 										<uni-forms-item label="是否可以线下解决儿童问题" required name="isFace">
-											<!-- <uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" /> -->
+											
 											<uni-data-checkbox v-model="baseFormData.isFace" :localdata="isFace"></uni-data-checkbox>
 										</uni-forms-item>
 										<uni-forms-item label="其他" name="others">
-											<!-- <uni-easyinput v-model="baseFormData.sayVolunteer" placeholder="请输入对志愿者的寄语" /> -->
-											<!-- <view class="text">
-												{{baseFormData.others}}
-											</view> -->
+											
 											<view>
 												<u--textarea v-model="baseFormData.others" placeholder="补充能力凭证,案例等相关信息"  autoHeight ></u--textarea>
 											</view>
@@ -184,9 +174,9 @@
 				baseFormData:{
 					others:'',
 					isFace:'',
-					time:'',
+					time:'点击选择',
 					type:[],
-					age:'',
+					age:'点击选择',
 					sex:'',
 					
 					hometown:'',
@@ -195,20 +185,70 @@
 					
 					address:''
 				},
-				showForm:{
+				/* showForm:{
 					show1:false,
 					show2:false
-				},
+				}, */
 				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				fileList1: [],
-				Columns1:[
+				/* Columns1:[
 					
 					[21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100]
 				],
 				Columns2:[
 					
 					["一小时以下","一小时以上三小时以下",'三小时以上五小时以下',"五小时以上十小时以下",'十小时以上']
-				],
+				], */
+				time:[
+				          { value: 0, text: "一小时以下" },
+				          { value: 1, text: "一小时以上三小时以下" },
+				          { value: 2, text: '三小时以上五小时以下' },
+						  { value: 3, text: "五小时以上十小时以下" },
+						  { value: 4, text: '十小时以上' },
+						  
+				        ],
+				age:[
+					
+					{ value: 13, text: "13" },
+					{ value: 14, text: "14" },
+					{ value: 15, text: "15" },
+					{ value: 16, text: "16" },
+					{ value: 17, text: "17" },
+					{ value: 18, text: "18" },
+					{ value: 19, text: "19" },
+					{ value: 20, text: "20" },
+					{ value: 21, text: "21" },
+					{ value: 22, text: "22" },
+					{ value: 23, text: "23" },
+					{ value: 24, text: "24" },
+					{ value: 25, text: "25" },
+					{ value: 26, text: "26" },
+					{ value: 27, text: "27" },
+					{ value: 28, text: "28" },
+					{ value: 29, text: "29" },
+					{ value: 30, text: "30" },
+					{ value: 31, text: "31" },
+					{ value: 32, text: "32" },
+					{ value: 33, text: "33" },
+					{ value: 34, text: "34" },
+					{ value: 35, text: "35" },
+					{ value: 36, text: "36" },
+					{ value: 37, text: "37" },
+					{ value: 38, text: "38" },
+					{ value: 39, text: "39" },
+					{ value: 40, text: "40" },
+					{ value: 41, text: "41" },
+					{ value: 42, text: "42" },
+					{ value: 43, text: "43" },
+					{ value: 44, text: "44" },
+					{ value: 45, text: "45" },
+					{ value: 46, text: "46" },
+					{ value: 47, text: "47" },
+					{ value: 48, text: "48" },
+					{ value: 49, text: "49" },
+					{ value: 50, text: "50" },
+					
+					],
 				isFace:[
 					{
 						text:'是',
@@ -357,92 +397,11 @@
 				
 			};
 		},
-		/* onLoad(){
-			
-			uni.request({
-			    url: 'https://api.yuleng.top:38088/api/my-profile/parent', //仅为示例，并非真实接口地址。
-				method:"POST",
-			    data: {
-			        
-			    },
-			    header: {
-			        "content-type":"application/json",
-					"token":uni.getStorageSync('token')
-			    },
-			    success: (res) => {
-					this.baseFormData.age=res.data.data.age
-					this.swiper=res.data.data.homeInfoPictureParamList
-					this.baseFormData.sex=res.data.data.gender
-					this.baseFormData.relationship=res.data.data.relation
-					this.baseFormData.hometown=res.data.data.nativePlace
-					this.baseFormData.frequence=res.data.data.homeSituation
-					this.baseFormData.care=res.data.data.softwareSituation
-					this.baseFormData.sayChild=res.data.data.remarkChild
-					this.baseFormData.sayVolunteer=res.data.data.remarkVolunteer
-					this.baseFormData.work=res.data.data.workAddress
-					this.headPicUrl=res.data.data.headPicUrl
-			        console.log(res.data);
-			        this.text = 'request success';
-					switch ( this.baseFormData.sex ) {
-					    case 0:{
-							this.baseFormData.sex='男'
-							break;
-						}
-							
-					    case 1:{
-							this.baseFormData.sex='女'
-							break;
-						}
-					        
-					    
-					    default:{
-							console.log(this.baseFormData.sex)
-							return '未设置';
-						}
-					        
-					}
-					switch ( this.baseFormData.care ) {
-					    case 0:
-							this.baseFormData.care='偶尔'
-					        break;
-					    case 1:
-					        this.baseFormData.care='时常'
-					        break;
-					    case 2:
-					    	this.baseFormData.care='经常'
-					        break;
-					    
-					    default:
-					        return '未设置';
-					}
-					switch ( this.baseFormData.frequence ) {
-					    case 0:
-							this.baseFormData.frequence='爸爸'
-					        break;
-					    case 1:
-					        this.baseFormData.frequence='妈妈'
-					        break;
-					    case 2:
-					    	this.baseFormData.frequence='爷爷'
-					        break;
-					    case 3:
-					    	this.baseFormData.frequence='奶奶'
-					        break;
-					    case 4:
-					    	this.baseFormData.frequence='哥哥'
-					        break;
-						case 5:
-							this.baseFormData.frequence='姐姐'
-						    break;
-					    default:
-					        return '未设置';
-					}
-			    }
-			}); */
-			
 		
-		/* }, */
 		methods:{
+			change(e) {
+				console.log('change', e);
+			},
 			cancel(order) {
 				// console.log('cancel');
 				this.showForm[`show${order}`] = false
@@ -461,9 +420,10 @@
 				}
 			},
 			confirm1(order) {
-				console.log('confirm', order);
+				console.log('confirm', order.value);
 				this.showForm.show1 = false
 				this.baseFormData.age=order.value[0]
+				/* this.baseFormData.age=order["value"] */
 			},
 			confirm2(order) {
 				console.log('confirm', order);
@@ -558,7 +518,7 @@
 								
 								
 								remarkChild:this.baseFormData.sayChild,
-								
+								loginDuration:this.baseFormData.time,
 								headPicUrl:this.headPicUrl,
 								workAddress:this.baseFormData.work,
 								goodSolveProblems:this.baseFormData.type,
@@ -575,10 +535,6 @@
 								  url: "/pages/volunteer/volunteerhome/volunteerhome",
 								});
 								
-								/* uni.switchTab({
-									  url: "/pages/childs/home/home",
-									}); */
-								
 							}
 						});
 						console.log('success', res);
@@ -588,10 +544,7 @@
 							icon:'error'
 						})
 					}
-					
-					/* uni.showToast({
-						title: `校验通过`
-					}) */
+				
 				}).catch(err => {
 					console.log('err', err);
 				})
@@ -641,12 +594,5 @@
 .example{
 	margin-top: 30rpx;
 }
-/* ::v-deep .uni-card{
-	height: 100vh;
-	padding-bottom: 20rpx;
-}
-.content{
-	height: 100vh;
-	padding-bottom: 80rpx;
-} */
+
 </style>

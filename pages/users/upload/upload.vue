@@ -64,7 +64,7 @@
 				recorder:'',
 				isVoice:false,
 				home:false,
-				src:"../../../../static/upload.jpg"
+				src:"https://s2.loli.net/2022/10/08/KvjNfHig1mq9B3n.jpg"
 			};
 		},
 		onHide(){
@@ -99,6 +99,10 @@
 		watch:{
 			voicePath(newVal, oldVal){
 				this.isVoice=!this.isVoice
+				uni.showToast({
+					title: "录音结束",
+					icon:'success'
+				});
 			},
 			home(newVal, oldVal){
 				this.goHome()
@@ -147,42 +151,52 @@
 				});
 			},
 			upload(){
-				uni.uploadFile({
-						url: 'https://api.yuleng.top:38088/api/upload',// 仅为示例，非真实的接口地址
-						/* url: 'http://192.168.115.133:38088/api/upload', */
-						filePath: this.voicePath,
-						name: 'file',
-						formData: {
-							fileType:2
-						},
-						header: {
-						    "content-type":"application/json",
-							"token":uni.getStorageSync('token')
-						},
-						success: (res) => {
-						
-							res=JSON.parse(res.data)
-							console.log(res);
-							
-							console.log(res.data.files[0].fileUrl)
-							this.myurl=res.data.files[0].fileUrl
-							this.initVoice();
-							/* setTimeout(() => {
-								resolve(res.data.data)
-							}, 1000) */
-							uni.showToast({
-								title: '录音上传成功',
-								icon:'success'
-							});
-							this.timer2 = setTimeout(() => {
-								this.home=!this.home
-							}, 3000);
-							
-							
-							
-							
-						}
+				if(this.isVoice==true) {
+					uni.showToast({
+						title: "请先结束录音",
+						icon:'error'
 					});
+				} else {
+					uni.uploadFile({
+							url: 'https://api.yuleng.top:38088/api/upload',// 仅为示例，非真实的接口地址
+							/* url: 'http://192.168.115.133:38088/api/upload', */
+							filePath: this.voicePath,
+							name: 'file',
+							formData: {
+								fileType:2
+							},
+							header: {
+							    "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+							},
+							success: (res) => {
+							
+								res=JSON.parse(res.data)
+								console.log(res);
+								
+								console.log(res.data.files[0].fileUrl)
+								this.myurl=res.data.files[0].fileUrl
+								this.initVoice();
+								/* setTimeout(() => {
+									resolve(res.data.data)
+								}, 1000) */
+								uni.showToast({
+									title: '录音上传成功',
+									icon:'success'
+								});
+								this.timer2 = setTimeout(() => {
+									this.home=!this.home
+								}, 3000);
+								
+								
+								
+								
+							}
+						});
+				}
+					
+				
+				
 				
 			},
 			startRecord() {
@@ -194,10 +208,18 @@
 						}
 						this.recorder.start(format);
 						let self = this;
+						uni.showToast({
+							title: "开始录音",
+							icon:'success'
+						});
 						this.recorder.onStop(function (res) {
 							console.log('recorder stop' + JSON.stringify(res));
 							self.voicePath = res.tempFilePath;
-							/* this.isVoice=!this.isVoice */
+							uni.showToast({
+								title: "录音结束",
+								icon:'success'
+							});
+							
 						});
 						/* this.voicePath=this.recorder.onStop(()=>{
 							this.isVoice=0;

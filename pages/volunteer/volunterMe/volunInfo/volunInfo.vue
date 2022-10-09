@@ -196,11 +196,40 @@
 					this.baseFormData.hometown=res.data.data.nativePlace
 					this.baseFormData.others=res.data.data.other
 					this.baseFormData.sayChild=res.data.data.remarkChild
-					
+					this.baseFormData.time=res.data.data.loginDuration
 					this.baseFormData.work=res.data.data.workAddress
 					this.headPicUrl=res.data.data.headPicUrl
 			        console.log(res.data);
 			        this.text = 'request success';
+					switch (this.baseFormData.isFace){
+						case 0:
+							this.baseFormData.isFace="否"
+							break;
+						case 1:
+							this.baseFormData.isFace="是"
+							break;
+						default:
+							break;
+					}
+					switch (this.baseFormData.time){
+						case 0:
+							this.baseFormData.time="一小时以下";
+							break;
+						case 1:
+							this.baseFormData.time="一小时以上三小时以下";
+							break;
+						case 2:
+							this.baseFormData.time='三小时以上五小时以下';
+							break;
+						case 3:
+							this.baseFormData.time="五小时以上十小时以下";
+							break;
+						case 4:
+							this.baseFormData.time='十小时以上';
+							break;
+						default:
+							break;
+					}
 					switch ( this.baseFormData.sex ) {
 					    case 0:{
 							this.baseFormData.sex='男'

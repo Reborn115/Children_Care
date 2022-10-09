@@ -25,25 +25,30 @@
 												></u-upload>
 										</uni-forms-item>
 										<uni-forms-item label="年龄" required name="age">
+											<uni-data-select
+											        v-model="baseFormData.age"
+											        :localdata="age"
+											        @change="change"
+											      ></uni-data-select>
 											<!-- <uni-easyinput type="number" v-model.number="baseFormData.age" placeholder="请输入年龄" /> -->
-											<u-cell-group>
+											<!-- <u-cell-group>
 														<u-cell
 															@click="showPicker(1)"
-															title="点击选择年龄"
-															isLink
+															:title="baseFormData.age"
+															
 														>
 															
 														</u-cell>
 													</u-cell-group>
 													<u-picker
 														v-model="baseFormData.age"
-														:value="baseFormData.age"
+														
 														:show="showForm.show1"
 														:columns="Columns1"
 														@change="change(1)"
 														@cancel="cancel(1)"
 														@confirm="confirm1()"
-													></u-picker>
+													></u-picker> -->
 										</uni-forms-item>
 										<uni-forms-item label="性别" required name="sex">
 											<!-- <uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" /> -->
@@ -56,25 +61,30 @@
 										</uni-forms-item>
 																				
 										<uni-forms-item label="年级" required name="level">
+											<uni-data-select
+											        v-model="baseFormData.level"
+											        :localdata="level"
+											        @change="change"
+											      ></uni-data-select>
 											<!-- <uni-easyinput v-model="baseFormData.level" placeholder="请输入年级" /> -->
-											<u-cell-group>
+											<!-- <u-cell-group>
 														<u-cell
 															@click="showPicker(2)"
-															title="点击选择年级"
-															isLink
+															:title="baseFormData.level"
+															
 														>
 															
 														</u-cell>
 													</u-cell-group>
 													<u-picker
 														v-model="baseFormData.level"
-														:value="baseFormData.level"
+														
 														:show="showForm.show2"
 														:columns="Columns2"
 														@change="change(2)"
 														@cancel="cancel(2)"
 														@confirm="confirm2()"
-													></u-picker>
+													></u-picker> -->
 										</uni-forms-item>
 										<uni-forms-item label="个性签名" required name="sign">
 											<uni-easyinput v-model="baseFormData.sign" placeholder="请输入个性签名" />
@@ -96,10 +106,10 @@
 		return {
 				headPicUrl:"",
 				baseFormData:{
-					age:'',
+					age:'点击选择',
 					sex:'',
 					hometown:'',
-					level:'',
+					level:'点击选择',
 					sign:'',
 				},
 				showForm:{
@@ -115,14 +125,51 @@
 					text: '女',
 					value: 1
 				}],
-				Columns1:[
+				age:[
+					
+					{ value: 1, text: "1" },
+					{ value: 2, text: "2" },
+					{ value: 3, text: "3" },
+					{ value: 4, text: "4" },
+					{ value: 5, text: "5" },
+					{ value: 6, text: "6" },
+					{ value: 7, text: "7" },
+					{ value: 8, text: "8" },
+					{ value: 9, text: "9" },
+					{ value: 10, text: "10" },
+					{ value: 11, text: "11" },
+					{ value: 12, text: "12" },
+					{ value: 13, text: "13" },
+					{ value: 14, text: "14" },
+					{ value: 15, text: "15" },
+					
+					],
+				level:[
+				          { value: "学龄前", text: "学龄前" },
+				          { value: "幼儿园", text: "幼儿园" },
+				          { value: "一年级", text: "一年级" },
+						  { value: "二年级", text: "二年级" },
+						  { value: "三年级", text: "三年级" },
+						  { value: "四年级", text: "四年级" },
+				          { value: "五年级", text: "五年级" },
+				          { value: "六年级", text: "六年级" },
+				          { value: "初一", text: "初一" },
+				          { value: "初二", text: "初二" },
+						  { value: "初三", text: "初三" },
+						  { value: "高一", text: "高一" },
+						  { value: "高二", text: "高二" },
+						  { value: "高三", text: "高三" },
+						 
+						  
+				        ],
+				/* Columns1:[
 					[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 					
 				],
 				Columns2:[
 					["学龄前","幼儿园","一年级","二年级","三年级","四年级","五年级","六年级","初一","初二","初三","高一","高二","高三","大一","大二"],
 					
-				],
+				], */
 				rules:{
 					sign:{
 						//账号检验
