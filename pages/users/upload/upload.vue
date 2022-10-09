@@ -51,6 +51,8 @@
 </template>
 
 <script>
+	/* const recorderManager = uni.getRecorderManager();
+	const innerAudioContext = uni.createInnerAudioContext(); */
 	export default {
 		data() {
 			return {
@@ -64,22 +66,29 @@
 				recorder:'',
 				isVoice:false,
 				home:false,
-				src:"https://s2.loli.net/2022/10/08/KvjNfHig1mq9B3n.jpg"
+				/* src:"https://s2.loli.net/2022/10/08/KvjNfHig1mq9B3n.jpg" */
+				src:"../../../static/baby3.jpg"
 			};
 		},
 		onHide(){
-			
-				this.pauseAudio()
-				this.innerAudio.destroy();
-			
-			
-			
+			console.log("hide")
+				this.innerAudio.pause();
+				/* this.innerAudio.destroy(); */
+				/* innerAudioContext.destroy(); */
 		},
 		onUnload(){
-			
-				this.pauseAudio()
-				this.innerAudio.destroy();
-			
+			console.log("unload")
+				this.innerAudio.pause();
+				/* this.innerAudio.destroy(); */
+				/* innerAudioContext.destroy(); */
+			if(this.timer1) {
+				clearTimeout(this.timer1);  
+				this.timer1 = null;  
+			}  
+			if(this.timer2) {
+				clearTimeout(this.timer2);  
+				this.timer2 = null;  
+			} 
 			
 		},
 		onLoad(e) {
@@ -89,11 +98,13 @@
 			
 			this.isCertification=uni.getStorageSync('isCertification')
 			let recorderManager = uni.getRecorderManager();
-			let innerAudioContext = uni.createInnerAudioContext();
+			let innerAudioContext = uni.createInnerAudioContext(); 
 			this.recorder=recorderManager;
 			this.innerAudio=innerAudioContext;
 			this.recorder.start.format="wav";
 			this.recorder.start.duration=10000;
+			/* recorderManager.start.format="wav";
+			recorderManager.start.duration=10000; */
 				
 			},
 		watch:{
@@ -108,20 +119,12 @@
 				this.goHome()
 			}
 		},
-		onUnload() {
-			if(this.timer1) {  
-				clearTimeout(this.timer1);  
-				this.timer1 = null;  
-			}  
-			if(this.timer2) {
-				clearTimeout(this.timer2);  
-				this.timer2 = null;  
-			}  
-		},
+		
 		methods:{
+			
 			pauseAudio(){
 				this.innerAudio.pause();
-				
+				/* innerAudioContext.pause(); */
 				/* console.log(this.isPlay); */
 			},
 			goHome(){
@@ -145,6 +148,7 @@
 						/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
 						
 				        console.log(res.data);
+						console.log("我已经调用过这个惹")
 				       /* this.getAudio(); */
 						
 				    }
@@ -186,7 +190,7 @@
 								});
 								this.timer2 = setTimeout(() => {
 									this.home=!this.home
-								}, 3000);
+								}, 1000);
 								
 								
 								
@@ -200,6 +204,7 @@
 				
 			},
 			startRecord() {
+				
 				this.isVoice=!this.isVoice
 						console.log('开始录音');
 						let format={
@@ -207,6 +212,7 @@
 							duration:10000
 						}
 						this.recorder.start(format);
+						/* recorderManager.start(format); */
 						let self = this;
 						uni.showToast({
 							title: "开始录音",
@@ -221,6 +227,24 @@
 							});
 							
 						});
+						/* recorderManager.onStop(function (res) {
+							console.log('recorder stop' + JSON.stringify(res));
+							self.voicePath = res.tempFilePath;
+							uni.showToast({
+								title: "录音结束",
+								icon:'success'
+							});
+							
+						}); */
+						this.recorder.onError(function (res) {
+							console.log('recorder error' + JSON.stringify(res));
+							
+							uni.showToast({
+								title: JSON.stringify(res),
+								icon:'success'
+							});
+							
+						});
 						/* this.voicePath=this.recorder.onStop(()=>{
 							this.isVoice=0;
 						}) */
@@ -230,9 +254,10 @@
 						clearTimeout(this.timer1) */
 					},
 					endRecord() {
-						this.isVoice=!this.isVoice
+						/* this.isVoice=!this.isVoice */
 						console.log('录音结束');
 						this.recorder.stop();
+						/* recorderManager.stop(); */
 					},
 					playVoice() {
 						console.log('播放录音');
@@ -240,6 +265,13 @@
 						if (this.voicePath) {
 							this.innerAudio.src = this.voicePath;
 							this.innerAudio.play();
+							/* innerAudioContext.src=this.voicePath
+							innerAudioContext.play() */
+						} else {
+							uni.showToast({
+								title: "请先录制音频",
+								icon:'error'
+							});
 						}
 					}
 		},

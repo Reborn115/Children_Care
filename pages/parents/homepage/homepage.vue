@@ -108,7 +108,7 @@ export default {
     // 进入父母端解惑
     goParentSolveProblem() {
       uni.navigateTo({
-        url: "/pages/volunteer/problem/problem?where=2&day=7",
+        url: "/pages/parents/parentSolveProblem/parentSolveProblem?where=2",
       });
     },
     // 成长档案

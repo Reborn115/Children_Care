@@ -40,13 +40,14 @@
 				<view class="item">
 					<view class="text">
 						<text>父母的建议</text>
-						<uni-data-select
-							v-model="parentnum"
-							:localdata="range1"
-							style="display: inline-block;"
-							:clear="false"
-						  ></uni-data-select>
-						
+						<view class="select">
+							<uni-data-select
+								v-model="parentnum"
+								:localdata="range1"
+								style="display: inline-block;"
+								:clear="false"
+							  ></uni-data-select>
+						</view>
 					</view>
 					<view class="text1">
 						
@@ -267,13 +268,18 @@
 				padding-bottom: 30rpx;
 				.item{
 					.text{
-						// background-color: #fff;
 						padding-left: 40rpx;
 						color: #6f6f6f;
 						font-size: 34rpx;
 						margin-top: 20rpx;
 						font-weight: 700;
 						width: 450rpx;
+						.select{
+							display: inline-block;
+							width: 220rpx;
+							height: 67rpx;
+							margin-left: 27rpx;
+						}
 					}
 					.text1{
 						background-color: #fedcba;

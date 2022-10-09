@@ -1,8 +1,5 @@
 <template>
 	<view class="container">
-		
-						
-					
 		<view class="introduce">
 			<view class="u-page__image-item">
 				<u--image
@@ -211,6 +208,7 @@
 							})
 							
 						} else {
+							item.isSmart=true
 							item.smartAudio=res.data.message
 							console.log(item)
 							item.total=this.total

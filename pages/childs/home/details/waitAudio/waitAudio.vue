@@ -39,7 +39,7 @@
 				content:'功能暂不可用',
 				show:false,
 				process:'0',
-				src:'../../../../static/nostorage.png',
+				src:'../../../../../static/nostorage.png',
 				positionResult:'',
 				contentInfoId:'',
 				serveSrc:'',
@@ -48,6 +48,7 @@
 				processHead:'',
 				userId:'',
 				timer:'',
+				clock:'',
 				isFirst:true
 			};
 		},
@@ -57,9 +58,17 @@
 			this.contentInfoId=this.positionResult.id
 			this.userId=uni.getStorageSync('userId')
 			this.getServe()
+		
 			
 			
-			
+		},
+		
+		onUnload() {
+			clearInterval(this.timer)
+			uni.showToast({
+				title: '该功能暂不可用，请联系家长录入人声',
+				icon:'error'
+			});
 		},
 		methods:{
 			goHome(){
@@ -92,7 +101,7 @@
 								this.positionResult.smartAudio=this.smartAudio
 								this.timer = setTimeout(() => {
 								    
-								}, 1000);
+								}, 200);
 								clearTimeout(this.timer)
 								this.positionResult.isFirst=this.isFirst
 								uni.navigateTo({
@@ -100,24 +109,29 @@
 								})
 							}
 						} else {
-							this.show=true
+							/* this.show=true */
 							clearInterval(this.timer)
-							/* uni.showToast({
-								title: '功能暂不可用',
-								icon:'error'
-							});
-							this.timer = setTimeout(() => {
+							
+							this.clock = setTimeout(() => {
 							    
-							}, 1000);
-							clearTimeout(this.timer)
+							}, 200);
+							clearTimeout(this.clock)
 							uni.switchTab({
 							  url: "/pages/childs/home/home",
-							}); */
+							});
 						}
 				        
 				    },
 					fail:(res)=>{
-						console.log("请求失败")
+						clearInterval(this.timer)
+						
+						this.clock = setTimeout(() => {
+						    
+						}, 200);
+						clearTimeout(this.clock)
+						uni.switchTab({
+						  url: "/pages/childs/home/home",
+						});
 					}
 				});
 			},
@@ -135,23 +149,20 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-						if(res.data.code=='00000'){
+						/* if(res.data.code=='00000'){ */
 							console.log(res.data);
 							this.text = 'request success';
 							this.smartAudio=res.data.fileUrl;
 							console.log(this.smartAudio)
-						} else {
-							uni.showToast({
+						/* } else { */
+							/* uni.showToast({
 								title: '功能暂不可用',
 								icon:'error'
 							});
-							/* this.timer = setTimeout(() => {
-							    
-							}, 1000);
-							clearTimeout(this.timer) */
+							
 							this.show=true
 							this.goHome()
-						}
+						} */
 				        
 						
 				    },
@@ -181,7 +192,7 @@
 						this.timer=setInterval(() => {
 							
 						    this.getProgress()
-						}, 2000);
+						}, 1000);
 				    }
 				});
 			},

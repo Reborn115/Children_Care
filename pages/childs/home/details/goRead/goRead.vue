@@ -84,6 +84,8 @@
 						this.lastContent=this.handleText2(res.data.data.mainText)
 					} else if(this.contentId==6) {
 						this.lastContent=this.handleText2(res.data.data.mainText)
+					} else if(this.contentId==7) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
 					}
 					/* this.handleText(res.data.data.mainText) */
 					this.src=res.data.data.picUrl
@@ -144,6 +146,8 @@
 							this.lastContent=this.handleText2(res.data.data.mainText)
 						} else if(this.contentId==6) {
 							this.lastContent=this.handleText2(res.data.data.mainText)
+						} else if(this.contentId==7) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
 						}
 							
 							
@@ -174,7 +178,7 @@
 			},
 			handleText2(content){
 				/* <p></p><p>16K小说网 更新时间:2008-4-12 23:18:24 本章字数:6930</p>↵ */
-				content=content.slice(14)　
+				/* content=content.slice(14) */　
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'

@@ -87,7 +87,7 @@ export default {
     // 志愿者端解惑界面
     goVolunteerSolve() {
       uni.navigateTo({
-        url: "/pages/volunteer/problem/problem?where=3&day=3",
+        url: "/pages/volunteer/problem/problem",
       });
     },
     // 志愿者端我的界面

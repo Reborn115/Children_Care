@@ -174,9 +174,9 @@
 				baseFormData:{
 					others:'',
 					isFace:'',
-					time:'点击选择',
+					time:'',
 					type:[],
-					age:'点击选择',
+					age:'',
 					sex:'',
 					
 					hometown:'',
@@ -399,11 +399,11 @@
 		},
 		
 		methods:{
-			change(e) {
+			/* change(e) {
 				console.log('change', e);
 			},
 			cancel(order) {
-				// console.log('cancel');
+				
 				this.showForm[`show${order}`] = false
 			},
 			showPicker(order){
@@ -423,13 +423,13 @@
 				console.log('confirm', order.value);
 				this.showForm.show1 = false
 				this.baseFormData.age=order.value[0]
-				/* this.baseFormData.age=order["value"] */
+				
 			},
 			confirm2(order) {
 				console.log('confirm', order);
 				this.showForm.show2 = false
 				this.baseFormData.time=order.value[0]
-			},
+			}, */
 			// 删除图片
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)

@@ -87,16 +87,13 @@ export default {
   onLoad(e) {
     this.roomId = JSON.parse(e.roomId);
     let tit = JSON.parse(e.name);
-    // console.log(e)
     this.getperson();
     this.getPrevious();
     uni.setNavigationBarTitle({ title: tit });
     this.openSocket();
-    console.log("111");
   },
   onShow() {
     this.getPrevious();
-    console.log("222");
   },
   onUnload() {
     this.closeSocket();

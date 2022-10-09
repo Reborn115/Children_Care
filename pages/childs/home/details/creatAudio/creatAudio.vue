@@ -75,7 +75,7 @@
 				author:'',
 				name:'',
 				speed:1,
-				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
+				audioUrl:'',
 				src:'',
 				isPlay:false,
 				contentAudio:'',
@@ -145,15 +145,23 @@
 				/* console.log(this.isPlay); */
 			},
 			playAudio(){
-				/* this.innerAudioContext.play(); */
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = this.audioUrl;
-				innerAudioContext.play();
-				this.isPlay=!this.isPlay;
-				/* console.log(this.isPlay); */
-				this.contentAudio=innerAudioContext;
-				this.contentAudio.playbackRate=this.speed
-				/* console.log(this.contentAudio) */
+				if(this.audioUrl){
+					/* this.innerAudioContext.play(); */
+					const innerAudioContext = uni.createInnerAudioContext();
+					innerAudioContext.src = this.audioUrl;
+					innerAudioContext.play();
+					this.isPlay=!this.isPlay;
+					/* console.log(this.isPlay); */
+					this.contentAudio=innerAudioContext;
+					this.contentAudio.playbackRate=this.speed
+					/* console.log(this.contentAudio) */
+				} else {
+					uni.showToast({
+						title: "无此章节音频",
+						icon:'error'
+					});
+				}
+				
 			},
 		},
 		onHide(){

@@ -29,7 +29,7 @@
 				tips:[],
 				swiper:[],
 				searchValue:'',
-				src:'https://s2.loli.net/2022/09/19/WZxymYqzAt2BGbF.png'
+				src:'../../../../static/nodata.png'
 			};
 		},
 		onBackPress(options) {

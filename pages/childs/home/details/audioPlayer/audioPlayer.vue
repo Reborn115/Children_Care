@@ -20,7 +20,7 @@
 					<text class="name">
 						{{name}}
 					</text>
-					<text class="author">
+					<text class="author" v-if="!isSmart">
 						作者：{{author}}
 					</text>
 				</view>
@@ -80,6 +80,7 @@
 				contentAudio:'',
 				isFirst:false,
 				order:'',
+				isSmart:false,
 			};
 		},
 		watch:{
@@ -145,18 +146,27 @@
 				/* console.log(this.isPlay); */
 			},
 			playAudio(){
-				/* this.innerAudioContext.play(); */
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = this.audioUrl;
-				innerAudioContext.play();
-				this.isPlay=!this.isPlay;
-				/* console.log(this.isPlay); */
-				this.contentAudio=innerAudioContext;
-				this.contentAudio.playbackRate=this.speed
-				/* console.log(this.contentAudio) */
+				if(this.audioUrl) {
+					/* this.innerAudioContext.play(); */
+					const innerAudioContext = uni.createInnerAudioContext();
+					innerAudioContext.src = this.audioUrl;
+					innerAudioContext.play();
+					this.isPlay=!this.isPlay;
+					/* console.log(this.isPlay); */
+					this.contentAudio=innerAudioContext;
+					this.contentAudio.playbackRate=this.speed
+					/* console.log(this.contentAudio) */
+				} else{
+					uni.showToast({
+						title: "无此章节音频",
+						icon:'error'
+					});
+				}
+				
 			},
 		},
 		onHide(){
+			console.log("hide")
 			if(this.contentAudio){
 				this.pauseAudio()
 				this.contentAudio.destroy();
@@ -169,6 +179,7 @@
 			
 		},
 		onUnload(){
+			console.log("unload")
 			if(this.contentAudio){
 				this.pauseAudio()
 				this.contentAudio.destroy();
@@ -188,11 +199,16 @@
 			this.originalAudioId=this.positionResult.originalAudioId
 			this.src=this.positionResult.src
 			this.order=this.positionResult.order
+			this.audioUrl=this.positionResult.smartAudio
+			if(this.positionResult.isSmart){
+				this.isSmart=this.positionResult.isSmart
+			}
+			
 			if(this.positionResult.isFirst){
 				this.isFirst=this.positionResult.isFirst
 			}
 			
-			if(this.positionResult.smartAudio){
+			/* if(this.positionResult.smartAudio){
 				console.log("进入智能语音")
 				this.audioUrl=this.positionResult.smartAudio
 				console.log(this.audioUrl)
@@ -252,7 +268,7 @@
 				        
 				    }
 				});
-			}
+			} */
 		    /* sys */
 			
 			/* this.getServe() */

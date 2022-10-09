@@ -27,6 +27,23 @@
 				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
+		<!-- 待确认 -->
+		<view class="box" >
+			<view class="one">
+				<view class="title">xxx提出问题</view>
+				<view class="status1">
+					待确认
+				</view>
+			</view>
+			<view class="two">
+				<view class="every">心理</view>
+				<view class="every">线上</view>
+				<view class="every">立即解决</view>
+			</view>
+			<view class="three">
+				<text class="time">2022/11/24 10:05</text>
+			</view>
+		</view>
 		<!-- 已解决 -->
 		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.disabuseId)">
 			<view class="one">
@@ -369,13 +386,19 @@
 			}
 			.status{
 				display: inline-block;
-				color: #d1292f;
+				color: #d0474c;
+				float: right;
+				margin-right: 50rpx;
+			}
+			.status1{
+				display: inline-block;
+				color: #d09119;
 				float: right;
 				margin-right: 50rpx;
 			}
 			.status2{
 				display: inline-block;
-				color: #0055ff;
+				color: #6b6868;
 				float: right;
 				margin-right: 50rpx;
 			}

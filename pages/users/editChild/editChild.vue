@@ -106,10 +106,10 @@
 		return {
 				headPicUrl:"",
 				baseFormData:{
-					age:'点击选择',
+					age:'',
 					sex:'',
 					hometown:'',
-					level:'点击选择',
+					level:'',
 					sign:'',
 				},
 				showForm:{

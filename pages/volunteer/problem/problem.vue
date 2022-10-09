@@ -37,7 +37,7 @@
 				<text class="time">{{item.itme}}</text>
 			</view>
 		</view>
-		<view class="tip"><text class="content">仅展示最近{{text}}的提问情况</text></view>
+		<view class="tip"><text class="content">仅展示最近三天的提问情况</text></view>
 	</view>
 </template>
 
@@ -53,16 +53,7 @@
 				show:false
 			}
 		},
-		onLoad(e) {
-			console.log(e)
-			this.where=JSON.parse(e.where)
-			this.day=JSON.parse(e.day)
-			if(this.day==7){
-				this.text='一周'
-			}
-			if(this.day==3){
-				this.text='三天'
-			}
+		onLoad() {
 			this.nolist=[],
 			this.yeslist=[],
 			this.getList()
@@ -97,16 +88,9 @@
 			},
 			//未解决问题
 			detailNo(id,isAnonymous){
-				if(this.where==2){
-					uni.navigateTo({
-						url:"/pages/parents/parentSolveProblem/noresolve/noresolve?id="+JSON.stringify(id)
-					})
-				}
-				if(this.where==3){
-					uni.navigateTo({
-						url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
-					})
-				}
+				uni.navigateTo({
+					url:'/pages/volunteer/problem/datails/detail0/detail0?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
+				})
 			},
 			//已解决问题
 			detailYes(id){
