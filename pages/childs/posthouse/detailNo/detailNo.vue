@@ -86,8 +86,9 @@
 			},
 			// 去往交流区
 			gochat(){
+				let tit='群聊'
 				uni.navigateTo({
-					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
+					url:"/pages/chat/chatgroup?roomId="+JSON.stringify(this.chatRoomId)+"&name="+JSON.stringify(tit)
 				})
 			}
 		}

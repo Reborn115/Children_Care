@@ -115,8 +115,9 @@
 			},
 			// 进入交流讨论界面
 			gochat(){
+				let tit='群聊'
 				uni.navigateTo({
-					url:"/pages/chat/chatgroup?roomId="+JSON.parse(this.chatRoomId)
+					url:"/pages/chat/chatgroup?roomId="+JSON.stringify(this.chatRoomId)+"&name="+JSON.stringify(tit)
 				})
 			},
 			//打开修改问题状态弹窗

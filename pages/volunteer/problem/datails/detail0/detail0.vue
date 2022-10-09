@@ -1,22 +1,7 @@
 <template>
-	<view>
-		<view class="toppic">
-			<view class="area1" @click="gochat">
-				<image src="../../../../static/chat.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
-				<view style="margin-left: 58rpx;color: #595959;">
-					交流区
-				</view>
-			</view>
-			
-			<view class="area2" @click="goEdit()">
-				<image src="../../../../static/message.png" style="width: 110rpx;height: 100rpx;margin-top: 20rpx;margin-left: 50rpx;"></image>
-				<view style="margin-left: 58rpx;color: #595959;">
-					建议区
-				</view>
-			</view>
-		</view>
+	<view class="all">
 		<view class="pic">
-			<image src="../../../../static/baby5.jpg" style="width: 550rpx;height: 500rpx;margin-top: -80rpx;"></image>
+			<image src="../../../../../static/baby5.jpg" style="width: 550rpx;height: 500rpx;margin-top: -40rpx;"></image>
 		</view>
 		<view class="body">
 			<view class="content">
@@ -54,6 +39,15 @@
 				</view>
 			</view>
 		</view>
+		<button class="button" @click="dialogToggle"><text
+				class="button-text warn-text">解决此问题</text></button>
+		<view>
+			<!-- 提示窗 -->
+			<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="info" cancelText="关闭" confirmText="确定"  content="是否确定接受此问题？" @confirm="dialogConfirm"
+				></uni-popup-dialog>
+			</uni-popup>
+		</view>
 	</view>
 </template>
 
@@ -63,22 +57,27 @@
 			return {
 				id:0,
 				data:{},
+				isAnonymous:1,
+				//点击按钮的是否禁用
+				buttonDisusable:false,
 				chatRoomId:0,
 			}
 		},
 		onLoad(e){
 			this.id = JSON.parse(e.id)
+			this.isAnonymous=JSON.parse(e.isAnonymous)
 			this.gedetail()
-			
 		},
 		methods: {
-			// 提出建议
-			goEdit(){
-				uni.navigateTo({
-					url:"/pages/parents/parentSolveProblem/noresolve/edit/edit?id="+JSON.stringify(this.id)
+			//打开修改问题状态弹窗
+			dialogToggle() {
+				this.$refs.alertDialog.open()
+			},
+			dialogConfirm(){
+				uni.redirectTo({
+					url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(this.id)+'&isAnonymous='+JSON.stringify(this.isAnonymous)
 				})
 			},
-			// 获取数据
 			gedetail(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse', 
@@ -91,7 +90,6 @@
 					success: (res) => {
 						this.data=res.data.data
 						this.chatRoomId=res.data.data.groupLiveChatRoomId
-						console.log(this.data,"问题详情")
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{
@@ -100,34 +98,33 @@
 					}
 				});
 			},
-			// 去往聊天区
-			gochat(){
-				let tit='群聊'
-				uni.navigateTo({
-					url:"/pages/chat/chatgroup?roomId="+JSON.stringify(this.chatRoomId)+"&name="+JSON.stringify(tit)
-				})
-			}
+			
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+	.all{
+		padding-bottom: 80rpx;
+	}
 	.toppic{
 		position: relative;
 		z-index: 10;
-		.area1{
+		display: flex;
+		justify-content: space-around;
+		.area{
 			display: inline-block;
 			width: 211rpx;
 			height: 180rpx;
 			// background-color: #fff187;
 		}
-		.area2{
-			display: inline-block;
-			float: right;
-			width: 211rpx;
-			height: 180rpx;
-			// background-color: #cdffab;
-		}
+		// .area2{
+		// 	display: inline-block;
+		// 	float: right;
+		// 	width: 211rpx;
+		// 	height: 180rpx;
+		// 	// background-color: #cdffab;
+		// }
 	}
 	.pic{
 		display: flex;
@@ -137,7 +134,6 @@
 		// background-color: #ffaa00;
 		display: flex;
 		justify-content: center;
-		margin-top: 15rpx;
 		.content{
 				width: 653rpx;
 				background-color: #fee3c8;
@@ -167,21 +163,14 @@
 						padding-top: 10rpx;
 						padding-bottom: 10rpx;
 					}
-					// .text2{
-					// 	display: inline-block;
-					// 	padding-left: 40rpx;
-					// 	color: #6f6f6f;
-					// 	font-size: 34rpx;
-					// 	margin-top: 20rpx;
-					// 	font-weight: 700;
-					// 	width: 270rpx;
-					// }
-					// .text22{
-					// 	display: inline-block;
-					// 	font-size: 34rpx;
-					// 	// color: #6f6f6f;
-					// }
 				}
 			}
+		}
+		.button{
+			width: 485rpx;
+			height: 80rpx;
+			line-height: 80rpx;
+			margin-top: 55rpx;
+			background-color: #ffedbc;
 		}
 </style>

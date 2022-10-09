@@ -3,70 +3,6 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		// {
-		//     "path" : "pages/chat/vedio/vedio",
-		//     "style" :                                                                                    
-		//     {
-		//         "navigationBarTitleText": "",
-		//         "enablePullDownRefresh": false
-		//     }
-		    
-		// },
-		/* {
-		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}, */
-		/* {
-			"path" : "pages/childs/home/details/audioPlayer/audioPlayer",
-			"style" :                                                                                    
-			{
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-			
-		}, */
-		// {
-		//     "path" : "pages/parents/homepage/homepage",
-		//     "style" :                                                                                    
-		//     {
-		//         "navigationBarTitleText": "",
-		//         "enablePullDownRefresh": false
-		//     }
-		    
-		// },
-		// {
-		//     "path" : "pages/volunteer/volunteerhome/volunteerhome",
-		//     "style" :                                                                                    
-		//     {
-		//         "navigationBarTitleText": "",
-		//         "enablePullDownRefresh": false
-		//     }
-		    
-		// },
-		/* {
-		    "path" : "pages/users/editInfo/editInfo",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}, */
-		/* {
-		    "path" : "pages/users/upload/upload",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		},
-		 */
 		
 		
 		//登录
@@ -76,7 +12,7 @@
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
-				"app-plus": {
+				"app-plus": { 
 					"titleNView": "false",
 					"scrollIndicator": "none"
 				}
@@ -216,7 +152,7 @@
             "path" : "pages/parents/parentSolveProblem/parentSolveProblem",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "孩子的问题",
+                "navigationBarTitleText": "问题",
                 "enablePullDownRefresh": true
             }
             
@@ -466,6 +402,30 @@
             }
             
         } */
+        ,{
+            "path" : "pages/volunteer/problem/datails/detail0/detail0",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        },
+		{
+		    "path" : "pages/childs/posthouse/phone/phone",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "紧急联系人",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/childs/posthouse/phone/editphone/editphone",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "添加联系人",
+		        "enablePullDownRefresh": false
+		    }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
