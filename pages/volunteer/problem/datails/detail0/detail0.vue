@@ -74,9 +74,20 @@
 				this.$refs.alertDialog.open()
 			},
 			dialogConfirm(){
-				uni.redirectTo({
-					url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(this.id)+'&isAnonymous='+JSON.stringify(this.isAnonymous)
-				})
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/accept?disabuseId='+JSON.stringify(this.id),
+					method: "POST",
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: (res) => {
+						console.log(res)
+						uni.redirectTo({
+							url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(this.id)+'&isAnonymous='+JSON.stringify(this.isAnonymous)
+						})
+					}
+				});
+				
 			},
 			gedetail(){
 				uni.request({
@@ -98,7 +109,6 @@
 					}
 				});
 			},
-			
 		}
 	}
 </script>
