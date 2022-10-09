@@ -3,6 +3,71 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
+		// {
+		//     "path" : "pages/chat/vedio/vedio",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
+		    
+		// },
+		/* {
+		    "path" : "pages/volunteer/volunterMe/volunInfo/volunInfo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		/* {
+			"path" : "pages/childs/home/details/audioPlayer/audioPlayer",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+			
+		}, */
+		// {
+		//     "path" : "pages/parents/homepage/homepage",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
+		    
+		// },
+		// {
+		//     "path" : "pages/volunteer/volunteerhome/volunteerhome",
+		//     "style" :                                                                                    
+		//     {
+		//         "navigationBarTitleText": "",
+		//         "enablePullDownRefresh": false
+		//     }
+		    
+		// },
+		/* {
+		    "path" : "pages/users/editInfo/editInfo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, */
+		/* {
+		    "path" : "pages/users/upload/upload",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		 */
+		
 		
 		//登录
 		{
