@@ -42,7 +42,6 @@
 					<view class="more-list-title">视频</view>
 				</view>
 			</view> -->
-      <!-- 切换模式弹窗 -->
       <uni-popup
         ref="popup"
         background-color="#fff"

@@ -5,7 +5,7 @@
 				thumb="../../../../static/phone.png"
 				thumb-size="sm" />
 		</uni-list>
-		<button class="btn" @click="addphone">添加(修改)联系人</button>
+		<button class="btn" @click="addphone">编辑联系人</button>
 	</view>
 </template>
 
@@ -33,7 +33,6 @@
 					},
 					method: "POST",
 					success: (res) => {
-						console.log(res)
 						this.phonelist=res.data.data.emergePersonList
 					}
 				});
