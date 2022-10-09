@@ -66,7 +66,7 @@
 		onUnload() {
 			clearInterval(this.timer)
 			uni.showToast({
-				title: '该功能暂不可用，请联系家长录入人声',
+				title: '该功能暂不可用',
 				icon:'error'
 			});
 		},

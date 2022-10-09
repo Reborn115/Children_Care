@@ -30,8 +30,8 @@
 				permission:'',
 				img:'../../../static/neither.png',
 				formData:{
-					account:'阿东',
-					password:'123456'
+					account:'',
+					password:''
 				},
 				
 				rules:{
