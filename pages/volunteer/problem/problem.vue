@@ -17,7 +17,41 @@
 				<view class="every1">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three1">
-				<text class="time1">{{item.itme}}</text>
+				<text class="time1">{{item.time}}</text>
+			</view>
+		</view>
+		<!-- 已接受待解决 -->
+		<view class="box3" v-for="(item,index) in accepted"  :key="index" @click="detailNo2(item.id,item.isAnonymous)">
+			<view class="one3">
+				<view class="title3">{{item.name}}提出的问题</view>
+				<view class="status4">
+					已接受待解决
+				</view>
+			</view>
+			<view class="two3">
+				<view class="every3">{{item.type}}</view>
+				<view class="every3">{{item.solveType}}</view>
+				<view class="every3">{{item.isNowSolve}}</view>
+			</view>
+			<view class="three3">
+				<text class="time3">{{item.time}}</text>
+			</view>
+		</view>
+		<!-- 待确认 -->
+		<view class="box2" v-for="(item,index) in confirm"  :key="index"  @click="detailYes(item.id)">
+			<view class="one2">
+				<view class="title2">{{item.name}}提出的问题</view>
+				<view class="status3">
+					已解决待确认
+				</view>
+			</view>
+			<view class="two2">
+				<view class="every2">{{item.type}}</view>
+				<view class="every2">{{item.solveType}}</view>
+				<view class="every2">{{item.isNowSolve}}</view>
+			</view>
+			<view class="three2">
+				<text class="time2">{{item.time}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
@@ -34,7 +68,7 @@
 				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">{{item.itme}}</text>
+				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
 		<view class="tip"><text class="content">仅展示最近三天的提问情况</text></view>
@@ -47,6 +81,8 @@
 			return {
 				nolist:[],
 				yeslist:[],
+				accepted:[],
+				confirm:[],
 				where:0,
 				day:0,
 				text:'无数据',
@@ -56,6 +92,15 @@
 		onLoad() {
 			this.nolist=[],
 			this.yeslist=[],
+			this.accepted=[],
+			this.confirm=[],
+			this.getList()
+		},
+		onShow() {
+			this.nolist=[],
+			this.yeslist=[],
+			this.confirm=[],
+			this.accepted=[],
 			this.getList()
 		},
 		onPullDownRefresh() {
@@ -92,14 +137,24 @@
 					url:'/pages/volunteer/problem/datails/detail0/detail0?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
 				})
 			},
+			// 已接受待解决
+			detailNo2(id,isAnonymous){
+				uni.navigateTo({
+					url:'/pages/volunteer/problem/datails/datails?id='+JSON.stringify(id)+'&isAnonymous='+JSON.stringify(isAnonymous)
+				})
+			},
 			//已解决问题
 			detailYes(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
+					url:'/pages/childs/posthouse/detailYes/detailYes?is=2&id='+JSON.stringify(id)
 				})
 			},
 			// 获取问题列表
 			getList(){
+				this.nolist=[]
+				this.yeslist=[]
+				this.accepted=[]
+				this.confirm=[]
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/disabuse-list', 
 					header: {
@@ -115,16 +170,25 @@
 						}
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
-							item.itme=this.changeTime(item.time)
+							item.time=this.changeTime(item.time)
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
 							}else{
 								item.isNowSolve='无需立即解决'
 							}
-							if(item.isFinish==1){
-								this.yeslist.push(item);
-							}else{
-								this.nolist.push(item);
+							switch(item.isFinish){
+								case 0:
+									this.nolist.push(item);
+									break;
+								case 1:
+									this.accepted.push(item);
+									break;
+								case 2:
+									this.confirm.push(item);
+									break;
+								case 3:
+									this.yeslist.push(item);
+									break;
 							}
 						})
 						setTimeout(function(){
@@ -198,8 +262,96 @@
 			}
 		}
 	 }
-	
-	
+	.box2{
+		width: 84vw;
+		height: 17vh;
+		background-color: #ffe8d0;
+		margin-left: 7vw;
+		border-radius: 6px;
+		margin-top: 3vh;
+		// box-shadow: 0px 0px 8px #88888873;
+		border: 1px solid #ffe8d0;
+		border-left: 20rpx solid #e59e36;
+		.one2{
+			margin-top: 1.5vh;
+			.title2{
+				display: inline-block;
+				font-size: 42rpx;
+				color: #424242;
+				font-weight: 700;
+				margin-left: 5vw;
+			}
+			.status3{
+				display: inline-block;
+				color: #e2a13c;
+				float: right;
+				margin-right: 50rpx;
+			}
+		}
+		.two2{
+			margin-top: 2vh;
+			.every2{
+				display: inline-block;
+				// background-color: #a7d9c8;
+				margin-left: 5vw;
+				color: #6f6f6f;
+				border-radius: 10rpx;
+			}
+		}
+		.three2{
+			margin-top: 2vh;
+			.time2{
+				color: #6f6f6f;
+				float: right;
+				margin-right: 4vw;
+			}
+		}
+	}
+	.box3{
+		width: 84vw;
+		height: 17vh;
+		background-color: #e7e4ff;
+		margin-left: 7vw;
+		border-radius: 6px;
+		margin-top: 3vh;
+		// box-shadow: 0px 0px 8px #88888873;
+		border: 1px solid #e7e4ff;
+		border-left: 20rpx solid #243d61;
+		.one3{
+			margin-top: 1.5vh;
+			.title3{
+				display: inline-block;
+				font-size: 42rpx;
+				color: #424242;
+				font-weight: 700;
+				margin-left: 5vw;
+			}
+			.status4{
+				display: inline-block;
+				color: #7631ce;
+				float: right;
+				margin-right: 50rpx;
+			}
+		}
+		.two3{
+			margin-top: 2vh;
+			.every3{
+				display: inline-block;
+				// background-color: #a7d9c8;
+				margin-left: 5vw;
+				color: #6f6f6f;
+				border-radius: 10rpx;
+			}
+		}
+		.three3{
+			margin-top: 2vh;
+			.time3{
+				color: #6f6f6f;
+				float: right;
+				margin-right: 4vw;
+			}
+		}
+	 }
 	 .box{
 		width: 84vw;
 		height: 17vh;

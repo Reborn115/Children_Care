@@ -27,25 +27,42 @@
 				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
-		<!-- 待确认 -->
-		<view class="box" >
+		<!-- 已接受待解决 -->
+		<view class="box" v-for="(item,index) in accepted"  :key="index" @click="detailNo(item.disabuseId)">
 			<view class="one">
-				<view class="title">xxx提出问题</view>
+				<view class="title">{{item.name}}提出问题</view>
 				<view class="status1">
-					待确认
+					已接受待解决
 				</view>
 			</view>
 			<view class="two">
-				<view class="every">心理</view>
-				<view class="every">线上</view>
-				<view class="every">立即解决</view>
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">2022/11/24 10:05</text>
+				<text class="time">{{item.time}}</text>
+			</view>
+		</view>
+		<!-- 待确认 -->
+		<view class="box" v-for="(item,index) in confirm"  :key="index"  @click="detailYes1(item.disabuseId)">
+			<view class="one">
+				<view class="title">{{item.name}}提出问题</view>
+				<view class="status3">
+					已解决待确认
+				</view>
+			</view>
+			<view class="two">
+				<view class="every">{{item.type}}</view>
+				<view class="every">{{item.solveType}}</view>
+				<view class="every">{{item.isNowSolve}}</view>
+			</view>
+			<view class="three">
+				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
-		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.disabuseId)">
+		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes2(item.disabuseId)">
 			<view class="one">
 				<view class="title">{{item.name}}提出问题</view>
 				<view class="status2">
@@ -62,17 +79,13 @@
 			</view>
 		</view>
 		
+		<!-- 学习内容 -->
 		<view class="box" v-for="(item,index) in otherlist"  :key="index">
 			<view class="one">
 				<view class="title">{{item.name}}学习{{item.bookName}}</view>
-				<!-- <view class="status2">
-					已解决
-				</view> -->
 			</view>
 			<view class="two"> 
 				<view class="every">学习了{{item.type}}类型的{{item.bookName}}</view>
-				<!-- <view class="every">线下</view>
-				<view class="every">无需立即解决</view> -->
 			</view>
 			<view class="three">
 				<text class="time">{{item.time}}</text>
@@ -99,8 +112,12 @@
 				nolist:[],
 				// 已解决问题列表
 				yeslist:[],
-				// 其他问题列表
+				// 其他列表
 				otherlist:[],
+				// 已接受待解决问题列表
+				accepted:[],
+				// 待确定问题列表
+				confirm:[],
 				// 未解决问题跳转到哪儿
 				where:0,
 				//没有数据的图片
@@ -109,6 +126,10 @@
 		},
 		onLoad(e){
 			this.where=JSON.parse(e.where)
+			this.nolist=[],
+			this.yeslist=[],
+			this.accepted=[],
+			this.confirm=[],
 			this.time=this.changeTime3(new Date())
 			this.gettime()
 			this.getlist()
@@ -189,10 +210,22 @@
 					})
 				}
 			},
-			// 跳转携带id
-			detailYes(id){
+			//已解决待确认问题
+			detailYes1(id){
+				if(this.where==1){
+					uni.navigateTo({
+						url:'/pages/childs/posthouse/detailYes/detailYes?is=1&id='+JSON.stringify(id)
+					})
+				}else{
+					uni.navigateTo({
+						url:'/pages/childs/posthouse/detailYes/detailYes?is=2&id='+JSON.stringify(id)
+					})
+				}
+			},
+			// 已解决问题
+			detailYes2(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
+					url:'/pages/childs/posthouse/detailYes/detailYes?is=2&id='+JSON.stringify(id)
 				})
 			},
 			// 获取有列表的日期
@@ -242,6 +275,10 @@
 						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
+						this.nolist=[]
+						this.yeslist=[]
+						this.accepted=[]
+						this.confirm=[]
 						// console.log(res,'成长档案列表数据')
 						if(res.data.data.postResultList.length==0&&res.data.data.selectContentList==0){
 							this.show=true
@@ -302,10 +339,19 @@
 							}
 							//转换时间
 							item.time=this.changeTime(item.time)
-							if(item.isFinish==0){
-								this.nolist.push(item)
-							}else{
-								this.yeslist.push(item)
+							switch(item.isFinish){
+								case 0:
+									this.nolist.push(item);
+									break;
+								case 1:
+									this.accepted.push(item);
+									break;
+								case 2:
+									this.confirm.push(item);
+									break;
+								case 3:
+									this.yeslist.push(item);
+									break;
 							}
 						})
 						// 学习列表
@@ -399,6 +445,12 @@
 			.status2{
 				display: inline-block;
 				color: #6b6868;
+				float: right;
+				margin-right: 50rpx;
+			}
+			.status3{
+				display: inline-block;
+				color: #7631ce;
 				float: right;
 				margin-right: 50rpx;
 			}

@@ -18,28 +18,45 @@
 				<view class="every1">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three1">
-				<text class="time1">{{item.itme}}</text>
+				<text class="time1">{{item.time}}</text>
+			</view>
+		</view>
+		<!-- 已接受待解决 -->
+		<view class="box3" v-for="(item,index) in accepted"  :key="index" @click="detailNo(item.id)">
+			<view class="one3">
+				<view class="title3">{{item.name}}提出的问题</view>
+				<view class="status4">
+					已接受待解决
+				</view>
+			</view>
+			<view class="two3">
+				<view class="every3">{{item.type}}</view>
+				<view class="every3">{{item.solveType}}</view>
+				<view class="every3">{{item.isNowSolve}}</view>
+			</view>
+			<view class="three3">
+				<text class="time3">{{item.time}}</text>
 			</view>
 		</view>
 		<!-- 待确认 -->
-		<view class="box2" >
+		<view class="box2" v-for="(item,index) in confirm"  :key="index"  @click="detailYes1(item.id)">
 			<view class="one2">
-				<view class="title2">提出的问题</view>
+				<view class="title2">{{item.name}}提出的问题</view>
 				<view class="status3">
-					待确认
+					已解决待确认
 				</view>
 			</view>
 			<view class="two2">
-				<view class="every2">心理</view>
-				<view class="every2">线上</view>
-				<view class="every2">立即解决</view>
+				<view class="every2">{{item.type}}</view>
+				<view class="every2">{{item.solveType}}</view>
+				<view class="every2">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three2">
-				<text class="time2">2022/11/22 10:20</text>
+				<text class="time2">{{item.time}}</text>
 			</view>
 		</view>
 		<!-- 已解决 -->
-		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes(item.id)">
+		<view class="box" v-for="(item,index) in yeslist"  :key="index" @click="detailYes2(item.id)">
 			<view class="one">
 				<view class="title">{{item.name}}提出问题</view>
 				<view class="status2">
@@ -52,7 +69,7 @@
 				<view class="every">{{item.isNowSolve}}</view>
 			</view>
 			<view class="three">
-				<text class="time">{{item.itme}}</text>
+				<text class="time">{{item.time}}</text>
 			</view>
 		</view>
 		<view class="tip"><text class="content">仅展示最近一周的提问情况</text></view>
@@ -65,6 +82,8 @@
 			return {
 				nolist:[],
 				yeslist:[],
+				accepted:[],
+				confirm:[],
 				// 为空的显示
 				show:false,
 				where:0,
@@ -74,6 +93,15 @@
 			this.where=JSON.parse(e.where)
 			this.nolist=[],
 			this.yeslist=[],
+			this.accepted=[],
+			this.confirm=[],
+			this.getList()
+		},
+		onShow() {
+			this.nolist=[],
+			this.yeslist=[],
+			this.accepted=[],
+			this.confirm=[],
 			this.getList()
 		},
 		onPullDownRefresh() {
@@ -117,12 +145,23 @@
 					})
 				}
 			},
-			//待解决的问题（跳转到待解决的页面）
-			
+			//已接受待解决
+			//已解决待确认问题
+			detailYes1(id){
+				if(this.where==1){
+					uni.navigateTo({
+						url:'/pages/childs/posthouse/detailYes/detailYes?is=1&id='+JSON.stringify(id)
+					})
+				}else{
+					uni.navigateTo({
+						url:'/pages/childs/posthouse/detailYes/detailYes?is=2&id='+JSON.stringify(id)
+					})
+				}
+			},
 			//已解决问题
-			detailYes(id){
+			detailYes2(id){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/detailYes/detailYes?id='+JSON.stringify(id)
+					url:'/pages/childs/posthouse/detailYes/detailYes?is=2&id='+JSON.stringify(id)
 				})
 			},
 			// 获取问题列表
@@ -133,8 +172,11 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
+						console.log(res)
 						this.nolist=[]
 						this.yeslist=[]
+						this.accepted=[]
+						this.confirm=[]
 						if(res.data.data.disabuseResultList.length==0){
 							this.show=true
 						}else{
@@ -142,18 +184,31 @@
 						}
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
-							item.itme=this.changeTime(item.time)
+							item.time=this.changeTime(item.time)
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
 							}else{
 								item.isNowSolve='无需立即解决'
 							}
-							if(item.isFinish==1){
-								this.yeslist.push(item);
-							}else{
-								this.nolist.push(item);
+							switch(item.isFinish){
+								case 0:
+									this.nolist.push(item);
+									break;
+								case 1:
+									this.accepted.push(item);
+									break;
+								case 2:
+									this.confirm.push(item);
+									break;
+								case 3:
+									this.yeslist.push(item);
+									break;
 							}
 						})
+						// console.log(this.nolist)
+						// console.log(this.accepted)
+						// console.log(this.confirm)
+						// console.log(this.yeslist)
 						setTimeout(function(){
 							uni.stopPullDownRefresh();
 						},1000)
@@ -270,7 +325,51 @@
 			}
 		}
 	}
-	
+	.box3{
+		width: 84vw;
+		height: 17vh;
+		background-color: #e7e4ff;
+		margin-left: 7vw;
+		border-radius: 6px;
+		margin-top: 3vh;
+		// box-shadow: 0px 0px 8px #88888873;
+		border: 1px solid #e7e4ff;
+		border-left: 20rpx solid #243d61;
+		.one3{
+			margin-top: 1.5vh;
+			.title3{
+				display: inline-block;
+				font-size: 42rpx;
+				color: #424242;
+				font-weight: 700;
+				margin-left: 5vw;
+			}
+			.status4{
+				display: inline-block;
+				color: #7631ce;
+				float: right;
+				margin-right: 50rpx;
+			}
+		}
+		.two3{
+			margin-top: 2vh;
+			.every3{
+				display: inline-block;
+				// background-color: #a7d9c8;
+				margin-left: 5vw;
+				color: #6f6f6f;
+				border-radius: 10rpx;
+			}
+		}
+		.three3{
+			margin-top: 2vh;
+			.time3{
+				color: #6f6f6f;
+				float: right;
+				margin-right: 4vw;
+			}
+		}
+	 }
 	 .box{
 		width: 84vw;
 		height: 17vh;
@@ -290,15 +389,9 @@
 				font-weight: 700;
 				margin-left: 5vw;
 			}
-			.status{
-				display: inline-block;
-				color: #d1292f;
-				float: right;
-				margin-right: 50rpx;
-			}
 			.status2{
 				display: inline-block;
-				color: #797979;
+				color: #285006;
 				float: right;
 				margin-right: 50rpx;
 			}

@@ -52,7 +52,7 @@
         class="inter"
       ></image>
     </view>
-    <view class="two">
+    <view class="two"  @click="about">
       <image
         src="../../../static/we.png"
         style="width: 40rpx; height: 40rpx"
@@ -113,11 +113,13 @@ export default {
       messageNumber: 0,
       download: 0,
       myLove: 0,
+	  isbind:0,
     };
   },
   onShow() {
     this.getdata();
     this.getmessageNumber();
+	this.isbinded()
   },
   methods: {
     // 儿童端我的资料
@@ -151,12 +153,38 @@ export default {
         url: "/pages/chat/chatlist/chatlist",
       });
     },
+	//判断是否已经绑定账号
+	isbinded(){
+		uni.request({
+		  url: "https://api.yuleng.top:38088/api/verify/invitation-code/",
+		  method: "POST",
+		  header: {
+		    token: uni.getStorageSync("token"), //自定义请求头信息
+		  },
+		  success: (res) => {
+			this.isbind=res.data.isCertification
+		  },
+		});
+	},
     // 去绑定账号界面
     bind() {
-      uni.navigateTo({
-        url: "/pages/childs/personal/bind/bind",
-      });
+		if(this.isbind==0){
+			uni.navigateTo({
+			  url: "/pages/childs/personal/bind/bind",
+			});
+		}else{
+			uni.navigateTo({
+			  url: "/pages/childs/personal/binded/binded",
+			});
+		}
+      
     },
+	// 去关于我们页面
+	about(){
+		uni.navigateTo({
+		  url: "/pages/users/aboutme/aboutme",
+		});
+	},
     // 获取数据
     getdata() {
       uni.request({

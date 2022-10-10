@@ -39,7 +39,7 @@
         class="inter"
       ></image>
     </view>
-    <view class="two">
+    <view class="two" @click="about">
       <image
         src="../../../static/we.png"
         style="width: 40rpx; height: 40rpx"
@@ -122,6 +122,12 @@ export default {
         url: "/pages/chat/chatlist/chatlist",
       });
     },
+	// 去关于我们页面
+	about(){
+		uni.navigateTo({
+		  url: "/pages/users/aboutme/aboutme",
+		});
+	},
     getdata() {
       uni.request({
         url: "https://api.yuleng.top:38088/api/my-interface/volunteer",

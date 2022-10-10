@@ -55,6 +55,7 @@
 				id:0,
 				data:{},
 				chatRoomId:0,
+				groupLiveChatRoomName:'群聊'
 			}
 		},
 		onLoad(e){
@@ -76,6 +77,7 @@
 						this.data=res.data.data
 						// console.log(this.data,"问题详情")
 						this.chatRoomId=res.data.data.groupLiveChatRoomId
+						this.groupLiveChatRoomName=res.data.data.groupLiveChatRoomName
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{
@@ -86,7 +88,7 @@
 			},
 			// 去往交流区
 			gochat(){
-				let tit='群聊'
+				let tit=this.groupLiveChatRoomName
 				uni.navigateTo({
 					url:"/pages/chat/chatgroup?roomId="+JSON.stringify(this.chatRoomId)+"&name="+JSON.stringify(tit)
 				})

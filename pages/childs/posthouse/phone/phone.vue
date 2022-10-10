@@ -16,7 +16,7 @@
 				phonelist:[]
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getdata()
 		},
 		methods: {
