@@ -103,6 +103,8 @@
 			this.innerAudio=innerAudioContext;
 			this.recorder.start.format="wav";
 			this.recorder.start.duration=10000;
+			this.recorder.start.sampleRate=44100;
+			
 			/* recorderManager.start.format="wav";
 			recorderManager.start.duration=10000; */
 				
