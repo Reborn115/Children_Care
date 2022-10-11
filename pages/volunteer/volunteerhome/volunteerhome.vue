@@ -26,10 +26,10 @@
             <text>解惑</text>
           </view>
           <image
-            src="../../../static/panda.png"
+            src="../../../static/20221010-200145.png"
             style="
               width: 350rpx;
-              height: 230rpx;
+              height: 250rpx;
               position: absolute;
               bottom: 0rpx;
               right: 25rpx;
@@ -43,10 +43,10 @@
             <text>我的</text>
           </view>
           <image
-            src="../../../static/panda.png"
+            src="../../../static/20221010-200145.png"
             style="
               width: 350rpx;
-              height: 230rpx;
+              height: 250rpx;
               position: absolute;
               bottom: 0rpx;
               right: 25rpx;

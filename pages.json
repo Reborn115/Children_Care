@@ -17,9 +17,9 @@
 					"scrollIndicator": "none"
 				}
             }
-        }
+        },
 		//注册
-        ,{
+        {
             "path" : "pages/users/register/register",
             "style" :                                                                                    
             {
@@ -94,7 +94,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "驿站",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh": false
             }
             
         },
@@ -436,6 +436,24 @@
 		        "enablePullDownRefresh": false
 		    }
 		}
+        ,{
+            "path" : "pages/childs/personal/binded/binded",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定账号",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/users/aboutme/aboutme",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关于我们",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

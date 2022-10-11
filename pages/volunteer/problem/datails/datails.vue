@@ -89,6 +89,7 @@
 				//点击按钮的是否禁用
 				buttonDisusable:false,
 				chatRoomId:0,
+				groupLiveChatRoomName:'群聊'
 			}
 		},
 		onLoad(e){
@@ -115,7 +116,7 @@
 			},
 			// 进入交流讨论界面
 			gochat(){
-				let tit='群聊'
+				let tit=this.groupLiveChatRoomName
 				uni.navigateTo({
 					url:"/pages/chat/chatgroup?roomId="+JSON.stringify(this.chatRoomId)+"&name="+JSON.stringify(tit)
 				})
@@ -158,6 +159,7 @@
 					success: (res) => {
 						this.data=res.data.data
 						this.chatRoomId=res.data.data.groupLiveChatRoomId
+						this.groupLiveChatRoomName=res.data.data.groupLiveChatRoomName
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{

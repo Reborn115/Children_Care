@@ -103,6 +103,15 @@
 				</view>
 			</view>
 		</view>
+		<button v-if="show" class="button" @click="dialogToggle" :disabled="buttonDisusable"><text
+				class="button-text warn-text">{{problemSolved}}</text></button>
+		<view>
+			<!-- 提示窗 -->
+			<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="info" cancelText="关闭" confirmText="确定"  content="帮助你解决问题的志愿者反馈此问题已解决.你是否确定问题已解决？" @confirm="dialogConfirm"
+				></uni-popup-dialog>
+			</uni-popup>
+		</view>
 	</view>
 </template>
 
@@ -134,10 +143,27 @@
 					suggestion:'暂无数据',
 					other:'暂无数据',
 				},
+				// 确认解决的按钮是否显示
+				show:true,
+				problemSolved:'确认已解决',
+				//点击按钮的是否禁用
+				buttonDisusable:false,
+				//判断是已解决还是待确认
+				is:0
 			}
 		},
 		onLoad(e){
 			this.id = JSON.parse(e.id)
+			this.is=e.is
+			if(this.is==1){
+				this.show=true
+			}else{
+				this.show=false
+			}
+			this.gedetail()
+			this.getnum()
+		},
+		onShow() {
 			this.gedetail()
 			this.getnum()
 		},
@@ -237,7 +263,31 @@
 						}
 					});
 				}
-			}
+			},
+			//打开修改问题状态弹窗
+			dialogToggle() {
+				this.$refs.alertDialog.open()
+			},
+			//点击修改问题状态的确认按钮
+			dialogConfirm() {
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/accept-solve?disabuseId='+JSON.stringify(this.id), 
+					method:'POST',
+					header: {
+						'token': uni.getStorageSync('token'), //自定义请求头信息
+					},
+					success: () => {
+						uni.showToast({
+							title: '确认成功',
+							icon:'success',
+							duration: 2000
+						});
+						this.problemSolved="问题已解决"
+						this.buttonDisusable=true
+					}
+				});
+				
+			},
 		}
 	}
 </script>
@@ -339,6 +389,14 @@
 	margin-left: 30rpx;
 	// color: #6f6f6f;
 	// background-color: #fff;
+}
+.button{
+	width: 485rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	margin-top: 55rpx;
+	background-color: #ffedbc;
+	// border: 1px solid #fff5d0;
 }
 </style>
 
