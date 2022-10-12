@@ -22,7 +22,7 @@
 		methods: {
 			addphone(){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/phone/editphone/editphone'
+					url:'/pages/childs/posthouse/phone/editphone'
 				})
 			},
 			getdata(){

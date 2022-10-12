@@ -68,12 +68,14 @@
 				<view class="item">
 					<view class="text">
 						<text>志愿者的记录</text>
-						<uni-data-select
-							v-model="volunternum"
-							:localdata="range2"
-							style="display: inline-block;"
-							:clear="false"
-						  ></uni-data-select>
+						<view class="select">
+							<uni-data-select
+								v-model="volunternum"
+								:localdata="range2"
+								style="display: inline-block;"
+								:clear="false"
+							  ></uni-data-select>
+						</view>
 					</view>
 					<view class="text1">
 						<view class="text4">

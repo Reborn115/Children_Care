@@ -113,7 +113,7 @@ export default {
 	this.getname();
   },
   onUnload() {
-    this.closeSocket();
+    this.closeSocket1();
   },
   // 组件注册
   components: {
@@ -232,10 +232,14 @@ export default {
       uni.onSocketMessage((res) => {
         console.log(res);
         console.log("收到服务器内容：" + res.data);
-        if (res.data != "连接成功"&&res.data.responseType=='zzrServe') {
+        if (res.data != "连接成功") {
           // this.$api.msg('你有新的消息');
           res.data = JSON.parse(res.data);
-          this.msg.push(res.data);
+		  // console.log(res.data.responseType)
+		  if(res.data.responseType=='zzrServer'){
+			  this.msg.push(res.data);
+		  }
+          
         }
         this.$nextTick(function () {
           this.scrollToView = "msg" + (this.msg.length - 1);
@@ -255,11 +259,21 @@ export default {
         this.scrollToView = "msg" + (this.msg.length - 1);
       });
     },
-    closeSocket() {
-      uni.closeSocket(() => {
-        this.isopen = false;
-        console.log("关闭Socket成功");
-      });
+    closeSocket1() {
+		// console.log('555')
+      // uni.closeSocket(() => {
+      //   this.isopen = false;
+      //   console.log("关闭Socket成功");
+      // });
+	  this.isopen = false;
+	  uni.closeSocket({  
+		  success: function(res) {  
+			  console.log("WebSocket关闭成功！",res);  
+		  },  
+		  fail: function(res) {  
+			  console.log("WebSocket关闭失败！",res);  
+		  }  
+	  })  
     },
 	godetail(){
 		uni.navigateTo({
