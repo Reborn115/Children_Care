@@ -1,5 +1,9 @@
 
 // #ifndef VUE3
+
+import {VueJsonp} from 'vue-jsonp'
+Vue.use(VueJsonp)
+
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";

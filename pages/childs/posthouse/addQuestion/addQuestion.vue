@@ -155,6 +155,9 @@
 							'token': uni.getStorageSync('token'), //自定义请求头信息
 						},
 						success: () => {
+							uni.switchTab({
+								url:"/pages/childs/posthouse/posthouse"
+							})
 							uni.showToast({
 								title: '提交成功',
 								icon:'success',
