@@ -1,6 +1,7 @@
 <!-- 父母端和小孩端复用的 -->
 <template>
 	<view class="body">
+		<u-back-top :scroll-top="scrollTop" top="600"></u-back-top>
 		<view class="picture" v-if="show">
 			<image src="../../../static/nodata5.png" style="width: 700rpx;height: 640rpx;"></image>
 		</view>
@@ -87,7 +88,11 @@
 				// 为空的显示
 				show:false,
 				where:0,
+				scrollTop: 0
 			}
+		},
+		onPageScroll(e) {
+				this.scrollTop = e.scrollTop;
 		},
 		onLoad(e) {
 			this.where=JSON.parse(e.where)

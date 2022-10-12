@@ -161,6 +161,7 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
+						console.log(res,'111')
 						this.nolist=[]
 						this.yeslist=[]
 						if(res.data.data.disabuseResultList.length==0){
@@ -171,6 +172,32 @@
 						let list=res.data.data.disabuseResultList.reverse()
 						list.forEach((item)=>{
 							item.time=this.changeTime(item.time)
+							//转换类型
+							switch(parseInt(item.type)){
+								case 1:
+									item.type='心理'
+									break;
+								case 2:
+									item.type='学习'
+									break;
+								case 3:
+									item.type='安全'
+									break;
+								case 4:
+									item.type='生活'
+									break;
+								case 5:
+									item.type='兴趣'
+									break;
+								case 6:
+									item.type='感情'
+									break;
+								case 7:
+									item.type='健康'
+									break;
+								default:
+									item.type='无数据'
+							}
 							if(item.isNowSolve==1){
 								item.isNowSolve='立即解决'
 							}else{
@@ -191,6 +218,10 @@
 									break;
 							}
 						})
+						// console.log(this.nolist,'222')
+						// console.log(this.accepted,'333')
+						// console.log(this.confirm,'444')
+						// console.log(this.yeslist,'555')
 						setTimeout(function(){
 							uni.stopPullDownRefresh();
 						},1000)

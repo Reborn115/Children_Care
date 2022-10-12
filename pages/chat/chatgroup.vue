@@ -1,10 +1,25 @@
 <template>
   <view class="content">
+	   <u-navbar
+		  :title="tit"
+		  :autoBack="true"
+	  >
+		  <view
+			  class="u-nav-slot"
+			  slot="right"
+			  @click="godetail"
+		  >
+			  <u-icon
+				  name="more-circle"
+				  size="30"
+			  ></u-icon>
+		  </view>
+	  </u-navbar>
     <!-- 聊天内容 -->
     <!-- scroll-view滚动视图  scroll-into-view设置哪个方向可滚动，则在哪个方向滚动到该元素 -->
     <scroll-view class="chat" scroll-y="true" :scroll-into-view="scrollToView">
       <!-- 下内边距可滚动 -->
-      <view class="chat-main" :style="{ paddingBottom: inputh + 'px' }">
+      <view class="chat-main" :style="{ paddingBottom: inputh + 'px'}">
         <!-- 遍历消息列表 -->
         <view
           class="chat-ls"
@@ -68,6 +83,7 @@ export default {
     return {
       // 聊天室房间号
       roomId: 0,
+	  tit:'',
       //我的id
       meId: uni.getStorageSync("userId"),
       token: uni.getStorageSync("token"),
@@ -86,14 +102,15 @@ export default {
   },
   onLoad(e) {
     this.roomId = JSON.parse(e.roomId);
-    let tit = JSON.parse(e.name);
+    this.tit = JSON.parse(e.name);
     this.getperson();
     this.getPrevious();
-    uni.setNavigationBarTitle({ title: tit });
+    uni.setNavigationBarTitle({ title: this.tit });
     this.openSocket();
   },
   onShow() {
     this.getPrevious();
+	this.getname();
   },
   onUnload() {
     this.closeSocket();
@@ -215,7 +232,7 @@ export default {
       uni.onSocketMessage((res) => {
         console.log(res);
         console.log("收到服务器内容：" + res.data);
-        if (res.data != "连接成功") {
+        if (res.data != "连接成功"&&res.data.responseType=='zzrServe') {
           // this.$api.msg('你有新的消息');
           res.data = JSON.parse(res.data);
           this.msg.push(res.data);
@@ -244,6 +261,26 @@ export default {
         console.log("关闭Socket成功");
       });
     },
+	godetail(){
+		uni.navigateTo({
+			url:'/pages/chat/chatdetail/chatdetail?roomId='+JSON.stringify(this.roomId)
+		})
+	},
+	getname(){
+		uni.request({
+			url: 'https://api.yuleng.top:38088/api/group-message', 
+			header: {
+				'token': uni.getStorageSync('token'), 
+			},
+			data:{
+				roomId:this.roomId
+			},
+			success: (res) => {
+				this.tit=res.data.data.groupName
+				uni.setNavigationBarTitle({ title: this.tit });
+			}
+		});
+	},
   },
 };
 </script>
@@ -264,7 +301,7 @@ page {
   .chat-main {
     padding-left: 32rpx;
     padding-right: 32rpx;
-    padding-top: 20rpx;
+    padding-top: 190rpx;
     // padding-bottom: 120rpx;  //获取动态高度
     display: flex;
     flex-direction: column;

@@ -216,7 +216,7 @@ export default {
       //接收对方发来的消息
       uni.onSocketMessage((res) => {
         console.log("收到服务器内容：" + res.data);
-        if (res.data != "连接成功") {
+        if (res.data != "连接成功"&&res.data.responseType=='zzrServe') {
           // this.$api.msg('你有新的消息');
           res.data = JSON.parse(res.data);
           this.msg.push(res.data);

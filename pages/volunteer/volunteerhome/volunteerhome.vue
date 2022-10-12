@@ -26,30 +26,30 @@
             <text>解惑</text>
           </view>
           <image
-            src="../../../static/20221010-200145.png"
+            src="../../../static/20221012-112300.png"
             style="
-              width: 350rpx;
-              height: 250rpx;
+              width: 271rpx;
+              height: 255rpx;
               position: absolute;
               bottom: 0rpx;
-              right: 25rpx;
+              right: 72rpx;
             "
           ></image>
         </view>
       </view>
       <view class="box" @click="goVolunteerMe">
-        <view class="card" id="card3">
+        <view class="card" id="card2">
           <view class="textInline">
             <text>我的</text>
           </view>
           <image
-            src="../../../static/20221010-200145.png"
+            src="../../../static/20221012-112220.png"
             style="
-              width: 350rpx;
-              height: 250rpx;
+              width: 271rpx;
+              height: 255rpx;
               position: absolute;
               bottom: 0rpx;
-              right: 25rpx;
+              right: 72rpx;
             "
           ></image>
         </view>
@@ -168,7 +168,8 @@ export default {
     background: linear-gradient(#fbcdbb, #f9a7aa) !important;
   }
   #card2 {
-    background: linear-gradient(#55caf3, #3c82df) !important;
+    // background: linear-gradient(#55caf3, #3c82df) !important;
+	background: linear-gradient(#55caf3, #a5ccff) !important
   }
   #card3 {
     background: linear-gradient(#d9c0fa, #abc1f9) !important;

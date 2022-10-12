@@ -165,7 +165,6 @@
 		},
 		onShow() {
 			this.gedetail()
-			this.getnum()
 		},
 		watch:{
 			// 父母第几次建议改变

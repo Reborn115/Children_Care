@@ -29,7 +29,7 @@
             src="../../../static/panda.png"
             style="
               width: 350rpx;
-              height: 230rpx;
+              height: 250rpx;
               position: absolute;
               bottom: 0rpx;
               right: 25rpx;
@@ -47,7 +47,7 @@
             src="../../../static/panda.png"
             style="
               width: 350rpx;
-              height: 230rpx;
+              height: 250rpx;
               position: absolute;
               bottom: 0rpx;
               right: 25rpx;
@@ -64,7 +64,7 @@
             src="../../../static/panda.png"
             style="
               width: 350rpx;
-              height: 230rpx;
+              height: 250rpx;
               position: absolute;
               bottom: 0rpx;
               right: 25rpx;

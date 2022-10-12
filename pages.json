@@ -292,7 +292,9 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "群聊",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
 		    }
 		    
 		}
@@ -443,7 +445,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/chat/chatdetail/chatdetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "群聊详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
