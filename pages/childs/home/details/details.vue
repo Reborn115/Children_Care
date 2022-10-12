@@ -1,8 +1,5 @@
 <template>
 	<view class="container">
-		
-						
-					
 		<view class="introduce">
 			<view class="u-page__image-item">
 				<u--image
@@ -48,7 +45,7 @@
 					<view class="list">
 						<view v-for="(item, index) in chapter" :key="index" @click="goAudio1(item)">
 							<text class="list-item" >
-								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult.name}}》--{{item.headName}}
 								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
 							</text>
 							<u-divider ></u-divider>
@@ -70,7 +67,7 @@
 						</text> -->
 						<view v-for="(item, index) in chapter" :key="index" @click="goAudio2(item)">
 							<text class="list-item" >
-								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult.name}}》--{{item.headName}}
 								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
 							</text>
 							<u-divider ></u-divider>
@@ -90,7 +87,7 @@
 						</text> -->
 						<view v-for="(item, index) in chapter" :key="index" @click="goRead(item)">
 							<text class="list-item" >
-								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult[0].name}}》--{{item.headName}}
+								{{item.order}}&nbsp;&nbsp;&nbsp;&nbsp;《{{positionResult.name}}》--{{item.headName}}
 								<!-- <HR align=center width=300 color=#987cb9 SIZE=1> -->
 							</text>
 							<u-divider ></u-divider>
@@ -143,12 +140,12 @@
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
 			console.log(e.positionResult)
-			console.log(this.positionResult[0].name)
-			this.contentId=this.positionResult[0].id
-			this.title=this.positionResult[0].name
-			this.type=this.positionResult[0].type
-			this.idea=this.positionResult[0].theme
-			this.src=this.positionResult[0].coverPictureUrl
+			console.log(this.positionResult.name)
+			this.contentId=this.positionResult.id
+			this.title=this.positionResult.name
+			this.type=this.positionResult.type
+			this.idea=this.positionResult.theme
+			this.src=this.positionResult.coverPictureUrl
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/list', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -211,6 +208,7 @@
 							})
 							
 						} else {
+							item.isSmart=true
 							item.smartAudio=res.data.message
 							console.log(item)
 							item.total=this.total

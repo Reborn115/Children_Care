@@ -30,8 +30,8 @@
 				permission:'',
 				img:'../../../static/neither.png',
 				formData:{
-					account:'阿东',
-					password:'123456'
+					account:'',
+					password:''
 				},
 				
 				rules:{
@@ -173,10 +173,15 @@
 									uni.navigateTo({
 									    url:"/pages/users/editChild/editChild"
 									})
-								} else if(!res.data.data.isCertification){
+								} else if(!res.data.data.isCertification&&this.permission==2){
 									uni.navigateTo({
 									    url:"/pages/users/editInfo/editInfo"
 									})
+								} else if(!res.data.data.isCertification&&this.permission==3){
+									uni.navigateTo({
+									    url:"/pages/volunteer/volunterMe/editVolun/editVolun"
+									})
+									
 								} else if(this.permission==1){
 									uni.switchTab({
 									  url: "/pages/childs/home/home",

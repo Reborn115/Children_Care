@@ -39,7 +39,7 @@
 				content:'功能暂不可用',
 				show:false,
 				process:'0',
-				src:'../../../../static/nostorage.png',
+				src:'../../../../../static/nostorage.png',
 				positionResult:'',
 				contentInfoId:'',
 				serveSrc:'',
@@ -48,7 +48,9 @@
 				processHead:'',
 				userId:'',
 				timer:'',
-				isFirst:true
+				cleartime:'',
+				isFirst:true,
+				skip:0
 			};
 		},
 		onLoad(e){
@@ -57,11 +59,42 @@
 			this.contentInfoId=this.positionResult.id
 			this.userId=uni.getStorageSync('userId')
 			this.getServe()
-			
-			
-			
 		},
+		watch:{
+			skip(newVal, oldVal){
+				uni.showToast({
+					title: '功能暂不可用',
+					icon:'error'
+				});
+				if(this.timer){
+					clearInterval(this.timer);  
+					this.timer = null;
+				}
+				/* this.timer=setTimeout(()=>{
+					
+				},1000)
+				clearTimeout(this.timer) */
+				this.goHome()
+				
+			}
+		},
+		
+		onUnload(){
+		    this.cleartime=1;
+			if(this.timer){
+				clearInterval(this.timer);  
+				this.timer = null;
+			}
+		},
+		
 		methods:{
+			clearMyTimer(){
+			    if(this.timer) {
+			        console.log("check-清除定时器"); 
+			        clearInterval(this.timer); 
+			        this.timer = null;  
+			    }
+			},
 			goHome(){
 				uni.switchTab({
 				  url: "/pages/childs/home/home",
@@ -92,7 +125,7 @@
 								this.positionResult.smartAudio=this.smartAudio
 								this.timer = setTimeout(() => {
 								    
-								}, 1000);
+								}, 200);
 								clearTimeout(this.timer)
 								this.positionResult.isFirst=this.isFirst
 								uni.navigateTo({
@@ -100,23 +133,22 @@
 								})
 							}
 						} else {
-							this.show=true
-							/* uni.showToast({
-								title: '功能暂不可用',
-								icon:'error'
-							});
-							this.timer = setTimeout(() => {
-							    
-							}, 1000);
-							clearTimeout(this.timer)
-							uni.switchTab({
+							/* this.clearMyTimer()
+							this.cleartime=1 */ 
+							this.skip=1;
+							/* uni.switchTab({
 							  url: "/pages/childs/home/home",
 							}); */
 						}
 				        
 				    },
 					fail:(res)=>{
-						console.log("请求失败")
+						this.skip=1
+						/* this.clearMyTimer()
+						this.cleartime=1
+						uni.switchTab({
+						  url: "/pages/childs/home/home",
+						}); */
 					}
 				});
 			},
@@ -134,23 +166,20 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-						if(res.data.code=='00000'){
+						/* if(res.data.code=='00000'){ */
 							console.log(res.data);
 							this.text = 'request success';
 							this.smartAudio=res.data.fileUrl;
 							console.log(this.smartAudio)
-						} else {
-							uni.showToast({
+						/* } else { */
+							/* uni.showToast({
 								title: '功能暂不可用',
 								icon:'error'
 							});
-							/* this.timer = setTimeout(() => {
-							    
-							}, 1000);
-							clearTimeout(this.timer) */
+							
 							this.show=true
 							this.goHome()
-						}
+						} */
 				        
 						
 				    },
@@ -178,9 +207,14 @@
 						console.log(this.audioHead)
 						this.getAudio()
 						this.timer=setInterval(() => {
-							
-						    this.getProgress()
-						}, 2000);
+							if(this.cleartime==1&&this.timer){
+								clearInterval(this.timer);  
+								this.timer = null;
+							} else {
+								this.getProgress()
+							}
+						    
+						}, 1000);
 				    }
 				});
 			},

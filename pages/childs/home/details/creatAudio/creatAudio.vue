@@ -75,7 +75,7 @@
 				author:'',
 				name:'',
 				speed:1,
-				audioUrl:'http://hbws.file.yuleng.top/audio/xiaowangzi/original/1.m4a',
+				audioUrl:'',
 				src:'',
 				isPlay:false,
 				contentAudio:'',
@@ -109,11 +109,19 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-				        console.log(res.data);
-				        this.text = 'request success';
-						this.name=res.data.data.storyName
-						this.audioUrl=res.data.data.audioUrl
-						this.author=res.data.data.writer
+						if(res.data.code=="A0400"){
+							uni.showToast({
+								title: res.data.message,
+								icon:'error'
+							});
+						} else {
+							console.log(res.data);
+							this.text = 'request success';
+							this.name=res.data.data.storyName
+							this.audioUrl=res.data.data.audioUrl
+							this.author=res.data.data.writer
+						}
+				        
 				    }
 				});
 			},
@@ -137,15 +145,23 @@
 				/* console.log(this.isPlay); */
 			},
 			playAudio(){
-				/* this.innerAudioContext.play(); */
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = this.audioUrl;
-				innerAudioContext.play();
-				this.isPlay=!this.isPlay;
-				/* console.log(this.isPlay); */
-				this.contentAudio=innerAudioContext;
-				this.contentAudio.playbackRate=this.speed
-				/* console.log(this.contentAudio) */
+				if(this.audioUrl){
+					/* this.innerAudioContext.play(); */
+					const innerAudioContext = uni.createInnerAudioContext();
+					innerAudioContext.src = this.audioUrl;
+					innerAudioContext.play();
+					this.isPlay=!this.isPlay;
+					/* console.log(this.isPlay); */
+					this.contentAudio=innerAudioContext;
+					this.contentAudio.playbackRate=this.speed
+					/* console.log(this.contentAudio) */
+				} else {
+					uni.showToast({
+						title: "无此章节音频",
+						icon:'error'
+					});
+				}
+				
 			},
 		},
 		onHide(){
@@ -183,11 +199,19 @@
 		    		"token":uni.getStorageSync('token')
 		        },
 		        success: (res) => {
-		            console.log(res.data);
-		            this.text = 'request success';
-		    		this.name=res.data.data.storyName
-					this.author=res.data.data.writer
-					this.audioUrl=res.data.data.audioUrl
+					if(res.data.code=="A0400"){
+						uni.showToast({
+							title: res.data.message,
+							icon:'error'
+						});
+					} else {
+						console.log(res.data);
+						this.text = 'request success';
+						this.name=res.data.data.storyName
+						this.author=res.data.data.writer
+						this.audioUrl=res.data.data.audioUrl
+					}
+		            
 		        }
 		    });
 			this.getAudio()

@@ -78,7 +78,7 @@
 												  	{{baseFormData.frequence}}
 												  </view>
 										</uni-forms-item>
-										<uni-forms-item label="关注软件情况" name="care" :localdata="care">
+										<uni-forms-item label="关注软件情况" name="care">
 											<!-- <uni-data-select
 											        v-model="baseFormData.care"
 											        :localdata="care"
@@ -129,29 +129,6 @@
 				},
 				src:'https://s2.loli.net/2022/09/15/cZS6YUJlA2HqvbN.jpg',
 				fileList1: [],
-				sex: [{
-					text: '男',
-					value: 0
-				}, {
-					text: '女',
-					value: 1
-				}],
-				
-				
-				frequence: [
-				          { value: 0, text: "爸爸" },
-				          { value: 1, text: "妈妈" },
-				          { value: 2, text: "爷爷" },
-						  { value: 3, text: "奶奶" },
-						  { value: 4, text: "哥哥" },
-						  { value: 5, text: "姐姐" },
-				        ],
-				care:[
-				          { value: 0, text: "偶尔" },
-				          { value: 1, text: "时常" },
-				          { value: 2, text: "经常" },
-						  
-				        ],
 				
 			};
 		},
@@ -213,24 +190,35 @@
 					    default:
 					        return '未设置';
 					}
+					switch ( this.baseFormData.relationship ) {
+					    case '0':
+							this.baseFormData.relationship='爸爸'
+					        break;
+					    case '1':
+					        this.baseFormData.relationship='妈妈'
+					        break;
+					    case '2':
+					    	this.baseFormData.relationship='其他'
+					        break;
+					    
+					    default:
+					        return '未设置';
+					}
 					switch ( this.baseFormData.frequence ) {
 					    case 0:
-							this.baseFormData.frequence='爸爸'
+							this.baseFormData.frequence="一月一次"
 					        break;
 					    case 1:
-					        this.baseFormData.frequence='妈妈'
+					        this.baseFormData.frequence="三月一次"
 					        break;
 					    case 2:
-					    	this.baseFormData.frequence='爷爷'
+					    	this.baseFormData.frequence="半年一次"
 					        break;
 					    case 3:
-					    	this.baseFormData.frequence='奶奶'
+					    	this.baseFormData.frequence="一年一次"
 					        break;
-					    case 4:
-					    	this.baseFormData.frequence='哥哥'
-					        break;
-						case 5:
-							this.baseFormData.frequence='姐姐'
+						case 4:
+							this.baseFormData.frequence="超过一年才回一次"
 						    break;
 					    default:
 					        return '未设置';

@@ -44,7 +44,7 @@
 			goDetail1(item){
 				console.log(item)
 				uni.navigateTo({
-				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(this.tips)
+				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(item)
 				})
 			},
 			search(){

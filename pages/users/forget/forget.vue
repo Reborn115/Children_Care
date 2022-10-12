@@ -137,7 +137,7 @@
 					});
 				} else {
 					uni.request({
-					  url: "https://api.yuleng.top:38088/api/verify-phone/", //仅为示例，并非真实接口地址。
+					  url: "https://api.yuleng.top:38088/api/seed-code", //仅为示例，并非真实接口地址。
 					  method: "POST",
 					  data: {
 					    phone:this.formData.phone,
@@ -153,7 +153,7 @@
 								title: res.data.message,
 								icon:"error"
 							});
-						}else{
+						}/* else{
 							if (this.$refs.uCode.canGetCode) {
 							  // 模拟向后端请求验证码
 							  uni.request({
@@ -183,7 +183,7 @@
 							} else {
 							  uni.$u.toast('倒计时结束后再发送');
 							}
-						}
+						} */
 					    
 					  },
 					});
@@ -210,21 +210,22 @@
 							this.$refs[ref].validate().then(res => {
 								uni.request({
 								    url: 'https://api.yuleng.top:38088/api/find-password', //仅为示例，并非真实接口地址。
-									method:"GET",
+									method:"POST",
 								    data: {
-								        code:this.confirm,
-										userName:this.account,
-										phone:this.phone,
-										password:this.password
+								        code:this.formData.confirm,
+										userName:this.formData.account,
+										phone:this.formData.phone,
+										password:this.formData.password
 								    },
 								    header: {
-								        'custom-header': 'hello' //自定义请求头信息
+								        "content-type":"application/json",
+								        
 								    },
 								    success: (res) => {
 								        console.log(res.data);
 								        this.text = 'request success';
 										uni.navigateTo({
-											url:"/pages/login/login"
+											url:"/pages/users/login/login"
 										})
 								    }
 								});

@@ -17,6 +17,11 @@
 			
 		</u-text> -->
 		<!-- {{lastContent}} -->
+		<view class="headName">
+			<text>
+				{{headName}}
+			</text>
+		</view>
 		<view class="u-page__image-item">
 			<u--image
 				radius="50"
@@ -43,6 +48,7 @@
 				order:'',
 				lastContent:'',
 				total:'',
+				headName:'',
 			};
 		},
 		onLoad(e){
@@ -52,6 +58,7 @@
 			this.order=this.positionResult.order
 			this.src=this.positionResult.src
 			this.total=this.positionResult.total
+			this.headName=this.positionResult.headName
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/text', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -65,7 +72,22 @@
 		        },
 		        success: (res) => {
 					/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
-					this.handleText(res.data.data.mainText)
+					if(this.contentId==1){
+						this.lastContent=this.handleText1(res.data.data.mainText)
+					} else if(this.contentId==2) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
+					} else if(this.contentId==3) {
+						this.lastContent=this.handleText3(res.data.data.mainText)
+					} else if(this.contentId==4) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
+					} else if(this.contentId==5) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
+					} else if(this.contentId==6) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
+					} else if(this.contentId==7) {
+						this.lastContent=this.handleText2(res.data.data.mainText)
+					}
+					/* this.handleText(res.data.data.mainText) */
 					this.src=res.data.data.picUrl
 		            console.log(res.data);
 		            this.text = 'request success';
@@ -112,12 +134,26 @@
 						"token":uni.getStorageSync('token')
 				    },
 				    success: (res) => {
-						
+						if(this.contentId==1){
+							this.lastContent=this.handleText1(res.data.data.mainText)
+						} else if(this.contentId==2) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
+						} else if(this.contentId==3) {
+							this.lastContent=this.handleText3(res.data.data.mainText)
+						} else if(this.contentId==4) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
+						} else if(this.contentId==5) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
+						} else if(this.contentId==6) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
+						} else if(this.contentId==7) {
+							this.lastContent=this.handleText2(res.data.data.mainText)
+						}
 							
 							
 							
 						
-							this.lastContent=this.handleText(res.data.data.mainText)
+							this.headName=res.data.data.title
 							this.src=res.data.data.picUrl
 							console.log(res.data);
 							this.text = 'request success';
@@ -128,9 +164,33 @@
 				    }
 				});
 			},
-			handleText(content){
+			handleText1(content){
 				
 				content=content.slice(18)　
+				let arr = content.split(/[\n]/)
+				for (let i = 0 ; i < arr.length;i++){
+				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
+				    this.lastContent= this.lastContent + addContent
+					
+				}
+				return this.lastContent
+				
+			},
+			handleText2(content){
+				/* <p></p><p>16K小说网 更新时间:2008-4-12 23:18:24 本章字数:6930</p>↵ */
+				/* content=content.slice(14) */　
+				let arr = content.split(/[\n]/)
+				for (let i = 0 ; i < arr.length;i++){
+				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
+				    this.lastContent= this.lastContent + addContent
+					
+				}
+				return this.lastContent
+				
+			},
+			handleText3(content){
+				
+				content=content.slice(55)　
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
@@ -165,6 +225,13 @@
 </script>
 
 <style lang="scss" scoped>
+.headName{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+}
 .tips{
 	display:flex;
 	justify-content: center;

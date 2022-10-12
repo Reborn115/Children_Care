@@ -395,7 +395,7 @@
             }
             
         }
-        /* ,{
+        ,{
             "path" : "pages/chat/vedio/vedio",
             "style" :                                                                                    
             {
@@ -403,7 +403,15 @@
                 "enablePullDownRefresh": false
             }
             
-        } */
+        } 
+        ,{
+            "path" : "pages/volunteer/volunterMe/editVolun/editVolun",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        } 
         ,{
             "path" : "pages/volunteer/problem/datails/detail0/detail0",
             "style" :                                                                                    
@@ -411,7 +419,9 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-        },
+            
+        }
+        ,
 		{
 		    "path" : "pages/childs/posthouse/phone/phone",
 		    "style" :                                                                                    
