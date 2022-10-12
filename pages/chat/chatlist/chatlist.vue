@@ -4,7 +4,7 @@
 			<uni-list-chat  v-for="(item,index) in list" 
 			:key="index" 
 			@click="gochat(item.roomId,item.type,item.name)" 
-			clickable="true" 
+			:clickable="true" 
 			:avatar-circle="true" 
 			:title="item.name" 
 			:avatar="item.headPicUrl" 
