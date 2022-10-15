@@ -102,13 +102,13 @@
 			this.confirm=[],
 			this.getList()
 		},
-		onShow() {
-			this.nolist=[],
-			this.yeslist=[],
-			this.accepted=[],
-			this.confirm=[],
-			this.getList()
-		},
+		// onShow() {
+		// 	this.nolist=[],
+		// 	this.yeslist=[],
+		// 	this.accepted=[],
+		// 	this.confirm=[],
+		// 	this.getList()
+		// },
 		onPullDownRefresh() {
 			this.getList()
 		},

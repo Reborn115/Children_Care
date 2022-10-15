@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-back-top :scroll-top="scrollTop" top="600"></u-back-top>
 		<view class="picture" v-if="show">
 			<image src="../../../static/nodata5.png" style="width: 700rpx;height: 640rpx;"></image>
 		</view>
@@ -86,7 +87,8 @@
 				where:0,
 				day:0,
 				text:'无数据',
-				show:false
+				show:false,
+				scrollTop: 0
 			}
 		},
 		onLoad() {
@@ -96,15 +98,18 @@
 			this.confirm=[],
 			this.getList()
 		},
-		onShow() {
-			this.nolist=[],
-			this.yeslist=[],
-			this.confirm=[],
-			this.accepted=[],
-			this.getList()
-		},
+		// onShow() {
+		// 	this.nolist=[],
+		// 	this.yeslist=[],
+		// 	this.confirm=[],
+		// 	this.accepted=[],
+		// 	this.getList()
+		// },
 		onPullDownRefresh() {
 			this.getList()
+		},
+		onPageScroll(e) {
+				this.scrollTop = e.scrollTop;
 		},
 		methods: {
 			//时间转换
