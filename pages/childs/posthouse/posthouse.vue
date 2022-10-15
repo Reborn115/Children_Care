@@ -28,7 +28,7 @@
 			</view>
 			<view class="two">
 				<view class="phone" @click="phone">
-					<view class="text">紧急联系人</view>
+					<view class="text">紧急求助</view>
 					<image src="../../../static/file2 (2).png" style="width: 200rpx;height: 168rpx;position: absolute;right: 110rpx;bottom: 40rpx;" mode=""></image>
 				</view>
 			</view>
@@ -81,7 +81,7 @@
 			// 紧急联系人界面
 			phone(){
 				uni.navigateTo({
-					url:'/pages/childs/posthouse/phone/phone'
+					url:'/pages/childs/posthouse/phone/sendall'
 				})
 			}
 		}
