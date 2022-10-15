@@ -1,6 +1,6 @@
 {
     "name" : "护苗",
-    "appid" : "__UNI__670C782",
+    "appid" : "__UNI__3B77CD6",
     "description" : "丢失的大熊猫队华北五省项目护苗app",
     "versionName" : "1.0.7",
     "versionCode" : 107,
@@ -86,29 +86,14 @@
                 }
             }
         },
-        "nativePlugins" : {
-            "TUICallingUniPlugin-TUICallingModule" : {
-                "__plugin_info__" : {
-                    "name" : "【官方】腾讯云原生音视频插件 TUICalling",
-                    "description" : "TUICalling 是 腾讯云官方推出 的基于腾讯云实时音视频 TRTC 和即时通信 IM 服务组合而成的插件，支持双人和多人音视频通话。插件提供了全套定制UI，开发者仅需三个 API 就可实现",
-                    "platforms" : "Android,iOS",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=7097",
-                    "android_package_name" : "com.zzr.fontend",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "7097",
-                    "parameters" : {}
-                }
-            }
-        }
+        "nativePlugins" : {}
     },
     /* SDK配置 */
     "quickapp" : {},
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wx51d5eeba73d732de",
+        "appid" : "wxfda8057f2b7cb400",
         "setting" : {
             "urlCheck" : false,
             "postcss" : false,
