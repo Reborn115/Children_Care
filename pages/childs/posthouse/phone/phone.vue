@@ -35,11 +35,14 @@
 			return {
 				phonelist:[],
 				phone:'',
-				address:''
+				address:'',
+				
 			}
 		},
 		onShow() {
 			this.getdata()
+			this.getLocation()
+			this.getLocation()
 		},
 		methods: {
 			addphone(){
@@ -62,8 +65,6 @@
 			open(phone){
 				this.phone=phone
 				this.$refs.popup.open();
-				
-				
 				// uni.getLocation({
 				// 	type: 'wgs84',
 				// 	geocode:true,
@@ -74,16 +75,6 @@
 				// 		console.log('当前位置的纬度：' + res.latitude);
 				// 	}
 				// });
-				
-
-				
-					// console.log('发送短信')
-					// var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
-					// msg.to = ['15076347058'];
-					// msg.body = '这是短信内容';
-					// plus.messaging.sendMessage( msg );
-				
-
 			},
 			//拨打电话
 			call(){
@@ -91,10 +82,8 @@
 					phoneNumber: this.phone 
 				});
 			},
-			//发送位置信息
-			sendLocation(){
+			getLocation(){
 				//获取位置信息
-				// #ifdef APP
 				uni.getLocation({
 				    type: 'wgs84',
 				    geocode:true,//设置该参数为true可直接获取经纬度及城市信息
@@ -105,15 +94,15 @@
 				        //静态方法，反向地理编码
 				        plus.maps.Map.reverseGeocode(point, {},(event)=>{
 				            var address = event.address; // 转换后的地理位置
-				            var point = event.coord; // 转换后的坐标信息
-				            var coordType = event.coordType; // 转换后的坐标系类型
-				            var reg = /.+?(省|市|自治区|自治州|县|区)/g;
-				            var addressList = address.match(reg).toString().split(",");
+							console.log(address,'address');
+							this.address=address
+				            // var point = event.coord; // 转换后的坐标信息
+				            // var coordType = event.coordType; // 转换后的坐标系类型
+				            // var reg = /.+?(省|市|自治区|自治州|县|区)/g;
+				            // var addressList = address.match(reg).toString().split(",");
 				            //注意 因为存在直辖市， 当所在地区为普通省市时，addressList.length == 3，city = addressList[1];当所在地区为直辖市时addressList.length == 2，city = addressList[0];
-				            let city = addressList.length == 3?addressList[1]:addressList[0];
-				            console.log("addressList",addressList);
-							this.address=addressList.toString(),
-							console.log(this.address,'666')
+				   //          let city = addressList.length == 3?addressList[1]:addressList[0];
+							// this.address=addressList.toString(),
 				            },
 				        	function(e) {
 				            	console.log("失败回调",e);
@@ -128,13 +117,45 @@
 				        });
 				    }
 				});
-				// #endif
-				setTimeout(()=>{
-					var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
-					msg.to = [this.phone];
-					msg.body = '我在<'+this.address+'>遇到了紧急情况';
-					plus.messaging.sendMessage( msg );
-				},1000)
+			},
+			//发送位置信息
+			sendLocation(){
+				this.getLocation()
+				if(this.address!=''){
+					uni.request({
+						url: 'https://api.yuleng.top:38088/api/track/send', 
+						header: {
+							'token': uni.getStorageSync('token'), 
+						},
+						method: "POST",
+						data:{seedMessageList:[
+							{
+								phone:this.phone,
+								location:this.address
+							}
+						]
+						},
+						success: (res) => {
+							uni.showToast({
+								title: '发送成功',
+								icon:'success',
+								duration: 2000
+							});
+						}
+					});
+				}else{
+					uni.showToast({
+						title: '获取定位失败',
+						icon:'error',
+						duration: 2000
+					});
+				}
+				// setTimeout(()=>{
+				// 	var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
+				// 	msg.to = [this.phone];
+				// 	msg.body = '我在<'+this.address+'>遇到了紧急情况';
+				// 	plus.messaging.sendMessage( msg );
+				// },1000)
 			},
 		}
 	}

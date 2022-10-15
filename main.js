@@ -1,19 +1,14 @@
 
 // #ifndef VUE3
 
-import {VueJsonp} from 'vue-jsonp'
-Vue.use(VueJsonp)
 
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
-// import{ myRequest } from 'util/util.js'
 
 Vue.use(uView);
 Vue.config.productionTip = false
-// Vue.prototype.$myRequest=myRequest
 App.mpType = 'app'
-
 const app = new Vue({
     ...App
 })
@@ -46,3 +41,7 @@ const msg = (title, duration=1500, mask=false, icon='none')=>{
 }
 //挂载
 Vue.prototype.$api = {msg};
+import axios from 'util/axios.js';
+// import axios from 'axios';
+Vue.prototype.$axios = axios;
+// import axios from 'axios';

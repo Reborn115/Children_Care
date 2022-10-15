@@ -337,7 +337,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的消息",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
             }
             
         }
@@ -431,6 +433,14 @@
 		    }
 		},
 		{
+		    "path" : "pages/childs/posthouse/phone/sendall",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "紧急求助",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
 		    "path" : "pages/childs/posthouse/phone/editphone",
 		    "style" :                                                                                    
 		    {
@@ -465,6 +475,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/chat/addchat/addchat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新建单聊",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

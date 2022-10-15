@@ -1,17 +1,34 @@
 <template>
 	<view>
-		<uni-list>
-			<uni-list-chat  v-for="(item,index) in list" 
-			:key="index" 
-			@click="gochat(item.roomId,item.type,item.name)" 
-			:clickable="true" 
-			:avatar-circle="true" 
-			:title="item.name" 
-			:avatar="item.headPicUrl" 
-			:note="item.latestMessage" 
-			:time="item.time" 
-			:badge-text="item.num"></uni-list-chat>
-		</uni-list>
+		<u-navbar
+				  title="我的消息"
+				  :autoBack="true"
+		>
+				  <view
+					  class="u-nav-slot"
+					  slot="right"
+					  @click="addchat"
+				  >
+					  <u-icon
+						  name="plus"
+						  size="30"
+					  ></u-icon>
+				  </view>
+		</u-navbar>
+		<view class="all">
+			<uni-list>
+				<uni-list-chat  v-for="(item,index) in list" 
+				:key="index" 
+				@click="gochat(item.roomId,item.type,item.name)" 
+				:clickable="true" 
+				:avatar-circle="true" 
+				:title="item.name" 
+				:avatar="item.headPicUrl" 
+				:note="item.latestMessage" 
+				:time="item.time" 
+				:badge-text="item.num"></uni-list-chat>
+			</uni-list>
+		</view>
 	</view>
 </template>
 
@@ -31,6 +48,9 @@
 			},2000)
 		},
 		onUnload() {
+			clearInterval(this.timer)
+		},
+		onHide() {
 			clearInterval(this.timer)
 		},
 		methods: {
@@ -64,10 +84,17 @@
 					}
 				});
 			},
+			addchat(){
+				uni.navigateTo({
+					url:'/pages/chat/addchat/addchat'
+				})
+			}
 		}
 	}
 </script>
 
-<style>
-
+<style scoped lang="scss">
+.all{
+	padding-top: 170rpx;
+}
 </style>
