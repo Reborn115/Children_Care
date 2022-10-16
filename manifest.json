@@ -1,9 +1,9 @@
 {
     "name" : "护苗",
-    "appid" : "__UNI__D9F4F17",
+    "appid" : "__UNI__670C782",
     "description" : "丢失的大熊猫队华北五省项目护苗app",
-    "versionName" : "1.0.7",
-    "versionCode" : 107,
+    "versionName" : "1.0.8",
+    "versionCode" : 108,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -72,35 +72,44 @@
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "",
-                    "xhdpi" : "",
-                    "xxhdpi" : "",
-                    "xxxhdpi" : ""
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
                 },
                 "ios" : {
-                    "appstore" : "",
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
                     "ipad" : {
-                        "app" : "",
-                        "app@2x" : "",
-                        "notification" : "",
-                        "notification@2x" : "",
-                        "proapp@2x" : "",
-                        "settings" : "",
-                        "settings@2x" : "",
-                        "spotlight" : "",
-                        "spotlight@2x" : ""
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
                     "iphone" : {
-                        "app@2x" : "",
-                        "app@3x" : "",
-                        "notification@2x" : "",
-                        "notification@3x" : "",
-                        "settings@2x" : "",
-                        "settings@3x" : "",
-                        "spotlight@2x" : "",
-                        "spotlight@3x" : ""
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
                     }
                 }
+            },
+            "splashscreen" : {
+                "androidStyle" : "default",
+                "android" : {
+                    "hdpi" : "static/startPage.png",
+                    "xhdpi" : "static/startPage.png",
+                    "xxhdpi" : "static/startPage.png"
+                },
+                "useOriginalMsgbox" : true
             }
         },
         "nativePlugins" : {}
