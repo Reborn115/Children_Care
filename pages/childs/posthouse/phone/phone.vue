@@ -85,7 +85,7 @@
 			getLocation(){
 				//获取位置信息
 				uni.getLocation({
-				    type: 'wgs84',
+				    type: 'gcj02',
 				    geocode:true,//设置该参数为true可直接获取经纬度及城市信息
 				    success: (res)=> {
 				        console.log('获取定位信息',res);
