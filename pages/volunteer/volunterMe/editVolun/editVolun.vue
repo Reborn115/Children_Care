@@ -556,11 +556,11 @@
 
 <style lang="scss" scoped>
 .content{
-	height: 1650rpx;
+	height: 2000rpx;
 	padding-bottom: 80rpx;
 }
 ::v-deep .uni-card{
-	height: 1600rpx !important;
+	height: 1950rpx !important;
 	
 	/* padding-bottom: 20rpx !important; */
 }

@@ -258,11 +258,11 @@
 	margin-top: 30rpx;
 }
 ::v-deep .uni-card{
-	height: 100vh;
+	height: 120vh;
 	padding-bottom: 20rpx;
 }
 .content{
-	height: 100vh;
+	height: 120vh;
 	padding-bottom: 80rpx;
 }
 </style>
