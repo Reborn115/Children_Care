@@ -400,15 +400,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/chat/vedio/vedio",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        } 
+        
         ,{
             "path" : "pages/volunteer/volunterMe/editVolun/editVolun",
             "style" :                                                                                    
