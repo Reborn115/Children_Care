@@ -11,6 +11,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#E5ECBE",
                 "enablePullDownRefresh": false,
 				"app-plus": { 
 					"titleNView": "false",
@@ -24,6 +25,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#FFC79F",
                 "enablePullDownRefresh": false
             }
         }
@@ -33,6 +35,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#C7DFEB",
                 "enablePullDownRefresh": false
             }
             
