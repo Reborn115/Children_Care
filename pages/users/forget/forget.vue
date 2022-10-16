@@ -8,7 +8,7 @@
 				</uni-forms-item>
 				<uni-forms-item name="password" class="inputNormal">
 					
-					<u-input prefixIcon="lock" type="password" v-model="formData.password" placeholder="请输入密码" placeholderStyle="color:#CADDEB;" @focus="changeImg(3)" @blur="recoverImg()"/>
+					<u-input prefixIcon="lock" type="password" v-model="formData.password" placeholder="请输入新密码" placeholderStyle="color:#CADDEB;" @focus="changeImg(3)" @blur="recoverImg()"/>
 				</uni-forms-item>
 				<uni-forms-item name="phone" class="inputNormal">
 					
@@ -40,10 +40,8 @@
 				<button type="primary" @click="submit('formData')" class="bottonNormal">找回密码</button>
 				<view class="privacy">
 					<uni-data-checkbox multiple :localdata="range" @change="change" class="checkbotton"></uni-data-checkbox>
-					<text>已同意并阅读</text>
-					<text>服务协议</text>
-					<text>和</text>
-					<text>护苗隐私保护指引</text>
+					<text>已阅读并同意</text>
+					<uni-link href="https://www.yuleng.top/app-huimao-yszc/" text="护苗隐私协议" color="#CF6A1B" font-weight='bold' showUnderLine="false"></uni-link>
 				</view>
 			</uni-forms>
 		
@@ -283,7 +281,7 @@
 	justify-content: center;
 	align-items: center;
 	text{
-		font-size: 10px;
+		font-size: 13.5px;
 	}
 }
 ::v-deep .uni-data-checklist{
