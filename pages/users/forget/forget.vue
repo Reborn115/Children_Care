@@ -1,22 +1,22 @@
 <template class="body">
 	<view class="container">
-		<image  :src='img' alt="" ref="normalImage">
+		<image  :src='img' alt="" ref="normalImage" class="bg-img">
 		<uni-forms :modelValue="formData" :rules="rules" ref="formData" class='formNormal'>
 				<uni-forms-item name="account" class="inputNormal">
 							
-					<u-input prefixIcon="heart" type="text" v-model="formData.account" placeholder="请输入用户名" />
+					<u-input prefixIcon="heart" type="text" v-model="formData.account" placeholder="请输入用户名" placeholderStyle="color:#CADDEB;"/>
 				</uni-forms-item>
 				<uni-forms-item name="password" class="inputNormal">
 					
-					<u-input prefixIcon="lock" type="password" v-model="formData.password" placeholder="请输入密码" @focus="changeImg(3)" @blur="recoverImg()"/>
+					<u-input prefixIcon="lock" type="password" v-model="formData.password" placeholder="请输入密码" placeholderStyle="color:#CADDEB;" @focus="changeImg(3)" @blur="recoverImg()"/>
 				</uni-forms-item>
 				<uni-forms-item name="phone" class="inputNormal">
 					
-					<u-input prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" />
+					<u-input prefixIcon="phone" type="text" v-model="formData.phone" placeholder="请输入电话号码" placeholderStyle="color:#CADDEB;"/>
 				</uni-forms-item>
 				
 				<uni-forms-item name="confirm" class="inputNormal">
-					<u-input placeholder="请输入验证码" type="number" v-model="formData.confirm" prefixIcon="checkmark-circle" >
+					<u-input placeholder="请输入验证码" placeholderStyle="color:#CADDEB;" type="number" v-model="formData.confirm" prefixIcon="checkmark-circle" >
 						<template slot="suffix">
 											<u-code
 												ref="uCode"
@@ -38,6 +38,13 @@
 					<button type="primary" @click="getCheck" class="bottonCheck">获取验证码</button> -->
 				</uni-forms-item>
 				<button type="primary" @click="submit('formData')" class="bottonNormal">找回密码</button>
+				<view class="privacy">
+					<uni-data-checkbox multiple :localdata="range" @change="change" class="checkbotton"></uni-data-checkbox>
+					<text>已同意并阅读</text>
+					<text>服务协议</text>
+					<text>和</text>
+					<text>护苗隐私保护指引</text>
+				</view>
 			</uni-forms>
 		
 	</view>
@@ -47,7 +54,8 @@
 	export default {
 		data() {
 			return {
-				img:'https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png',
+				isPrivacy:0,
+				img:'../../../static/blue.jpg',
 				formData:{
 					password:'',
 					account:'',
@@ -55,7 +63,7 @@
 					confirm:'',
 					
 				},
-				
+				range: [{"value":1 ,"text": ""	}],
 				rules:{
 					account:{
 						//昵称检验
@@ -126,6 +134,9 @@
 			};
 		},
 		methods:{
+			change(e){
+				this.isPrivacy=!this.isPrivacy;
+			},
 			codeChange(text) {
 			        this.tips = text;
 			      },
@@ -152,6 +163,11 @@
 							uni.showToast({
 								title: res.data.message,
 								icon:"error"
+							});
+						} else {
+							uni.showToast({
+								title: "验证码发送成功",
+								icon:"success"
 							});
 						}/* else{
 							if (this.$refs.uCode.canGetCode) {
@@ -192,7 +208,7 @@
 			       
 			},
 			recoverImg(){
-				this.img='https://s2.loli.net/2022/09/11/g1KTOYt7RwMNZvD.png'
+				this.img='../../../static/blue.jpg'
 			},
 			changeImg(num){
 				/* if(num==2){
@@ -202,38 +218,56 @@
 					this.$refs.normalImage.style.height="110px";
 				} */
 				if(num==3){
-					this.img='/static/password.png'
+					this.img='../../../static/bluepassword.jpg'
 				}
 			},
 			submit(ref){
 				
 							this.$refs[ref].validate().then(res => {
-								uni.request({
-								    url: 'https://api.yuleng.top:38088/api/find-password', //仅为示例，并非真实接口地址。
-									method:"POST",
-								    data: {
-								        code:this.formData.confirm,
-										userName:this.formData.account,
-										phone:this.formData.phone,
-										password:this.formData.password
-								    },
-								    header: {
-								        "content-type":"application/json",
-								        
-								    },
-								    success: (res) => {
-								        console.log(res.data);
-								        this.text = 'request success';
-										uni.navigateTo({
-											url:"/pages/users/login/login"
-										})
-								    }
-								});
+								if(!this.isPrivacy){
+									uni.showToast({
+										title: '请同意隐私政策',
+										icon:'error'
+									});
+								} else {
+									uni.request({
+									    url: 'https://api.yuleng.top:38088/api/find-password', //仅为示例，并非真实接口地址。
+										method:"POST",
+									    data: {
+									        code:this.formData.confirm,
+											userName:this.formData.account,
+											phone:this.formData.phone,
+											password:this.formData.password
+									    },
+									    header: {
+									        "content-type":"application/json",
+									        
+									    },
+									    success: (res) => {
+											if(res.data.code=='00000') {
+												uni.showToast({
+													title: '找回密码成功',
+													icon:'success'
+												});
+												console.log(res.data);
+												this.text = 'request success';
+												uni.navigateTo({
+													url:"/pages/users/login/login"
+												})
+											} else {
+												uni.showToast({
+													title: '验证码错误',
+													icon:'error'
+												});
+											}
+									        
+									    }
+									});
+								}
+								
 			
 								console.log('success', res);
-								uni.showToast({
-									title: `校验通过`
-								})
+								
 							}).catch(err => {
 								console.log('err', err);
 							})
@@ -243,6 +277,33 @@
 </script>
 
 <style lang="scss" scoped>
+.privacy{
+	margin-bottom: 80rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text{
+		font-size: 10px;
+	}
+}
+::v-deep .uni-data-checklist{
+	font-size:0px
+}
+::v-deep .u-icon__icon{
+	color:#72B1D4 !important;
+}
+.bg-img{
+	
+	    position: absolute;
+	    z-index: -1;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    right: 0;
+	    width: 100%;
+	    height: 100%;
+	
+}
 	.container{
 		display:flex;
 		justify-content: center;
@@ -259,15 +320,17 @@
 	    box-sizing: border-box;
 	    font-size: 16px;
 	}
-	.container image{
+	/* .container image{
 	    position: absolute;
 	    width: 120px;
 	    height: 95px;
 	    top: 19.5%;
 	    left: 50%;
 	    transform: translate(-50%,0);
-	}
+	} */
 	::v-deep .u-input{
+		height: 80rpx;
+		margin-bottom: 20rpx;
 		width: 60vw !important;
 		outline: none !important;
 		background-color: white;
@@ -302,10 +365,12 @@
 	}
 	
 	.bottonNormal{
+		border-radius: 20px;
+		background-color: #E48B47;
 		align-items: center;
 		justify-content: center;
 		display: flex;
-		width: 30vw;
+		width: 60vw;
 		height: 80rpx;
 		margin-top: 20rpx;
 		margin-bottom: 40rpx;
@@ -317,6 +382,7 @@
 		width: 70vw;
 	}
 	::v-deep .uni-forms{
+		margin-top: 300rpx;
 		/* margin-top:26.7vh;
 		margin-left: 10vw; */
 		width: 80vw;
