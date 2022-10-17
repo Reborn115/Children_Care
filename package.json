@@ -3,5 +3,8 @@
     "axios": "^0.27.2",
     "jquery": "^3.6.1",
     "uview-ui": "^2.0.33"
+  },
+  "devDependencies": {
+    "crypto-js": "^4.1.1"
   }
 }
