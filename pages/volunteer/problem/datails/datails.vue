@@ -75,6 +75,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -149,7 +150,7 @@
 			},
 			gedetail(){
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					url: 'https://api.yuleng.top:38088/api/privacy/disabuse', 
 					data:{
 						disabuseId:this.id,
 					},
@@ -157,9 +158,10 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
-						this.data=res.data.data
-						this.chatRoomId=res.data.data.groupLiveChatRoomId
-						this.groupLiveChatRoomName=res.data.data.groupLiveChatRoomName
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.data=res
+						this.chatRoomId=res.groupLiveChatRoomId
+						this.groupLiveChatRoomName=res.groupLiveChatRoomName
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{

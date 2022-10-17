@@ -49,6 +49,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -65,8 +66,9 @@
 		methods: {
 			// 获取问题详情
 			gedetail(){
+				
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					url: 'https://api.yuleng.top:38088/api/privacy/disabuse', 
 					data:{
 						disabuseId:this.id,
 					},
@@ -74,10 +76,11 @@
 						'token': uni.getStorageSync('token'), //自定义请求头信息
 					},
 					success: (res) => {
-						this.data=res.data.data
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.data=res
 						// console.log(this.data,"问题详情")
-						this.chatRoomId=res.data.data.groupLiveChatRoomId
-						this.groupLiveChatRoomName=res.data.data.groupLiveChatRoomName
+						this.chatRoomId=res.groupLiveChatRoomId
+						this.groupLiveChatRoomName=res.groupLiveChatRoomName
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"
 						}else{
@@ -85,6 +88,27 @@
 						}
 					}
 				});
+				
+				// uni.request({
+				// 	url: 'https://api.yuleng.top:38088/api/disabuse', 
+				// 	data:{
+				// 		disabuseId:this.id,
+				// 	},
+				// 	header: {
+				// 		'token': uni.getStorageSync('token'), //自定义请求头信息
+				// 	},
+				// 	success: (res) => {
+				// 		this.data=res.data.data
+				// 		// console.log(this.data,"问题详情")
+				// 		this.chatRoomId=res.data.data.groupLiveChatRoomId
+				// 		this.groupLiveChatRoomName=res.data.data.groupLiveChatRoomName
+				// 		if(this.data.isNowSolve==1){
+				// 			this.data.isNowSolve="是"
+				// 		}else{
+				// 			this.data.isNowSolve="否"
+				// 		}
+				// 	}
+				// });
 			},
 			// 去往交流区
 			gochat(){

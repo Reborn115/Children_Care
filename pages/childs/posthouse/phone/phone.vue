@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -51,6 +52,36 @@
 				})
 			},
 			getdata(){
+				let data = aes.encrypt(
+				  JSON.stringify({
+				  }),
+				  "zzr@backEnd!@#$%"
+				);
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/privacy/emerge-person', 
+					header: {
+						'token': uni.getStorageSync('token'), 
+					},
+					method: "GET",
+					success: (res) => {
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.phonelist=res.emergePersonList
+						
+					}
+				});
+				
+				/* uni.request({
+					url: 'https://api.yuleng.top:38088/api/get/emerge-person', 
+					header: {
+						'token': uni.getStorageSync('token'), 
+					},
+					method: "POST",
+					success: (res) => {
+						this.phonelist=res.data.data.emergePersonList
+					}
+				}); */
+			},
+			/* getdata(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/get/emerge-person', 
 					header: {
@@ -61,7 +92,7 @@
 						this.phonelist=res.data.data.emergePersonList
 					}
 				});
-			},
+			}, */
 			open(phone){
 				this.phone=phone
 				this.$refs.popup.open();

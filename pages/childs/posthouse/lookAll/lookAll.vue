@@ -95,6 +95,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -265,9 +266,10 @@
 			},
 			// 获取具体某一个日期的列表
 			getlist(){
+				
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/track-record/list', 
-					method:"POST",
+					url: 'https://api.yuleng.top:38088/api/privacy/track-record/list', 
+					method:"GET",
 					data:{
 						time:Date.parse(new Date(this.time).toString())/1000,
 					},
@@ -275,18 +277,21 @@
 						'token': uni.getStorageSync('token'), 
 					},
 					success: (res) => {
+						console.log(res)
+						console.log(res.data.data)
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
 						this.nolist=[]
 						this.yeslist=[]
 						this.accepted=[]
 						this.confirm=[]
 						// console.log(res,'成长档案列表数据')
-						if(res.data.data.postResultList.length==0&&res.data.data.selectContentList==0){
+						if(res.postResultList.length==0&&res.selectContentList==0){
 							this.show=true
 						}else{
 							this.show=false
 						}
 						// 问题列表
-						let data1=res.data.data.postResultList
+						let data1=res.postResultList
 						data1.forEach((item)=>{
 							//转换类型
 							switch(item.type){
@@ -355,12 +360,109 @@
 							}
 						})
 						// 学习列表
-						this.otherlist=res.data.data.selectContentList
+						this.otherlist=res.selectContentList
 						this.otherlist.forEach((item)=>{
 							item.time=this.changeTime(item.time)
 						})
 					}
 				});
+				
+				// uni.request({
+				// 	url: 'https://api.yuleng.top:38088/api/track-record/list', 
+				// 	method:"POST",
+				// 	data:{
+				// 		time:Date.parse(new Date(this.time).toString())/1000,
+				// 	},
+				// 	header: {
+				// 		'token': uni.getStorageSync('token'), 
+				// 	},
+				// 	success: (res) => {
+				// 		this.nolist=[]
+				// 		this.yeslist=[]
+				// 		this.accepted=[]
+				// 		this.confirm=[]
+				// 		// console.log(res,'成长档案列表数据')
+				// 		if(res.data.data.postResultList.length==0&&res.data.data.selectContentList==0){
+				// 			this.show=true
+				// 		}else{
+				// 			this.show=false
+				// 		}
+				// 		// 问题列表
+				// 		let data1=res.data.data.postResultList
+				// 		data1.forEach((item)=>{
+				// 			//转换类型
+				// 			switch(item.type){
+				// 				case 1:
+				// 					item.type='心理'
+				// 					break;
+				// 				case 2:
+				// 					item.type='学习'
+				// 					break;
+				// 				case 3:
+				// 					item.type='安全'
+				// 					break;
+				// 				case 4:
+				// 					item.type='生活'
+				// 					break;
+				// 				case 5:
+				// 					item.type='兴趣'
+				// 					break;
+				// 				case 6:
+				// 					item.type='感情'
+				// 					break;
+				// 				case 7:
+				// 					item.type='健康'
+				// 					break;
+				// 				default:
+				// 					item.type='无数据'
+				// 			}
+				// 			//转换解决方式
+				// 			switch(item.solveType){
+				// 				case 1:
+				// 					item.solveType='线下'
+				// 					break;
+				// 				case 2:
+				// 					item.solveType='视频'
+				// 					break;
+				// 				case 3:
+				// 					item.solveType='语音'
+				// 					break;
+				// 				case 4:
+				// 					item.solveType='文字'
+				// 					break;
+				// 				default:
+				// 					item.solveType='无数据'
+				// 			}
+				// 			//转换是否立即解决
+				// 			if(item.isNowSolve==1){
+				// 				item.isNowSolve='立即解决'
+				// 			}else{
+				// 				item.isNowSolve='无需立即解决'
+				// 			}
+				// 			//转换时间
+				// 			item.time=this.changeTime(item.time)
+				// 			switch(item.isFinish){
+				// 				case 0:
+				// 					this.nolist.push(item);
+				// 					break;
+				// 				case 1:
+				// 					this.accepted.push(item);
+				// 					break;
+				// 				case 2:
+				// 					this.confirm.push(item);
+				// 					break;
+				// 				case 3:
+				// 					this.yeslist.push(item);
+				// 					break;
+				// 			}
+				// 		})
+				// 		// 学习列表
+				// 		this.otherlist=res.data.data.selectContentList
+				// 		this.otherlist.forEach((item)=>{
+				// 			item.time=this.changeTime(item.time)
+				// 		})
+				// 	}
+				// });
 			}
 		}
 	}

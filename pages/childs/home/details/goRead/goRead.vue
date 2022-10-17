@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<u-sticky offset-top="0" bgColor="white">
+		<u-sticky offset-top="0" bgColor="#FFFAE8">
 			<view class="botton">
 				<view class="tips" @click="last">
 					<u-icon name="arrow-left-double" color="#2979ff" size="28"></u-icon>
@@ -35,7 +35,7 @@
 				</template>
 			</u--image>
 		</view>
-		 <p v-html='lastContent'></p>
+		 <p v-html='lastContent' ></p>
 	</view>
 </template>
 
@@ -225,6 +225,10 @@
 </script>
 
 <style lang="scss" scoped>
+p{
+	font-size: 22px;
+	letter-spacing: 8px;
+}
 .headName{
 	display: flex;
 	justify-content: center;
@@ -252,6 +256,7 @@ p{
 	justify-content: center;
 }
 .container{
+	background-color: #FFFAE8;
 	white-space: pre-line;
 }
 </style>

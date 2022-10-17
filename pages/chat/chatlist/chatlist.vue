@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	
 	import dateTime from '../dateTime.js';
 	export default {
 		data() {
@@ -68,6 +69,7 @@
 				}
 			},
 			getMessageList(){
+				
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/message-num-list', 
 					header: {

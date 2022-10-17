@@ -118,6 +118,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -182,7 +183,7 @@
 			// 获取儿童基本问题
 			gedetail(){
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/disabuse', 
+					url: 'https://api.yuleng.top:38088/api/privacy/disabuse', 
 					data:{
 						disabuseId:this.id,
 					},
@@ -190,7 +191,8 @@
 						'token': uni.getStorageSync('token'),
 					},
 					success: (res) => {
-						this.data=res.data.data
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.data=res
 						// console.log(this.data,"问题详情yes")
 						if(this.data.isNowSolve==1){
 							this.data.isNowSolve="是"

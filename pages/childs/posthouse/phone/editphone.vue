@@ -56,6 +56,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -96,7 +97,24 @@
 		methods: {
 			// 获取数据
 			getdata(){
+				let data = aes.encrypt(
+				  JSON.stringify({
+				  }),
+				  "zzr@backEnd!@#$%"
+				);
 				uni.request({
+					url: 'https://api.yuleng.top:38088/api/privacy/emerge-person', 
+					header: {
+						'token': uni.getStorageSync('token'), 
+					},
+					method: "GET",
+					success: (res) => {
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.phonelist=res.emergePersonList
+					}
+				});
+				
+				/* uni.request({
 					url: 'https://api.yuleng.top:38088/api/get/emerge-person', 
 					header: {
 						'token': uni.getStorageSync('token'), 
@@ -105,7 +123,7 @@
 					success: (res) => {
 						this.phonelist=res.data.data.emergePersonList
 					}
-				});
+				}); */
 			},
 			// 打开编辑页面
 			openedit(id,childId,phone,name){

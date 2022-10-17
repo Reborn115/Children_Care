@@ -31,6 +31,7 @@
 </template>
 
 <script>
+	import aes from "../../../../util/aes.js"
 	export default{
 		data(){
 			return{
@@ -63,13 +64,14 @@
 			// 获取联系人
 			getdata(){
 				uni.request({
-					url: 'https://api.yuleng.top:38088/api/get/emerge-person', 
+					url: 'https://api.yuleng.top:38088/api/privacy/emerge-person', 
 					header: {
 						'token': uni.getStorageSync('token'), 
 					},
-					method: "POST",
+					method: "GET",
 					success: (res) => {
-						this.phonelist=res.data.data.emergePersonList.map((item,index)=>{
+						res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+						this.phonelist=res.emergePersonList.map((item,index)=>{
 							return{phone:item.phone,location:this.address}
 						})
 						console.log(this.phonelist)
@@ -84,6 +86,29 @@
 						
 					}
 				});
+				
+				// uni.request({
+				// 	url: 'https://api.yuleng.top:38088/api/get/emerge-person', 
+				// 	header: {
+				// 		'token': uni.getStorageSync('token'), 
+				// 	},
+				// 	method: "POST",
+				// 	success: (res) => {
+				// 		this.phonelist=res.data.data.emergePersonList.map((item,index)=>{
+				// 			return{phone:item.phone,location:this.address}
+				// 		})
+				// 		console.log(this.phonelist)
+				// 		if(this.phonelist.length!=0){
+				// 			this.onephone=this.phonelist[0].phone
+				// 		}else{
+				// 			uni.showToast({
+				// 			    title: '你还未设置紧急联系人',
+				// 			    icon:'none'
+				// 			});
+				// 		}
+						
+				// 	}
+				// });
 			},
 			// 获取位置
 			getLocation(){
