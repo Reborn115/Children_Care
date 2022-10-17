@@ -4,6 +4,13 @@
 			
 		</u-text> -->
 		<!-- {{lastContent}} -->
+		<view class="title">
+			<text>
+				{{title}}
+			</text>
+		</view>
+		
+		<p v-html='lastContent'></p>
 		<view class="u-page__image-item">
 			<u--image
 				radius="50"
@@ -17,7 +24,8 @@
 				</template>
 			</u--image>
 		</view>
-		 <p v-html='lastContent'></p>
+		 
+		 <p v-html='storyPlot'></p>
 	</view>
 </template>
 
@@ -25,10 +33,12 @@
 	export default {
 		data() {
 			return {
+				title:'',
 				src:'',
 				contentId:'1',
 				order:'1',
-				lastContent:''
+				lastContent:'',
+				storyPlot:'',
 			};
 		},
 		onLoad(e){
@@ -50,8 +60,10 @@
 		        },
 		        success: (res) => {
 					/* this.mainText=this.phaseWrapList(res.data.data.mainText); */
-					this.handleText(res.data.data.mainText)
-					this.src=res.data.data.picUrl
+					this.handleText1(res.data.data.mainText)
+					this.handleText2(res.data.data.storyPlot)
+					this.src=res.data.data.picUrl;
+					this.title=res.data.data.title;
 		            console.log(res.data);
 		            this.text = 'request success';
 		    		
@@ -59,11 +71,19 @@
 		    });
 		},
 		methods:{
-			handleText(content){
+			handleText1(content){
 				let arr = content.split(/[\n]/)
 				for (let i = 0 ; i < arr.length;i++){
 				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
 				    this.lastContent= this.lastContent + addContent
+				}
+				
+			},
+			handleText2(content){
+				let arr = content.split(/[\n]/)
+				for (let i = 0 ; i < arr.length;i++){
+				    let addContent = '<p style="text-indent: 2em">' + arr[i] + '</p>'
+				    this.storyPlot= this.storyPlot + addContent
 				}
 				
 			},
@@ -93,6 +113,17 @@
 
 <style lang="scss" scoped>
 p{
+	font-size: 18px;
+}
+.title{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 25px;
+	font-weight: bold;
+	color: red;
+}
+p{
 	margin: 50rpx;
 }
 .u-page__image-item{
@@ -102,5 +133,6 @@ p{
 }
 .container{
 	white-space: pre-line;
+	padding-bottom: 80rpx;
 }
 </style>

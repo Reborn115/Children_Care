@@ -19,6 +19,7 @@
 				<text class="type">类型：{{type}}</text>
 				<text class="idea">主题：{{idea}}</text>
 				<u-button type="error" text="故事详情" size="small" shape="circle" class="bottonStory" @click='goSummary'></u-button>
+				<u-button type="error" text="故事评分" size="small" shape="circle" class="bottonStory" @click='openEvaluate'></u-button>
 			</view>
 		</view>
 		<view class="main">
@@ -96,6 +97,18 @@
 				</view>
 			</view>
 		</view>
+		<u-popup :show="show" :round="30" mode="bottom" overlay="true" closeable="true" closeOnClickOverlay="true" @close="close">
+		<view class="evaluate">
+			<text class="evaText">
+				给这本书打个分吧
+			</text>
+			<view class="evaIcon">
+				<u-rate count="5" v-model="evaluate" touchable="true" size="30"></u-rate>
+			</view>
+            
+			<u-button type="error" text="提交评分" size="small" shape="circle" class="bottonStory" @click='goEvaluate' ></u-button>
+		</view>
+	</u-popup>
 	</view>
 </template>
 
@@ -103,6 +116,8 @@
 	export default {
 		data() {
 			return {
+				evaluate:'',
+				show:false,
 				total:'',
 				contentAudio:'',
 				isPlay:false,
@@ -171,6 +186,33 @@
 			this.contentAudio.destroy();
 		},
 		methods:{
+			goEvaluate(){
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/set-score', 
+					method:"POST",
+				    data: {
+				        contentId:this.contentId,
+						score:this.evaluate
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+						uni.showToast({
+							title: "评价成功",
+							icon:'success'
+						});
+						this.show=false
+				    }
+				});
+			},
+			close(){
+				this.show=false
+			},
+			openEvaluate(){
+				this.show=true
+			},
 			goRead(item){
 				item.src=this.src
 				item.total=this.total
@@ -253,6 +295,21 @@
 </script>
 
 <style lang="scss" scoped>
+.evaIcon{
+	margin-bottom: 40rpx;
+}
+.evaText{
+	font-size: 25px;
+	margin-bottom: 40rpx;
+	font-weight: bold;
+}
+.evaluate{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 500rpx;
+	flex-direction: column;
+}
 .list-item{
 	white-space: nowrap; 
 	 overflow: hidden;
@@ -369,7 +426,7 @@ text{
 	margin-left: 30rpx;
 	margin-right: 30rpx;
 	padding-top: 100rpx;
-	
+	align-items: center;
 }
 .container{
 	background-color: #B6C8C8;
