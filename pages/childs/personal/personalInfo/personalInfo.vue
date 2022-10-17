@@ -112,6 +112,7 @@
 </template>
 
 <script>
+import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -133,18 +134,24 @@
 			};
 		},
 		onLoad(){
-			
+			let data = aes.encrypt(
+			  JSON.stringify({
+			    
+			  }),
+			  "zzr@backEnd!@#$%"
+			);
 			uni.request({
 			    url: 'https://api.yuleng.top:38088/api/my-profile/parent', //仅为示例，并非真实接口地址。
 				method:"POST",
-			    data: {
-			        
-			    },
+			    data: data,
 			    header: {
 			        "content-type":"application/json",
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
+					console.log(res)
+					res=JSON.parse(aes.decrypt(JSON.stringify(res),"zzr@backEnd!@#$%"))
+					console.log(res)
 					this.baseFormData.age=res.data.data.age
 					this.swiper=res.data.data.homeInfoPictureParamList
 					this.baseFormData.sex=res.data.data.gender
