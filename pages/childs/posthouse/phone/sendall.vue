@@ -43,22 +43,28 @@
 					id:1,
 					latitude: 39.909,
 					longitude: 116.39742,
-					iconPath: '../../../../static/location.png',
-					width:1,
-					height:1
+					iconPath: '../../../../static/location.png'
 				}],
 				// 打电话给第一联系人
 				onephone:0,
 				// 发送给所有联系人的数组
 				phonelist:[],
+				timer:''
 			}
 		},
 		onLoad() {
 			this.getLocation()
 		},
 		onShow() {
+			this.timer=setInterval(this.getLocation(),1000*60*30)
 			this.getdata()
 			this.getLocation()
+		},
+		onHide() {
+			clearInterval(this.timer)
+		},
+		onUnload() {
+			clearInterval(this.timer)
 		},
 		methods:{
 			// 获取联系人
@@ -122,18 +128,6 @@
 						this.longitude=res.longitude
 						this.covers[0].longitude=res.longitude
 				        console.log('获取定位信息',res);
-				        // 创建地图坐标对象
-				        var point = new plus.maps.Point(res.longitude, res.latitude);
-				        //静态方法，反向地理编码
-				        plus.maps.Map.reverseGeocode(point, {},(event)=>{
-				            var address = event.address; // 转换后的地理位置
-							console.log(address,'address');
-							this.address=address
-				            },
-				        	function(e) {
-				            	console.log("失败回调",e);
-				        	}
-				        );
 				    },
 				    fail: function (err) {
 				        console.log("获取定位失败",err);
@@ -143,6 +137,36 @@
 				        });
 				    }
 				});
+				// uni.showToast({
+				//     title: this.longitude+','+this.latitude,
+				//     icon:'none',
+				// 	duration:5000
+				// });
+				setTimeout(this.changelocation,1000)
+				// var point = new plus.maps.Point(this.longitude, 39.062197);
+				// plus.maps.Map.reverseGeocode(point, {},(event)=>{
+				//     var address = event.address; // 转换后的地理位置
+				// 	console.log(address,'address');
+				// 	this.address=address
+				//     },
+				// 	function(e) {
+				//     	console.log("失败回调",e);
+				// 	}
+				// );
+			},
+			changelocation(){
+				this.covers[0].latitude=this.latitude
+				this.covers[0].longitude=this.longitude
+				var point = new plus.maps.Point(this.longitude, this.latitude);
+				plus.maps.Map.reverseGeocode(point, {},(event)=>{
+				    var address = event.address; // 转换后的地理位置
+					console.log(address,'address');
+					this.address=address
+				    },
+					function(e) {
+				    	console.log("失败回调",e);
+					}
+				);
 			},
 			// 其他联系人
 			gophone(){

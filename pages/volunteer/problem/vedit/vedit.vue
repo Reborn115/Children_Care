@@ -16,7 +16,7 @@
 					解决过程图片:
 				</view>
 				<view class="upPic">
-					<image v-for="(item,index) in image" :key="index" :src="item" style="width: 200rpx;height: 200rpx;margin-right: 30rpx;margin-top: 20rpx;"></image>
+					<image v-for="(item,index) in image" :key="index" :src="item" @click="previewImage(index)" style="width: 200rpx;height: 200rpx;margin-right: 30rpx;margin-top: 20rpx;"></image>
 				</view>
 				<view class="tit">
 					修改图片:
@@ -160,6 +160,14 @@
 							}
 						});
 					})
+				}, 
+				// 预览图片
+				previewImage(index) {
+					let photoList = this.image
+					uni.previewImage({
+						current: index,
+						urls: photoList
+					});
 				},
 				// 提交
 				submit(){
