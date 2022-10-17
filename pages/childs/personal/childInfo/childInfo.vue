@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -100,8 +101,52 @@
 			};
 		},
 		onLoad(){
-			
+			let data = aes.encrypt(
+			  JSON.stringify({
+			  }),
+			  "zzr@backEnd!@#$%"
+			);
 			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/privacy/my-profile', //仅为示例，并非真实接口地址。
+				method:"GET",
+			    data:data,
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+					res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+					this.baseFormData.age=res.age
+					this.baseFormData.grade=res.grade
+					this.baseFormData.sex=res.gender
+					this.baseFormData.sign=res.sign
+					this.baseFormData.hometown=res.nativePlace
+					
+					this.headPicUrl=res.headPicUrl
+			        
+					switch ( this.baseFormData.sex ) {
+					    case 0:{
+							this.baseFormData.sex='男'
+							break;
+						}
+							
+					    case 1:{
+							this.baseFormData.sex='女'
+							break;
+						}
+					        
+					    
+					    default:{
+							console.log(this.baseFormData.sex)
+							return '未设置';
+						}
+					        
+					}
+					
+			    }
+			});
+			
+			/* uni.request({
 			    url: 'https://api.yuleng.top:38088/api/my-profile/child', //仅为示例，并非真实接口地址。
 				method:"POST",
 			    data: {
@@ -141,7 +186,7 @@
 					}
 					
 			    }
-			});
+			}); */
 			/* this.init() */
 		
 		},

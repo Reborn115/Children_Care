@@ -173,6 +173,23 @@ export default {
               icon: "error",
             });
           } else {
+			  /* this.$axios({
+			  	method:'POST',
+			  	url:'/api/login/c',
+			  	headers: {
+			  		"content-type": "application/json", 
+			  	},
+				data: {
+				    userName:this.formData.account,
+					password:this.formData.password
+				},
+			  }).then(res =>{
+				  console.log(res)
+			  	
+			  }).catch(err =>{
+			  	console.log(err)
+			  }) */
+			  
             let data = aes.encrypt(
               JSON.stringify({
                 userName: this.formData.account,
@@ -263,6 +280,7 @@ export default {
               },
               fail() {},
             });
+			
             /* uni.request({
 							url: 'https://api.yuleng.top:38088/api/login/c',
 							method:"POST",

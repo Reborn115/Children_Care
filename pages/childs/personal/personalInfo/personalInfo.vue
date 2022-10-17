@@ -136,11 +136,104 @@ import aes from "../../../../util/aes.js"
 		onLoad(){
 			let data = aes.encrypt(
 			  JSON.stringify({
-			    
 			  }),
 			  "zzr@backEnd!@#$%"
 			);
+			
 			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/privacy/my-profile', //仅为示例，并非真实接口地址。
+				method:"GET",
+			    data: data,
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+					console.log(res)
+					console.log(res.data.data.result)
+					/* res=JSON.parse(aes.decrypt(res.data.data.result),"zzr@backEnd!@#$%") */
+					res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+					console.log(res)
+					this.baseFormData.age=res.age
+					this.swiper=res.homeInfoPictureParamList
+					this.baseFormData.sex=res.gender
+					this.baseFormData.relationship=res.relation
+					this.baseFormData.hometown=res.nativePlace
+					this.baseFormData.frequence=res.homeSituation
+					this.baseFormData.care=res.softwareSituation
+					this.baseFormData.sayChild=res.remarkChild
+					this.baseFormData.sayVolunteer=res.remarkVolunteer
+					this.baseFormData.work=res.workAddress
+					this.headPicUrl=res.headPicUrl
+					switch ( this.baseFormData.sex ) {
+					    case 0:{
+							this.baseFormData.sex='男'
+							break;
+						}
+							
+					    case 1:{
+							this.baseFormData.sex='女'
+							break;
+						}
+					        
+					    
+					    default:{
+							console.log(this.baseFormData.sex)
+							return '未设置';
+						}
+					        
+					}
+					switch ( this.baseFormData.care ) {
+					    case 0:
+							this.baseFormData.care='偶尔'
+					        break;
+					    case 1:
+					        this.baseFormData.care='时常'
+					        break;
+					    case 2:
+					    	this.baseFormData.care='经常'
+					        break;
+					    
+					    default:
+					        return '未设置';
+					}
+					switch ( this.baseFormData.relationship ) {
+					    case '0':
+							this.baseFormData.relationship='爸爸'
+					        break;
+					    case '1':
+					        this.baseFormData.relationship='妈妈'
+					        break;
+					    case '2':
+					    	this.baseFormData.relationship='其他'
+					        break;
+					    
+					    default:
+					        return '未设置';
+					}
+					switch ( this.baseFormData.frequence ) {
+					    case 0:
+							this.baseFormData.frequence="一月一次"
+					        break;
+					    case 1:
+					        this.baseFormData.frequence="三月一次"
+					        break;
+					    case 2:
+					    	this.baseFormData.frequence="半年一次"
+					        break;
+					    case 3:
+					    	this.baseFormData.frequence="一年一次"
+					        break;
+						case 4:
+							this.baseFormData.frequence="超过一年才回一次"
+						    break;
+					    default:
+					        return '未设置';
+					}
+			    }
+			});
+			
+			/* uni.request({
 			    url: 'https://api.yuleng.top:38088/api/my-profile/parent', //仅为示例，并非真实接口地址。
 				method:"POST",
 			    data: data,
@@ -231,7 +324,7 @@ import aes from "../../../../util/aes.js"
 					        return '未设置';
 					}
 			    }
-			});
+			}); */
 			
 		
 		},

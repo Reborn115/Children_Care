@@ -132,6 +132,7 @@
 </template>
 
 <script>
+import aes from "../../../../util/aes.js"
 	export default {
 		data() {
 			return {
@@ -177,8 +178,83 @@
 			};
 		},
 		onLoad(){
-			
+			let data = aes.encrypt(
+			  JSON.stringify({
+			  }),
+			  "zzr@backEnd!@#$%"
+			);
 			uni.request({
+			    url: 'https://api.yuleng.top:38088/api/privacy/my-profile', 
+				method:"GET",
+			    data:data,
+			    header: {
+			        "content-type":"application/json",
+					"token":uni.getStorageSync('token')
+			    },
+			    success: (res) => {
+					res=JSON.parse(aes.decrypt(res.data.data.result,"zzr@backEnd!@#$%"))
+					this.baseFormData.age=res.age
+					this.baseFormData.type=res.goodSolveProblems
+					this.baseFormData.sex=res.gender
+					this.baseFormData.isFace=res.isOfflineSolution
+					this.baseFormData.hometown=res.nativePlace
+					this.baseFormData.others=res.other
+					this.baseFormData.sayChild=res.remarkChild
+					this.baseFormData.time=res.loginDuration
+					this.baseFormData.work=res.workAddress
+					this.headPicUrl=res.headPicUrl
+					switch (this.baseFormData.isFace){
+						case 0:
+							this.baseFormData.isFace="否"
+							break;
+						case 1:
+							this.baseFormData.isFace="是"
+							break;
+						default:
+							break;
+					}
+					switch (this.baseFormData.time){
+						case 0:
+							this.baseFormData.time="一小时以下";
+							break;
+						case 1:
+							this.baseFormData.time="一小时以上三小时以下";
+							break;
+						case 2:
+							this.baseFormData.time='三小时以上五小时以下';
+							break;
+						case 3:
+							this.baseFormData.time="五小时以上十小时以下";
+							break;
+						case 4:
+							this.baseFormData.time='十小时以上';
+							break;
+						default:
+							break;
+					}
+					switch ( this.baseFormData.sex ) {
+					    case 0:{
+							this.baseFormData.sex='男'
+							break;
+						}
+							
+					    case 1:{
+							this.baseFormData.sex='女'
+							break;
+						}
+					        
+					    
+					    default:{
+							console.log(this.baseFormData.sex)
+							return '未设置';
+						}
+					        
+					}
+					
+			    }
+			});
+			
+			/* uni.request({
 			    url: 'https://api.yuleng.top:38088/api/my-profile/volunteer', //仅为示例，并非真实接口地址。
 				method:"GET",
 			    data: {
@@ -250,7 +326,7 @@
 					}
 					
 			    }
-			});
+			}); */
 			
 		
 		},
