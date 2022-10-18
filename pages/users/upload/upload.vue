@@ -210,7 +210,7 @@
 				this.isVoice=!this.isVoice
 						console.log('开始录音');
 						let format={
-							format:"wav",
+							format:"mp3",
 							duration:10000
 						}
 						this.recorder.start(format);

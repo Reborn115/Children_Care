@@ -62,26 +62,81 @@
 				
 			};
 		},
-		/* onShow(){
+		onLoad(){
+			uni.setStorage({
+				key:"isCertification",
+				data:1
+			})
 			uni.request({
-			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
+			    url: 'https://api.yuleng.top:38088/api/is-evaluation', 
 				method:"POST",
 			    data: {
-			        searchWord:	this.searchValue  
 			    },
 			    header: {
 			        "content-type":"application/json",
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
-					this.swiper=res.data.data.homeInfoPictureParamList
-					this.tips=res.data.data.homeInfoParamList
-			        console.log(res.data);
-			        this.text = 'request success';
-					
+					if(res.data.data.isEvaluation){
+						console.log("已评价")
+						uni.request({
+						    url: 'https://api.yuleng.top:38088/api/recommend-book', 
+							method:"POST",
+						    data: { 
+						    },
+						    header: {
+						        "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+						    },
+						    success: (res) => {
+								if(res.data.data.total>=3) {
+									this.swiper=res.data.data.homeInfoPictureParamList
+									this.tips=res.data.data.homeInfoParamList
+									console.log(res.data);
+								} else {
+									uni.request({
+									    url: 'https://api.yuleng.top:38088/api/home-interface', 
+										method:"POST",
+									    data: {
+									        searchWord:	this.searchValue  
+									    },
+									    header: {
+									        "content-type":"application/json",
+											"token":uni.getStorageSync('token')
+									    },
+									    success: (res) => {
+											this.swiper=res.data.data.homeInfoPictureParamList
+											this.tips=res.data.data.homeInfoParamList
+									        console.log(res.data);
+									    }
+									});
+								}
+								
+						    }
+						});
+					} else{
+						console.log("未评价")
+						uni.request({
+						    url: 'https://api.yuleng.top:38088/api/home-interface', 
+							method:"POST",
+						    data: {
+						        searchWord:	this.searchValue  
+						    },
+						    header: {
+						        "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+						    },
+						    success: (res) => {
+								this.swiper=res.data.data.homeInfoPictureParamList
+								this.tips=res.data.data.homeInfoParamList
+						        console.log(res.data);
+						    }
+						});
+					}
 			    }
 			});
-		}, */
+		
+		},
 		onShow(){
 			uni.setStorage({
 				key:"isCertification",
@@ -155,42 +210,7 @@
 					}
 			    }
 			});
-			
-			/* if(uni.getStorageSync('is')){
-				uni.request({
-				    url: 'https://api.yuleng.top:38088/api/recommend-book', //仅为示例，并非真实接口地址。
-					method:"POST",
-				    data: {
-				    },
-				    header: {
-				        "content-type":"application/json",
-						"token":uni.getStorageSync('token')
-				    },
-				    success: (res) => {
-						this.swiper=res.data.data.homeInfoPictureParamList
-						this.tips=res.data.data.homeInfoParamList
-				        console.log(res.data);
-				    }
-				});
-			} else {
-				uni.request({
-				    url: 'https://api.yuleng.top:38088/api/home-interface', 
-					method:"POST",
-				    data: {
-				        searchWord:	this.searchValue  
-				    },
-				    header: {
-				        "content-type":"application/json",
-						"token":uni.getStorageSync('token')
-				    },
-				    success: (res) => {
-						this.swiper=res.data.data.homeInfoPictureParamList
-						this.tips=res.data.data.homeInfoParamList
-				        console.log(res.data);
-				    }
-				});
-			} */
-			
+		
 		},
 		methods: {
 			goDetail1(item){
