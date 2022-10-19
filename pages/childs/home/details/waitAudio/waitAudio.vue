@@ -80,6 +80,10 @@
 		},
 		
 		onUnload(){
+			uni.showToast({
+				title: '功能暂不可用',
+				icon:'error'
+			});
 		    this.cleartime=1;
 			if(this.timer){
 				clearInterval(this.timer);  

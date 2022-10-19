@@ -295,11 +295,11 @@
 				
 				this.contentAudio.destroy();
 			}
-			if(this.isFirst==true){
+			/* if(this.isFirst==true){
 				uni.switchTab({
 				  url: "/pages/childs/home/home",
 				});
-			}
+			} */
 			
 		},
 		onUnload(){
@@ -308,11 +308,11 @@
 				
 				this.contentAudio.destroy();
 			}
-			if(this.isFirst==true){
+			/* if(this.isFirst==true){
 				uni.switchTab({
 				  url: "/pages/childs/home/home",
 				});
-			}
+			} */
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
