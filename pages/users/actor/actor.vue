@@ -5,23 +5,26 @@
     </view>
     <view class="box" @click="setIdentity(1)">
       <view class="card" id="card1">
-        <view class="textInline">
+		  <image src="../../../static/child.png" alt="" ref="normalImage" class="bg-img"></image>
+        <!-- <view class="textInline">
           <text class="textBottom">儿童模式</text>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="box" @click="setIdentity(2)">
       <view class="card" id="card2">
-        <view class="textInline">
+		  <image src="../../../static/parent.png" alt="" ref="normalImage" class="bg-img"></image>
+        <!-- <view class="textInline">
           <text class="textBottom">父母模式</text>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="box" @click="setIdentity(3)">
       <view class="card" id="card3">
-        <view class="textInline">
+		  <image src="../../../static/volunteer.png" alt="" ref="normalImage" class="bg-img"></image>
+        <!-- <view class="textInline">
           <text class="textBottom">志愿者模式</text>
-        </view>
+        </view> -->
       </view>
     </view>
   </view>
@@ -104,6 +107,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container{
+	background-color: #CBFFB5;
+	height: 100vh;
+}
+.bg-img {
+  /* position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  right: 0; */
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
 .textInline {
   margin-top: 4vh;
   margin-left: 48vw;
@@ -115,22 +133,23 @@ export default {
   /* text-shadow: 0 -1px 0 #ffffff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212); */
 }
 .textTop {
+	padding-top: 2vh;
   font-size: 20px;
   font-weight: bold;
-  margin-top: 2vh;
+  color: #00841F;
   margin-left: 10vw;
   margin-bottom: 4vh;
 }
-#card1 {
-  /* background: linear-gradient(#F78FAD, #FDEB82)!important; */
-  background: linear-gradient(#fbcdbb, #f9a7aa) !important;
-}
-#card2 {
-  background: linear-gradient(#55caf3, #3c82df) !important;
-}
-#card3 {
-  background: linear-gradient(#d9c0fa, #abc1f9) !important;
-}
+// #card1 {
+  
+//   background: linear-gradient(#fbcdbb, #f9a7aa) !important;
+// }
+// #card2 {
+//   background: linear-gradient(#55caf3, #3c82df) !important;
+// }
+// #card3 {
+//   background: linear-gradient(#d9c0fa, #abc1f9) !important;
+// }
 .card {
   height: 20vh;
   width: 80vw;

@@ -33,7 +33,7 @@
 				</view>
 				<view class="speed">
 					<!-- <u-number-box v-model="speed" @change="speedChange" :step="0.25" @click="speedChange"></u-number-box> -->
-					<u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
+					<!-- <u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
 					        <view
 					            slot="minus"
 					            class="minus"
@@ -58,7 +58,16 @@
 					                size="12"
 					            ></u-icon>
 					        </view>
-					    </u-number-box>
+					    </u-number-box> -->
+						<u-button type="error" text="选择倍速" size="small" shape="circle" class="bottonStory" @click='showSpeed'></u-button>
+						<u-picker
+							v-model="speed"
+							:show="show"
+							:columns="Columns"
+							@change="speedChange"
+							@cancel="cancel"
+							@confirm="confirm"
+						></u-picker>
 				</view>
 			</view>
 		</view>
@@ -69,6 +78,7 @@
 	export default {
 		data() {
 			return {
+				show:false,
 				contentInfoId:'',
 				contentId:'',
 				author:'',
@@ -81,6 +91,9 @@
 				isFirst:false,
 				order:'',
 				isSmart:false,
+				Columns:[
+					[0.5,0.75,1,1.25,1.5,1.75,2]
+				]
 			};
 		},
 		watch:{
@@ -89,6 +102,26 @@
 			}
 		},
 		methods:{
+			confirm(order){
+				console.log('confirm', order);
+				this.speed=order.value[0]
+				/* this.speedChange() */
+				this.show=false
+			},
+			showSpeed(){
+				this.show=true
+			},
+			cancel(){
+				this.show=false
+			},
+			lastAudio(){
+				this.originalAudioId=this.originalAudioId-1
+				this.getAudio()
+			},
+			nextAudio(){
+				this.originalAudioId=this.originalAudioId+1
+				this.getAudio()
+			},
 			getServe(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/audio/server', //仅为示例，并非真实接口地址。
@@ -148,13 +181,11 @@
 			playAudio(){
 				if(this.audioUrl) {
 					/* this.innerAudioContext.play(); */
-					const innerAudioContext = uni.createInnerAudioContext();
-					innerAudioContext.src = this.audioUrl;
-					innerAudioContext.play();
+					
+					this.contentAudio.play();
 					this.isPlay=!this.isPlay;
 					/* console.log(this.isPlay); */
-					this.contentAudio=innerAudioContext;
-					this.contentAudio.playbackRate=this.speed
+					
 					/* console.log(this.contentAudio) */
 				} else{
 					uni.showToast({
@@ -207,7 +238,10 @@
 			if(this.positionResult.isFirst){
 				this.isFirst=this.positionResult.isFirst
 			}
-			
+			const innerAudioContext = uni.createInnerAudioContext();
+			innerAudioContext.src = this.audioUrl;
+			this.contentAudio=innerAudioContext;
+			this.contentAudio.playbackRate=this.speed
 			/* if(this.positionResult.smartAudio){
 				console.log("进入智能语音")
 				this.audioUrl=this.positionResult.smartAudio
@@ -279,6 +313,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-button--small{
+	width: 130rpx !important;
+}
 .minus {
 		width: 22px;
 		height: 22px;
@@ -309,10 +346,10 @@
 		align-items: center;
 	}
 .speed{
-	display: flex;
-	justify-content: center;
-	align-items:center;
-	margin-top: 30px;
+	
+	/* justify-content: center;
+	align-items:center; */
+	margin-top: 80rpx;
 }
 .icon{
 	display: flex;

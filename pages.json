@@ -4,7 +4,6 @@
 	},
 	"pages": [
 		
-		
 		//登录
 		{
             "path" : "pages/users/login/login",
@@ -46,6 +45,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#CBFFB5",
                 "enablePullDownRefresh": false
             }
             

@@ -33,7 +33,7 @@
 				</view>
 				<view class="speed">
 					<!-- <u-number-box v-model="speed" @change="speedChange" :step="0.25" @click="speedChange"></u-number-box> -->
-					<u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
+					<!-- <u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
 					        <view
 					            slot="minus"
 					            class="minus"
@@ -58,7 +58,16 @@
 					                size="12"
 					            ></u-icon>
 					        </view>
-					    </u-number-box>
+					    </u-number-box> -->
+						<u-button type="error" text="选择倍速" size="small" shape="circle" class="bottonStory" @click='showSpeed'></u-button>
+						<u-picker
+							v-model="speed"
+							:show="show"
+							:columns="Columns"
+							@change="speedChange"
+							@cancel="cancel"
+							@confirm="confirm"
+						></u-picker>
 				</view>
 			</view>
 		</view>
@@ -69,6 +78,7 @@
 	export default {
 		data() {
 			return {
+				show:false,
 				originalAudioId:'',
 				contentInfoId:'',
 				contentId:'',
@@ -80,14 +90,32 @@
 				isPlay:false,
 				contentAudio:'',
 				order:'',
+				Columns:[
+					[0.5,0.75,1,1.25,1.5,1.75,2]
+				]
 			};
 		},
 		watch:{
 			speed(newVal, oldVal){
-				this.contentAudio.playbackRate=newVal
+				if(this.contentAudio.playbackRate){
+					this.contentAudio.playbackRate=newVal
+				}
+				
 			}
 		},
 		methods:{
+			confirm(order){
+				console.log('confirm', order);
+				this.speed=order.value[0]
+				/* this.speedChange() */
+				this.show=false
+			},
+			showSpeed(){
+				this.show=true
+			},
+			cancel(){
+				this.show=false
+			},
 			lastAudio(){
 				this.originalAudioId=this.originalAudioId-1
 				this.getAudio()
@@ -136,8 +164,11 @@
 			},
 			speedChange(){
 				console.log(this.speed)
-				this.contentAudio.playbackRate=this.speed
-				console.log(this.speed,this.contentAudio.playbackRate)
+				if(this.contentAudio.playbackRate) {
+					this.contentAudio.playbackRate=this.speed
+					console.log(this.speed,this.contentAudio.playbackRate)
+				}
+				
 			},
 			pauseAudio(){
 				this.contentAudio.pause();
@@ -149,11 +180,12 @@
 					/* this.innerAudioContext.play(); */
 					const innerAudioContext = uni.createInnerAudioContext();
 					innerAudioContext.src = this.audioUrl;
-					innerAudioContext.play();
-					this.isPlay=!this.isPlay;
-					/* console.log(this.isPlay); */
 					this.contentAudio=innerAudioContext;
 					this.contentAudio.playbackRate=this.speed
+					this.contentAudio.play();
+					this.isPlay=!this.isPlay;
+					/* console.log(this.isPlay); */
+					
 					/* console.log(this.contentAudio) */
 				} else {
 					uni.showToast({
@@ -164,7 +196,7 @@
 				
 			},
 		},
-		onHide(){
+		/* onHide(){
 			if(this.contentAudio){
 				this.pauseAudio()
 				this.contentAudio.destroy();
@@ -177,6 +209,31 @@
 				this.contentAudio.destroy();
 			}
 			
+		}, */
+		onHide(){
+			console.log("hide")
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			if(this.isFirst==true){
+				uni.switchTab({
+				  url: "/pages/childs/home/home",
+				});
+			}
+			
+		},
+		onUnload(){
+			console.log("unload")
+			if(this.contentAudio){
+				this.pauseAudio()
+				this.contentAudio.destroy();
+			}
+			if(this.isFirst==true){
+				uni.switchTab({
+				  url: "/pages/childs/home/home",
+				});
+			}
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -187,6 +244,7 @@
 			this.originalAudioId=this.positionResult.originalAudioId
 			this.src=this.positionResult.src
 			this.order=this.positionResult.order
+			
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -221,6 +279,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-button--small{
+	width: 130rpx !important;
+}
 .minus {
 		width: 22px;
 		height: 22px;
@@ -251,10 +312,11 @@
 		align-items: center;
 	}
 .speed{
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items:center;
-	margin-top: 30px;
+	margin-top: 30px; */
+	margin-top: 80rpx;
 }
 .icon{
 	display: flex;
