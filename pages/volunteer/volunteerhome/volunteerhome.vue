@@ -26,9 +26,9 @@
             <text>解惑</text>
           </view>
           <image
-            src="../../../static/volunboy.png"
+            src="../../../static/20221012-112300.png"
             style="
-              width: 150rpx;
+              width: 250rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;
@@ -43,9 +43,9 @@
             <text>我的</text>
           </view>
           <image
-            src="../../../static/volungirl.png"
+            src="../../../static/20221012-112220.png"
             style="
-              width: 150rpx;
+              width: 250rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;
