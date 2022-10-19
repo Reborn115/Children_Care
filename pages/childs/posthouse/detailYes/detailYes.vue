@@ -87,7 +87,7 @@
 						<view class="text4">
 							解决过程图片:
 						</view>
-						<image v-for="(item,index) in volunterAdvise.imageUrlList" :key="index" :src="item" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
+						<image v-for="(item,index) in volunterAdvise.imageUrlList" :key="index" :src="item" @click="previewImage(index)" style="width: 250rpx;height: 250rpx;margin-left: 13rpx;margin-top: 10rpx;"></image>
 						
 						<view class="text4">
 							孩子的情绪状态：
@@ -266,6 +266,14 @@
 						}
 					});
 				}
+			},
+			// 预览图片
+			previewImage(index) {
+				let photoList = this.volunterAdvise.imageUrlList
+				uni.previewImage({
+					current: index,
+					urls: photoList
+				});
 			},
 			//打开修改问题状态弹窗
 			dialogToggle() {

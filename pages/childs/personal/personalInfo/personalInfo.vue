@@ -199,10 +199,10 @@ import aes from "../../../../util/aes.js"
 					}
 					switch ( this.baseFormData.relationship ) {
 					    case '0':
-							this.baseFormData.relationship='爸爸'
+							this.baseFormData.relationship='父亲'
 					        break;
 					    case '1':
-					        this.baseFormData.relationship='妈妈'
+					        this.baseFormData.relationship='母亲'
 					        break;
 					    case '2':
 					    	this.baseFormData.relationship='其他'

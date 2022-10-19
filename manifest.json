@@ -1,6 +1,6 @@
 {
     "name" : "护苗",
-    "appid" : "__UNI__670C782",
+    "appid" : "__UNI__D9F4F17",
     "description" : "丢失的大熊猫队华北五省项目护苗app",
     "versionName" : "1.0.8",
     "versionCode" : 108,
@@ -65,40 +65,42 @@
                 "speech" : {},
                 "ad" : {},
                 "geolocation" : {
-                    "system" : {
-                        "__platform__" : [ "ios", "android" ]
+                    "baidu" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "TkyIoei0fukAXmnIP0FOrtNLNThCGc5T",
+                        "appkey_android" : "TkyIoei0fukAXmnIP0FOrtNLNThCGc5T"
                     }
                 }
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "unpackage/res/icons/72x72.png",
-                    "xhdpi" : "unpackage/res/icons/96x96.png",
-                    "xxhdpi" : "unpackage/res/icons/144x144.png",
-                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                    "hdpi" : "static/appIcon.png",
+                    "xhdpi" : "static/appIcon.png",
+                    "xxhdpi" : "static/appIcon.png",
+                    "xxxhdpi" : "static/appIcon.png"
                 },
                 "ios" : {
-                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "appstore" : "static/appIcon.png",
                     "ipad" : {
-                        "app" : "unpackage/res/icons/76x76.png",
-                        "app@2x" : "unpackage/res/icons/152x152.png",
-                        "notification" : "unpackage/res/icons/20x20.png",
-                        "notification@2x" : "unpackage/res/icons/40x40.png",
-                        "proapp@2x" : "unpackage/res/icons/167x167.png",
-                        "settings" : "unpackage/res/icons/29x29.png",
-                        "settings@2x" : "unpackage/res/icons/58x58.png",
-                        "spotlight" : "unpackage/res/icons/40x40.png",
-                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                        "app" : "static/appIcon.png",
+                        "app@2x" : "static/appIcon.png",
+                        "notification" : "static/appIcon.png",
+                        "notification@2x" : "static/appIcon.png",
+                        "proapp@2x" : "static/appIcon.png",
+                        "settings" : "static/appIcon.png",
+                        "settings@2x" : "static/appIcon.png",
+                        "spotlight" : "static/appIcon.png",
+                        "spotlight@2x" : "static/appIcon.png"
                     },
                     "iphone" : {
-                        "app@2x" : "unpackage/res/icons/120x120.png",
-                        "app@3x" : "unpackage/res/icons/180x180.png",
-                        "notification@2x" : "unpackage/res/icons/40x40.png",
-                        "notification@3x" : "unpackage/res/icons/60x60.png",
-                        "settings@2x" : "unpackage/res/icons/58x58.png",
-                        "settings@3x" : "unpackage/res/icons/87x87.png",
-                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
-                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                        "app@2x" : "static/appIcon.png",
+                        "app@3x" : "static/appIcon.png",
+                        "notification@2x" : "static/appIcon.png",
+                        "notification@3x" : "static/appIcon.png",
+                        "settings@2x" : "static/appIcon.png",
+                        "settings@3x" : "static/appIcon.png",
+                        "spotlight@2x" : "static/appIcon.png",
+                        "spotlight@3x" : "static/appIcon.png"
                     }
                 }
             },
@@ -119,7 +121,7 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wx51d5eeba73d732de",
+        "appid" : "wxfda8057f2b7cb400",
         "setting" : {
             "urlCheck" : false,
             "postcss" : false,

@@ -164,6 +164,19 @@
 								default:
 									this.parents.homeSituation='无数据';
 							}
+							switch ( this.parents.relation) {
+							    case '0':
+									this.parents.relation='父亲'
+							        break;
+							    case '1':
+							        this.parents.relation='母亲'
+							        break;
+							    case '2':
+							    	this.parents.relation='其他'
+							        break;
+							    default:
+							        return '无数据';
+							}
 							switch(this.parents.softwareSituation){
 								case 0:
 									this.parents.softwareSituation='偶尔';
