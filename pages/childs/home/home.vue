@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<uni-search-bar v-model="searchValue" 
-						@cancel="search" @clear="clear" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
+						@cancel="search" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
 		</uni-search-bar>
 		<!-- <u-search placeholder="日照香炉生紫烟" v-model="keyword" bgColor="white" :showAction="true" actionText="搜索" :animation="true"></u-search> -->
 					<uni-card :cover="cover" >
@@ -10,7 +10,7 @@
 										:duration="duration" >
 										<swiper-item v-for="(item, index) in swiper" :key="index" @click="goDetail2(item)">
 											<view class="swiper-item uni-bg-red" >
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
+												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
 											</view>
 										</swiper-item>
 									</swiper>
@@ -21,7 +21,7 @@
 						<view class="box">
 							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail1(item)">
 								<view>
-									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
+									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
 								</view>
 								<view>
 									<text class="title">《{{item.name}}》</text>
@@ -214,12 +214,15 @@
 		},
 		methods: {
 			goDetail1(item){
+				item.contentId=item.id
 				console.log(item)
 				uni.navigateTo({
+					
 				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(item)
 				})
 			},
 			goDetail2(item){
+				item.contentId=item.id
 				console.log(item)
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(item)

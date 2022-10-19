@@ -67,6 +67,7 @@
 							@change="speedChange"
 							@cancel="cancel"
 							@confirm="confirm"
+							:defaultIndex="[2]"
 						></u-picker>
 				</view>
 			</view>
@@ -78,6 +79,7 @@
 	export default {
 		data() {
 			return {
+				total:'',
 				show:false,
 				originalAudioId:'',
 				contentInfoId:'',
@@ -117,12 +119,28 @@
 				this.show=false
 			},
 			lastAudio(){
-				this.originalAudioId=this.originalAudioId-1
-				this.getAudio()
+				if(this.order==1){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.originalAudioId=this.originalAudioId-1
+					this.getAudio()
+				}
+				
 			},
 			nextAudio(){
-				this.originalAudioId=this.originalAudioId+1
-				this.getAudio()
+				if(this.order==this.total){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.originalAudioId=this.originalAudioId+1
+					this.getAudio()
+				}
+				
 			},
 			getAudio(){
 				uni.request({
@@ -244,7 +262,7 @@
 			this.originalAudioId=this.positionResult.originalAudioId
 			this.src=this.positionResult.src
 			this.order=this.positionResult.order
-			
+			this.total=this.positionResult.total
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
 		    	method:"POST",

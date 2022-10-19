@@ -128,7 +128,7 @@
 								}, 200);
 								clearTimeout(this.timer)
 								this.positionResult.isFirst=this.isFirst
-								uni.navigateTo({
+								uni.redirectTo({
 								    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(this.positionResult)
 								})
 							}

@@ -486,7 +486,8 @@
 		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#fff",
 		"app-plus": {
-			"background": "#fff"
+			"background": "#fff",
+			"bounce":"none"
 		}
 	},
 	"tabBar": {
