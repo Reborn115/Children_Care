@@ -9,9 +9,9 @@
 						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
 										:duration="duration" >
 										<swiper-item v-for="(item, index) in swiper" :key="index" @click="goDetail2(item)">
-											<view class="swiper-item uni-bg-red" >
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
-											</view>
+											<text class="activetitle">《{{item.name}}》</text>
+											<image style="z-index: -1;position: absolute;width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 50rpx;margin-left: 25rpx;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
+											
 										</swiper-item>
 									</swiper>
 						<text class="uni-body"></text>
@@ -277,12 +277,12 @@
 .container{
 	background-color: #F4F4F4;
 }
-.swiper-item{
-	image{
-		margin-left: 0!important;
-		margin-top: 50rpx !important;
-	}
-}
+/* ::v-deep .swiper-item{
+	display: flex ;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+} */
 text{
 	display: block;
 }
@@ -298,6 +298,20 @@ text{
 	font-size: 12px;
 	margin-bottom: 1vh;
 	margin-left: 13vw;
+}
+.activetitle{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 20rpx;
+	margin-left: 25rpx;
+	display:inline-block;
+	border-radius: 8px;
+	background-color: #A4B3DA;
+	/* width: 170rpx; */
+	font-size: 18px;
+	height: 50rpx;
+	position: absolute;
 }
 .title{
 	white-space: nowrap; 

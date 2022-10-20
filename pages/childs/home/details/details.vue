@@ -336,7 +336,7 @@
 		/* #endif */
 		/* justify-content: center;
 		align-items: center; */
-		height: 150px;
+		/* height: 150px; */
 		/* text-align: center; */
 	}
 
@@ -367,9 +367,10 @@
 .main{
 	padding-top:50rpx ;
 	margin-top: 100rpx;
-	height: 950rpx;
+	/* height: 950rpx; */
 	background-color: white;
 	border-radius: 25px;
+	padding-bottom: 80rpx;
 }
 .u-page__image-item{
 	height:220rpx;

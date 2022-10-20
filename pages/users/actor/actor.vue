@@ -63,11 +63,11 @@ export default {
 		  console.log(this.isCertification,"这是isCertification")
           if (!this.isCertification) {
             if (this.permission == 1) {
-              uni.navigateTo({
+              uni.redirectTo({
                 url: "/pages/users/editChild/editChild",
               });
             } else {
-              uni.navigateTo({
+              uni.redirectTo({
                 url: "/pages/users/editInfo/editInfo",
               });
             }
@@ -76,11 +76,11 @@ export default {
               url: "/pages/childs/home/home",
             });
           } else if(this.permission==2){
-			  uni.navigateTo({
+			  uni.redirectTo({
 			    url: "/pages/parents/homepage/homepage",
 			  });
 		  } else{
-			  uni.reLaunch({
+			  uni.redirectTo({
 			    url: "/pages/volunteer/volunteerhome/volunteerhome",
 			  });
 		  }
