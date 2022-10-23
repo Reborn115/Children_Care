@@ -142,7 +142,7 @@
 				//     icon:'none',
 				// 	duration:5000
 				// });
-				setTimeout(this.changelocation,1000)
+				setTimeout(this.changelocation,1100)
 				// var point = new plus.maps.Point(this.longitude, 39.062197);
 				// plus.maps.Map.reverseGeocode(point, {},(event)=>{
 				//     var address = event.address; // 转换后的地理位置

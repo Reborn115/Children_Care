@@ -80,6 +80,10 @@
 		},
 		
 		onUnload(){
+			uni.showToast({
+				title: '功能暂不可用',
+				icon:'error'
+			});
 		    this.cleartime=1;
 			if(this.timer){
 				clearInterval(this.timer);  
@@ -128,7 +132,7 @@
 								}, 200);
 								clearTimeout(this.timer)
 								this.positionResult.isFirst=this.isFirst
-								uni.navigateTo({
+								uni.redirectTo({
 								    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(this.positionResult)
 								})
 							}

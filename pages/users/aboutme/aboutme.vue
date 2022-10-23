@@ -9,7 +9,7 @@
 				来自丢失的大熊猫团队
 			</view>
 			<view class="num">
-				版本号:1.0.5
+				版本号:1.1.0
 			</view>
 		</view>
 	</view>

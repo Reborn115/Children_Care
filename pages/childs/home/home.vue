@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<uni-search-bar v-model="searchValue" 
-						@cancel="search" @clear="clear" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
+						@cancel="search" bgColor="white" cancel-text='搜索' @search="search" @confirm="search">
 		</uni-search-bar>
 		<!-- <u-search placeholder="日照香炉生紫烟" v-model="keyword" bgColor="white" :showAction="true" actionText="搜索" :animation="true"></u-search> -->
 					<uni-card :cover="cover" >
@@ -9,9 +9,9 @@
 						<swiper class="swiper" slot='cover' circular :autoplay="autoplay" :interval="interval"
 										:duration="duration" >
 										<swiper-item v-for="(item, index) in swiper" :key="index" @click="goDetail2(item)">
-											<view class="swiper-item uni-bg-red" >
-												<image style="width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
-											</view>
+											<text class="activetitle">《{{item.name}}》</text>
+											<image style="z-index: -1;position: absolute;width: 500rpx; height: 500rpx; background-color: #eeeeee;margin-top: 50rpx;margin-left: 25rpx;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
+											
 										</swiper-item>
 									</swiper>
 						<text class="uni-body"></text>
@@ -21,7 +21,7 @@
 						<view class="box">
 							<view class="tips" v-for="(item, index) in tips" :key="index" @click="goDetail1(item)">
 								<view>
-									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" @error="imageError"></image>
+									<image style="width: 70px; height: 70px; background-color: #eeeeee;margin-top: 2vh;margin-left: 4vw;border-radius: 4px;vertical-align:middle;" :mode="item.mode" :src="item.coverPictureUrl" ></image>
 								</view>
 								<view>
 									<text class="title">《{{item.name}}》</text>
@@ -62,26 +62,81 @@
 				
 			};
 		},
-		/* onShow(){
+		onLoad(){
+			uni.setStorage({
+				key:"isCertification",
+				data:1
+			})
 			uni.request({
-			    url: 'https://api.yuleng.top:38088/api/home-interface', //仅为示例，并非真实接口地址。
+			    url: 'https://api.yuleng.top:38088/api/is-evaluation', 
 				method:"POST",
 			    data: {
-			        searchWord:	this.searchValue  
 			    },
 			    header: {
 			        "content-type":"application/json",
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
-					this.swiper=res.data.data.homeInfoPictureParamList
-					this.tips=res.data.data.homeInfoParamList
-			        console.log(res.data);
-			        this.text = 'request success';
-					
+					if(res.data.data.isEvaluation){
+						console.log("已评价")
+						uni.request({
+						    url: 'https://api.yuleng.top:38088/api/recommend-book', 
+							method:"POST",
+						    data: { 
+						    },
+						    header: {
+						        "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+						    },
+						    success: (res) => {
+								if(res.data.data.total>=3) {
+									this.swiper=res.data.data.homeInfoPictureParamList
+									this.tips=res.data.data.homeInfoParamList
+									console.log(res.data);
+								} else {
+									uni.request({
+									    url: 'https://api.yuleng.top:38088/api/home-interface', 
+										method:"POST",
+									    data: {
+									        searchWord:	this.searchValue  
+									    },
+									    header: {
+									        "content-type":"application/json",
+											"token":uni.getStorageSync('token')
+									    },
+									    success: (res) => {
+											this.swiper=res.data.data.homeInfoPictureParamList
+											this.tips=res.data.data.homeInfoParamList
+									        console.log(res.data);
+									    }
+									});
+								}
+								
+						    }
+						});
+					} else{
+						console.log("未评价")
+						uni.request({
+						    url: 'https://api.yuleng.top:38088/api/home-interface', 
+							method:"POST",
+						    data: {
+						        searchWord:	this.searchValue  
+						    },
+						    header: {
+						        "content-type":"application/json",
+								"token":uni.getStorageSync('token')
+						    },
+						    success: (res) => {
+								this.swiper=res.data.data.homeInfoPictureParamList
+								this.tips=res.data.data.homeInfoParamList
+						        console.log(res.data);
+						    }
+						});
+					}
 			    }
 			});
-		}, */
+		
+		},
 		onShow(){
 			uni.setStorage({
 				key:"isCertification",
@@ -155,51 +210,19 @@
 					}
 			    }
 			});
-			
-			/* if(uni.getStorageSync('is')){
-				uni.request({
-				    url: 'https://api.yuleng.top:38088/api/recommend-book', //仅为示例，并非真实接口地址。
-					method:"POST",
-				    data: {
-				    },
-				    header: {
-				        "content-type":"application/json",
-						"token":uni.getStorageSync('token')
-				    },
-				    success: (res) => {
-						this.swiper=res.data.data.homeInfoPictureParamList
-						this.tips=res.data.data.homeInfoParamList
-				        console.log(res.data);
-				    }
-				});
-			} else {
-				uni.request({
-				    url: 'https://api.yuleng.top:38088/api/home-interface', 
-					method:"POST",
-				    data: {
-				        searchWord:	this.searchValue  
-				    },
-				    header: {
-				        "content-type":"application/json",
-						"token":uni.getStorageSync('token')
-				    },
-				    success: (res) => {
-						this.swiper=res.data.data.homeInfoPictureParamList
-						this.tips=res.data.data.homeInfoParamList
-				        console.log(res.data);
-				    }
-				});
-			} */
-			
+		
 		},
 		methods: {
 			goDetail1(item){
+				item.contentId=item.id
 				console.log(item)
 				uni.navigateTo({
+					
 				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(item)
 				})
 			},
 			goDetail2(item){
+				item.contentId=item.id
 				console.log(item)
 				uni.navigateTo({
 				    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(item)
@@ -254,12 +277,12 @@
 .container{
 	background-color: #F4F4F4;
 }
-.swiper-item{
-	image{
-		margin-left: 0!important;
-		margin-top: 50rpx !important;
-	}
-}
+/* ::v-deep .swiper-item{
+	display: flex ;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+} */
 text{
 	display: block;
 }
@@ -275,6 +298,20 @@ text{
 	font-size: 12px;
 	margin-bottom: 1vh;
 	margin-left: 13vw;
+}
+.activetitle{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 20rpx;
+	margin-left: 25rpx;
+	display:inline-block;
+	border-radius: 8px;
+	background-color: #A4B3DA;
+	/* width: 170rpx; */
+	font-size: 18px;
+	height: 50rpx;
+	position: absolute;
 }
 .title{
 	white-space: nowrap; 

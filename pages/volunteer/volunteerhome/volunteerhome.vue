@@ -28,7 +28,7 @@
           <image
             src="../../../static/20221012-112300.png"
             style="
-              width: 271rpx;
+              width: 250rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;
@@ -45,7 +45,7 @@
           <image
             src="../../../static/20221012-112220.png"
             style="
-              width: 271rpx;
+              width: 250rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;

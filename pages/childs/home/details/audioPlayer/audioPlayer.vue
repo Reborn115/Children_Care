@@ -20,20 +20,20 @@
 					<text class="name">
 						{{name}}
 					</text>
-					<text class="author" v-if="!isSmart">
+					<text class="author" >
 						作者：{{author}}
 					</text>
 				</view>
 				<view class="icon">
-					<u-icon name="rewind-left-fill" size='35'></u-icon>
+					<u-icon name="rewind-left-fill" size='35' @click="lastAudio"></u-icon>
 					<u-icon name="play-circle" size='35' @click='playAudio' v-if="!isPlay"></u-icon>
 					<u-icon name="pause-circle-fill" size='35' @click='pauseAudio' v-if="isPlay"></u-icon>
-					<u-icon name="rewind-right-fill" size='35'></u-icon>
+					<u-icon name="rewind-right-fill" size='35' @click="nextAudio"></u-icon>
 					
 				</view>
 				<view class="speed">
 					<!-- <u-number-box v-model="speed" @change="speedChange" :step="0.25" @click="speedChange"></u-number-box> -->
-					<u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
+					<!-- <u-number-box v-model='speed' :step="0.25" @change="speedChange()" :min="0.25" :max="2">
 					        <view
 					            slot="minus"
 					            class="minus"
@@ -58,7 +58,17 @@
 					                size="12"
 					            ></u-icon>
 					        </view>
-					    </u-number-box>
+					    </u-number-box> -->
+						<u-button type="error" text="选择倍速" size="small" shape="circle" class="bottonStory" @click='showSpeed'></u-button>
+						<u-picker
+							v-model="speed"
+							:show="show"
+							:columns="Columns"
+							@change="speedChange"
+							@cancel="cancel"
+							@confirm="confirm"
+							:defaultIndex="[2]"
+						></u-picker>
 				</view>
 			</view>
 		</view>
@@ -69,6 +79,8 @@
 	export default {
 		data() {
 			return {
+				total:'',
+				show:false,
 				contentInfoId:'',
 				contentId:'',
 				author:'',
@@ -81,6 +93,9 @@
 				isFirst:false,
 				order:'',
 				isSmart:false,
+				Columns:[
+					[0.5,0.75,1,1.25,1.5,1.75,2]
+				]
 			};
 		},
 		watch:{
@@ -88,7 +103,118 @@
 				this.contentAudio.playbackRate=newVal
 			}
 		},
+		// onBackPress(e) {
+		// //backbutton 是点击物理按键返回，navigateBack是uniapp中的返回（比如左上角的返回箭头）
+		// 	console.log(e);
+		// 	console.log("监听返回",this.positionResult);
+		// 	uni.navigateTo({
+		// 	    url:"/pages/childs/home/details/details?positionResult="+JSON.stringify(this.positionResult)
+		// 	})
+			
+		// },
 		methods:{
+			getAudio(){
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/home-interface/play', //仅为示例，并非真实接口地址。
+					method:"POST",
+				    data: {
+				        contentId:this.contentId,
+						originalAudioId:this.originalAudioId
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+						if(res.data.code=="A0400"){
+							uni.showToast({
+								title: res.data.message,
+								icon:'error'
+							});
+						} else {
+							console.log(res.data);
+							this.name=res.data.data.storyName
+							this.author=res.data.data.writer
+						}
+				        
+				    }
+				});
+			},
+			goAudio(item){
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/audio/ai-cache', //仅为示例，并非真实接口地址。
+					method:"GET",
+				    data: {
+				        contentInfoId:item.id
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+				        if(res.data.code=='A0400'){
+							uni.navigateTo({
+							    url:"/pages/childs/home/details/waitAudio/waitAudio?positionResult="+JSON.stringify(item)
+							})
+							
+						} else {
+							item.isSmart=true
+							item.smartAudio=res.data.message
+							console.log(item)
+							item.total=this.total
+							item.src=this.src
+							uni.redirectTo({
+							    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
+							})
+						}
+				    }
+				});
+				/* uni.navigateTo({
+				    url:"/pages/childs/home/details/audioPlayer/audioPlayer?positionResult="+JSON.stringify(item)
+				}) */
+			},
+			
+			confirm(order){
+				console.log('confirm', order);
+				this.speed=order.value[0]
+				/* this.speedChange() */
+				this.show=false
+			},
+			showSpeed(){
+				this.show=true
+			},
+			cancel(){
+				this.show=false
+			},
+			lastAudio(){
+				if(this.order==1){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.positionResult.id=this.positionResult.id-1
+					this.positionResult.originalAudioId=this.positionResult.originalAudioId-1
+					console.log(this.positionResult)
+					this.goAudio(this.positionResult)
+				}
+				
+				
+			},
+			nextAudio(){
+				if(this.order==this.total){
+					uni.showToast({
+						title:"此章节不存在",
+						icon:'error'
+					});
+				} else {
+					this.positionResult.id=this.positionResult.id+1
+					this.positionResult.originalAudioId=this.positionResult.originalAudioId+1
+					console.log(this.positionResult)
+					this.goAudio(this.positionResult)
+				}
+			},
 			getServe(){
 				uni.request({
 				    url: 'https://api.yuleng.top:38088/api/audio/server', //仅为示例，并非真实接口地址。
@@ -148,13 +274,11 @@
 			playAudio(){
 				if(this.audioUrl) {
 					/* this.innerAudioContext.play(); */
-					const innerAudioContext = uni.createInnerAudioContext();
-					innerAudioContext.src = this.audioUrl;
-					innerAudioContext.play();
+					
+					this.contentAudio.play();
 					this.isPlay=!this.isPlay;
 					/* console.log(this.isPlay); */
-					this.contentAudio=innerAudioContext;
-					this.contentAudio.playbackRate=this.speed
+					
 					/* console.log(this.contentAudio) */
 				} else{
 					uni.showToast({
@@ -168,27 +292,27 @@
 		onHide(){
 			console.log("hide")
 			if(this.contentAudio){
-				this.pauseAudio()
+				
 				this.contentAudio.destroy();
 			}
-			if(this.isFirst==true){
+			/* if(this.isFirst==true){
 				uni.switchTab({
 				  url: "/pages/childs/home/home",
 				});
-			}
+			} */
 			
 		},
 		onUnload(){
 			console.log("unload")
 			if(this.contentAudio){
-				this.pauseAudio()
+				
 				this.contentAudio.destroy();
 			}
-			if(this.isFirst==true){
+			/* if(this.isFirst==true){
 				uni.switchTab({
 				  url: "/pages/childs/home/home",
 				});
-			}
+			} */
 		},
 		onLoad(e){
 			this.positionResult = JSON.parse(e.positionResult)
@@ -200,6 +324,7 @@
 			this.src=this.positionResult.src
 			this.order=this.positionResult.order
 			this.audioUrl=this.positionResult.smartAudio
+			this.total=this.positionResult.total
 			if(this.positionResult.isSmart){
 				this.isSmart=this.positionResult.isSmart
 			}
@@ -207,7 +332,11 @@
 			if(this.positionResult.isFirst){
 				this.isFirst=this.positionResult.isFirst
 			}
-			
+			const innerAudioContext = uni.createInnerAudioContext();
+			innerAudioContext.src = this.audioUrl;
+			this.contentAudio=innerAudioContext;
+			this.contentAudio.playbackRate=this.speed
+			this.getAudio()
 			/* if(this.positionResult.smartAudio){
 				console.log("进入智能语音")
 				this.audioUrl=this.positionResult.smartAudio
@@ -279,6 +408,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-button--small{
+	width: 130rpx !important;
+}
 .minus {
 		width: 22px;
 		height: 22px;
@@ -309,10 +441,10 @@
 		align-items: center;
 	}
 .speed{
-	display: flex;
-	justify-content: center;
-	align-items:center;
-	margin-top: 30px;
+	
+	/* justify-content: center;
+	align-items:center; */
+	margin-top: 80rpx;
 }
 .icon{
 	display: flex;

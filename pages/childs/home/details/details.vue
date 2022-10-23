@@ -97,7 +97,7 @@
 				</view>
 			</view>
 		</view>
-		<u-popup :show="show" :round="30" mode="bottom" overlay="true" closeable="true" closeOnClickOverlay="true" @close="close">
+		<u-popup :show="show" :round="30" mode="bottom" :overlay="true" :closeable="true" :closeOnClickOverlay="true" @close="close">
 		<view class="evaluate">
 			<text class="evaText">
 				给这本书打个分吧
@@ -138,29 +138,18 @@
 				src:''
 			};
 		},
-		onBackPress(e) {
-		    console.log(e);
-		    if(e.from == 'backbutton'){
-		    this.$utils.showModal('提示','房型尚未保存,确认退出吗?',true,'继续编辑','确定').then(()=>{
-		    	console.log('确定')
-		    	uni.navigateBack({
-		    		delta:1
-		    	})
-		    }).catch(()=>{
-		    	console.log('继续编辑')
-		    })
-		    return true;//阻止默认返回行为
-		    }
-		},
+		
 		onLoad(e){
-			this.positionResult = JSON.parse(e.positionResult)
-			console.log(e.positionResult)
-			console.log(this.positionResult.name)
-			this.contentId=this.positionResult.id
-			this.title=this.positionResult.name
-			this.type=this.positionResult.type
-			this.idea=this.positionResult.theme
-			this.src=this.positionResult.coverPictureUrl
+			if(e.positionResult){
+				this.positionResult = JSON.parse(e.positionResult)
+				console.log("进入details",e.positionResult)
+				this.contentId=this.positionResult.contentId
+				this.title=this.positionResult.name
+				this.type=this.positionResult.type
+				this.idea=this.positionResult.theme
+				this.src=this.positionResult.coverPictureUrl
+			}
+			
 		    uni.request({
 		        url: 'https://api.yuleng.top:38088/api/home-interface/list', //仅为示例，并非真实接口地址。
 		    	method:"POST",
@@ -347,7 +336,7 @@
 		/* #endif */
 		/* justify-content: center;
 		align-items: center; */
-		height: 150px;
+		/* height: 150px; */
 		/* text-align: center; */
 	}
 
@@ -378,9 +367,10 @@
 .main{
 	padding-top:50rpx ;
 	margin-top: 100rpx;
-	height: 950rpx;
+	/* height: 950rpx; */
 	background-color: white;
 	border-radius: 25px;
+	padding-bottom: 80rpx;
 }
 .u-page__image-item{
 	height:220rpx;

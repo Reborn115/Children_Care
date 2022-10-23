@@ -65,7 +65,7 @@ export default {
     return {
       isPrivacy: 0,
       permission: "",
-      img: "../../../static/green.jpg",
+      img: "../../../static/green.png",
       formData: {
         account: "",
         password: "",
@@ -134,7 +134,7 @@ export default {
       this.isPrivacy = !this.isPrivacy;
     },
     recoverImg() {
-      this.img = "../../../static/green.jpg";
+      this.img = "../../../static/green.png";
     },
     changeImg(num) {
       /* if(num==2){
@@ -144,7 +144,7 @@ export default {
 					this.$refs.normalImage.style.height="110px";
 				} */
       if (num == 3) {
-        this.img = "../../../static/greenpassword.jpg";
+        this.img = "../../../static/greenpassword.png";
       }
     },
     goForget() {
