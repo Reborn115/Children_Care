@@ -104,12 +104,29 @@ export default {
           token: uni.getStorageSync("token"),
         },
         success: (res) => {
-          this.headUrl = res.data.data.headUrl;
-          // 处理后端返回来的数据格式
-          this.hellomsg = res.data.data.helloMessage.slice(0, 4);
-          if (res.data.data.disabuseList.length != 0) {
-            this.question = res.data.data.disabuseList[0];
-          }
+		  if(res.data.code=='A0221'){
+			  uni.showToast({
+			  	title: '登录已过期',
+			  	icon:'error'
+			  });
+		  	console.log("登录已过期，请重新登录")
+		  	uni.removeStorage({
+		  	  key: "token",
+		  	  success: function () {
+		  	    uni.reLaunch({
+		  	      url: "/pages/users/login/login",
+		  	    });
+		  	  },
+		  	});
+		  } else {
+			  this.headUrl = res.data.data.headUrl;
+			  // 处理后端返回来的数据格式
+			  this.hellomsg = res.data.data.helloMessage.slice(0, 4);
+			  if (res.data.data.disabuseList.length != 0) {
+			    this.question = res.data.data.disabuseList[0];
+			  }
+		  }
+          
         },
       });
     },
