@@ -22,9 +22,22 @@
 			<view class="btn" @click="bind">
 				绑定
 			</view>
-			
+			<view class="btn" @click="out">
+				暂不绑定，退出登录
+			</view>
 		</view>
-		
+		<view>
+		  <!-- 提示窗 -->
+		  <uni-popup ref="alertDialog" type="dialog">
+		    <uni-popup-dialog
+		      type="info"
+		      cancelText="关闭"
+		      confirmText="确定"
+		      content="是否退出登录？"
+		      @confirm="dialogConfirm"
+		    ></uni-popup-dialog>
+		  </uni-popup>
+		</view>
 	</view>
 </template>
 
@@ -33,9 +46,25 @@
 		data() {
 			return {
 				value:'',
+				timer:'',
 			}
 		},
 		methods: {
+			//退出登录弹框
+			out() {
+			  this.$refs.alertDialog.open();
+			},
+			//点击确定退出
+			dialogConfirm() {
+			  uni.removeStorage({
+			    key: "token",
+			    success: function () {
+			      uni.reLaunch({
+			        url: "/pages/users/login/login",
+			      });
+			    },
+			  });
+			},
 			bind(){
 				uni.request({
 					url: 'https://api.yuleng.top:38088/api/attend/invitation-code/', 
@@ -54,11 +83,23 @@
 								duration: 2000
 							});
 						}else{
+							uni.setStorage({
+							  key: "isBindParents",
+							  data: 1,
+							});
 							uni.showToast({
 								title: '绑定成功',
 								icon:'success',
 								duration: 2000
 							});
+							
+							this.timer = setTimeout(() => {
+								clearTimeout("timer")
+							    uni.switchTab({
+							      url: "/pages/childs/home/home",
+							    });
+							}, 1000);
+							
 						}
 						
 					}

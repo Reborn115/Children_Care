@@ -219,6 +219,10 @@ export default {
                     key: "token",
                     data: res.data.data.token,
                   });
+				  uni.setStorage({
+				    key: "isBindParents",
+				    data: res.data.data.isBindParents,
+				  });
                   uni.setStorage({
                     key: "permission",
                     data: res.data.data.permission,

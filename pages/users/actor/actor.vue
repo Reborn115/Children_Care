@@ -60,6 +60,10 @@ export default {
           console.log(res.data);
           this.text = "request success";
           this.permission = res.data.data.permission;
+		  uni.setStorage({
+		    key: "token",
+		    data: res.data.data.token,
+		  });
 		  console.log(this.isCertification,"这是isCertification")
           if (!this.isCertification) {
             if (this.permission == 1) {

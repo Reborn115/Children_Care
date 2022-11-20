@@ -318,15 +318,23 @@
 						},
 						success: (res) => {
 							console.log(res.data);
-							if(this.isCertification==0){
-								uni.switchTab({
-								  url: "/pages/childs/home/home",
-								});
+							let isBindParents=uni.getStorageSync('isBindParents');
+							if(isBindParents==0){
+								uni.reLaunch({
+									url:"/pages/childs/personal/bind/bind"
+								})
 							} else {
-								uni.switchTab({
-									  url: "/pages/childs/personal/personal",
+								if(this.isCertification==0){
+									uni.switchTab({
+									  url: "/pages/childs/home/home",
 									});
+								} else {
+									uni.switchTab({
+										  url: "/pages/childs/personal/personal",
+										});
+								}
 							}
+							
 							/* uni.switchTab({
 								  url: "/pages/childs/home/home",
 								}); */
