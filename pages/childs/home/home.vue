@@ -77,62 +77,81 @@
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
-					if(res.data.data.isEvaluation){
-						console.log("已评价")
-						uni.request({
-						    url: 'https://api.yuleng.top:38088/api/recommend-book', 
-							method:"POST",
-						    data: { 
-						    },
-						    header: {
-						        "content-type":"application/json",
-								"token":uni.getStorageSync('token')
-						    },
-						    success: (res) => {
-								if(res.data.data.total>=3) {
+					if(res.data.code=='A0221'){
+						uni.showToast({
+							title: '登录已过期',
+							icon:'error'
+						});
+						console.log("登录已过期，请重新登录")
+						uni.removeStorage({
+						  key: "token",
+						  success: function () {
+						    uni.reLaunch({
+						      url: "/pages/users/login/login",
+						    });
+						  },
+						});
+						
+					} else {
+						this.isToken=true
+						if(res.data.data.isEvaluation){
+							console.log("已评价")
+							uni.request({
+							    url: 'https://api.yuleng.top:38088/api/recommend-book', 
+								method:"POST",
+							    data: { 
+							    },
+							    header: {
+							        "content-type":"application/json",
+									"token":uni.getStorageSync('token')
+							    },
+							    success: (res) => {
+									if(res.data.data.total>=3) {
+										this.swiper=res.data.data.homeInfoPictureParamList
+										this.tips=res.data.data.homeInfoParamList
+										console.log(res.data);
+									} else {
+										uni.request({
+										    url: 'https://api.yuleng.top:38088/api/home-interface', 
+											method:"POST",
+										    data: {
+										        searchWord:	this.searchValue  
+										    },
+										    header: {
+										        "content-type":"application/json",
+												"token":uni.getStorageSync('token')
+										    },
+										    success: (res) => {
+												this.swiper=res.data.data.homeInfoPictureParamList
+												this.tips=res.data.data.homeInfoParamList
+										        console.log(res.data);
+										    }
+										});
+									}
+									
+							    }
+							});
+						} else{
+							console.log("未评价")
+							uni.request({
+							    url: 'https://api.yuleng.top:38088/api/home-interface', 
+								method:"POST",
+							    data: {
+							        searchWord:	this.searchValue  
+							    },
+							    header: {
+							        "content-type":"application/json",
+									"token":uni.getStorageSync('token')
+							    },
+							    success: (res) => {
 									this.swiper=res.data.data.homeInfoPictureParamList
 									this.tips=res.data.data.homeInfoParamList
-									console.log(res.data);
-								} else {
-									uni.request({
-									    url: 'https://api.yuleng.top:38088/api/home-interface', 
-										method:"POST",
-									    data: {
-									        searchWord:	this.searchValue  
-									    },
-									    header: {
-									        "content-type":"application/json",
-											"token":uni.getStorageSync('token')
-									    },
-									    success: (res) => {
-											this.swiper=res.data.data.homeInfoPictureParamList
-											this.tips=res.data.data.homeInfoParamList
-									        console.log(res.data);
-									    }
-									});
-								}
-								
-						    }
-						});
-					} else{
-						console.log("未评价")
-						uni.request({
-						    url: 'https://api.yuleng.top:38088/api/home-interface', 
-							method:"POST",
-						    data: {
-						        searchWord:	this.searchValue  
-						    },
-						    header: {
-						        "content-type":"application/json",
-								"token":uni.getStorageSync('token')
-						    },
-						    success: (res) => {
-								this.swiper=res.data.data.homeInfoPictureParamList
-								this.tips=res.data.data.homeInfoParamList
-						        console.log(res.data);
-						    }
-						});
+							        console.log(res.data);
+							    }
+							});
+						}
 					}
+					
 			    }
 			});
 		
@@ -152,66 +171,82 @@
 					"token":uni.getStorageSync('token')
 			    },
 			    success: (res) => {
-					if(res.data.data.isEvaluation){
-						console.log("已评价")
-						uni.request({
-						    url: 'https://api.yuleng.top:38088/api/recommend-book', 
-							method:"POST",
-						    data: { 
-						    },
-						    header: {
-						        "content-type":"application/json",
-								"token":uni.getStorageSync('token')
-						    },
-						    success: (res) => {
-								if(res.data.data.total>=3) {
+					if(res.data.code=='A0221'){
+						console.log("登录已过期，请重新登录")
+						uni.removeStorage({
+						  key: "token",
+						  success: function () {
+						    uni.reLaunch({
+						      url: "/pages/users/login/login",
+						    });
+						  },
+						});
+						
+					}else{
+						this.isToken=true
+						if(res.data.data.isEvaluation){
+							console.log("已评价")
+							uni.request({
+							    url: 'https://api.yuleng.top:38088/api/recommend-book', 
+								method:"POST",
+							    data: { 
+							    },
+							    header: {
+							        "content-type":"application/json",
+									"token":uni.getStorageSync('token')
+							    },
+							    success: (res) => {
+									if(res.data.data.total>=3) {
+										this.swiper=res.data.data.homeInfoPictureParamList
+										this.tips=res.data.data.homeInfoParamList
+										console.log(res.data);
+									} else {
+										uni.request({
+										    url: 'https://api.yuleng.top:38088/api/home-interface', 
+											method:"POST",
+										    data: {
+										        searchWord:	this.searchValue  
+										    },
+										    header: {
+										        "content-type":"application/json",
+												"token":uni.getStorageSync('token')
+										    },
+										    success: (res) => {
+												this.swiper=res.data.data.homeInfoPictureParamList
+												this.tips=res.data.data.homeInfoParamList
+										        console.log(res.data);
+										    }
+										});
+									}
+									
+							    }
+							});
+						} else{
+							console.log("未评价")
+							uni.request({
+							    url: 'https://api.yuleng.top:38088/api/home-interface', 
+								method:"POST",
+							    data: {
+							        searchWord:	this.searchValue  
+							    },
+							    header: {
+							        "content-type":"application/json",
+									"token":uni.getStorageSync('token')
+							    },
+							    success: (res) => {
 									this.swiper=res.data.data.homeInfoPictureParamList
 									this.tips=res.data.data.homeInfoParamList
-									console.log(res.data);
-								} else {
-									uni.request({
-									    url: 'https://api.yuleng.top:38088/api/home-interface', 
-										method:"POST",
-									    data: {
-									        searchWord:	this.searchValue  
-									    },
-									    header: {
-									        "content-type":"application/json",
-											"token":uni.getStorageSync('token')
-									    },
-									    success: (res) => {
-											this.swiper=res.data.data.homeInfoPictureParamList
-											this.tips=res.data.data.homeInfoParamList
-									        console.log(res.data);
-									    }
-									});
-								}
-								
-						    }
-						});
-					} else{
-						console.log("未评价")
-						uni.request({
-						    url: 'https://api.yuleng.top:38088/api/home-interface', 
-							method:"POST",
-						    data: {
-						        searchWord:	this.searchValue  
-						    },
-						    header: {
-						        "content-type":"application/json",
-								"token":uni.getStorageSync('token')
-						    },
-						    success: (res) => {
-								this.swiper=res.data.data.homeInfoPictureParamList
-								this.tips=res.data.data.homeInfoParamList
-						        console.log(res.data);
-						    }
-						});
+							        console.log(res.data);
+							    }
+							});
+						}
 					}
+					
 			    }
 			});
 		
 		},
+		
 		methods: {
 			goDetail1(item){
 				item.contentId=item.id
