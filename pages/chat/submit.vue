@@ -2,9 +2,9 @@
   <view>
     <view class="submit">
       <view class="submit-chat">
-        <view class="bt-img" @click="changeType">
+        <!-- <view class="bt-img" @click="changeType">
           <image src="../../static/phone (1).png"></image>
-        </view>
+        </view> -->
         <!-- 输入文本框 -->
         <textarea
           auto-height="true"
@@ -14,54 +14,10 @@
           @focus="focus"
           v-model="msg"
         ></textarea>
-
-        <!-- <view class="bt-img" @tap="emoji">
-					<image src="https://s2.loli.net/2022/09/21/r2K1pLDCHFlkfhx.png"></image>
-				</view> -->
         <view class="bt-img" @click="inputs">
           <image src="../../static/send.png"></image>
         </view>
-        <!-- <view class="bt-img" @tap="more">
-					<image src="https://s2.loli.net/2022/09/21/8F34wpjsdCPeKYJ.png"></image>
-				</view> -->
       </view>
-      <!-- 表情 -->
-      <!-- <view class="emoji" :class="{displaynone:!isemoji}">
-				<view class="emoji-send">
-					<view class="emoji-send-det" @tap="emojiBack">
-						删除
-					</view>
-					<view class="emoji-send-bt" @tap="emojiSend">发送</view>
-				</view>
-				<emoji @emotion="emotion" :height="260"></emoji>
-			</view> -->
-      <!-- 更多 -->
-      <!-- <view class="more" :class="{displaynone:!ismore}">
-				<view class="more-list">
-					<image src="https://s2.loli.net/2022/09/21/2fRcLpNJ8qzjMeY.png"></image>
-					<view class="more-list-title">视频</view>
-				</view>
-			</view> -->
-      <uni-popup
-        ref="popup"
-        background-color="#fff"
-        style="border-radius: 30rpx"
-      >
-        <view class="change">
-          <image
-            src="../../static/baby3.jpg"
-            style="width: 300rpx; height: 400rpx; margin-top: 60rpx"
-          ></image>
-          <view class="button">
-            <button class="mini-btn1 btncolor1" type="default" size="mini">
-              语言通话
-            </button>
-            <button class="mini-btn1 btncolor2" type="default" size="mini">
-              视频通话
-            </button>
-          </view>
-        </view>
-      </uni-popup>
     </view>
   </view>
 </template>
@@ -80,10 +36,6 @@ export default {
       ismore: false,
       // 文本框输入的内容
       msg: "",
-      // 直接引用地址可能出不来，需要用require
-      // toc: require('../../static/07跳跃团子.png'),
-      //timer: '', //计时器-
-      // vlength: 0
     };
   },
   components: {
@@ -101,23 +53,6 @@ export default {
         })
         .exec();
     },
-    // 表情
-    // emoji() {
-    // 	this.isemoji = !this.isemoji;
-    // 	//切换的时候关闭其功能
-    // 	this.ismore = false
-    // 	this.isrecord = false;
-    // 	// this.toc = require("../../static/07跳跃团子.png");
-    // 	//切换高度
-    // 	setTimeout(() => {
-    // 		this.getElementHeight();
-    // 	}, 10)
-    // },
-    // //接收表情
-    // emotion(e) {
-    // 	console.log(e),
-    // 		this.msg = this.msg + e
-    // },
     //点击按钮发送
     inputs() {
       if (this.msg != "") {

@@ -114,6 +114,19 @@
 				></uni-popup-dialog>
 			</uni-popup>
 		</view>
+		<!-- 评分弹窗 -->
+		<u-popup :show="showevaluate" :round="30" mode="bottom" :overlay="true" :closeable="true" :closeOnClickOverlay="true" @close="close">
+			<view class="evaluate">
+				<text class="evaText">
+					给志愿者打个分吧
+				</text>
+				<view class="evaIcon">
+					<u-rate count="5" v-model="evaluate" touchable="true" size="30" current="3"></u-rate>
+				</view>
+		        
+				<u-button type="error" text="提交评分" shape="circle" class="bottonStory" @click='goEvaluate' ></u-button>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -152,7 +165,11 @@
 				//点击按钮的是否禁用
 				buttonDisusable:false,
 				//判断是已解决还是待确认
-				is:0
+				is:0,
+				showevaluate:false,
+				//对志愿者的评分
+				evaluate:3,
+				volunter:0,
 			}
 		},
 		onLoad(e){
@@ -180,6 +197,70 @@
 			}
 		},
 		methods: {
+			// 小孩给志愿者评分
+			goEvaluate(){
+				uni.request({
+					url: 'https://api.yuleng.top:38088/api/disabuse/volunteer-id?disabuseId='+this.id, 
+					header: {
+						'token': uni.getStorageSync('token'),
+					},
+					success: (res) => {
+						this.volunter=res.data.message
+						// console.log(this.volunter)
+						this.sendEvaluate()
+					}
+				});
+			},
+			sendEvaluate(){
+				let type;
+				switch(this.data.type){
+					case '心理':
+						type=1
+						break;
+					case '学习':
+						type=2
+						break;
+					case '安全':
+						type=3
+						break;
+					case '生活':
+						type=4
+						break;
+					case '兴趣':
+						type=5
+						break;
+					case '感情':
+						type=6
+						break;
+					case '健康':
+						type=7
+						break;
+				}
+				uni.request({
+				    url: 'https://api.yuleng.top:38088/api/volunteer/set-score', 
+					method:"POST",
+				    data: {
+				        type:type,
+						score:this.evaluate,
+						volunteerId:parseInt(this.volunter),
+				    },
+				    header: {
+				        "content-type":"application/json",
+						"token":uni.getStorageSync('token')
+				    },
+				    success: (res) => {
+						uni.showToast({
+							title: "评价成功",
+							icon:'success',
+							duration: 2000
+						});
+						this.showevaluate=false
+				    }
+				});
+			},
+			close(){
+				this.showevaluate=false
+			},
 			// 获取儿童基本问题
 			gedetail(){
 				uni.request({
@@ -293,6 +374,7 @@
 							icon:'success',
 							duration: 2000
 						});
+						this.showevaluate=true
 						this.problemSolved="问题已解决"
 						this.buttonDisusable=true
 					}
@@ -307,10 +389,21 @@
 	.all{
 		padding-bottom: 55rpx;
 	}
-	// .toppic{
-	// 	position: relative;
-	// 	z-index: 10;
-	// }
+	.evaIcon{
+		margin-bottom: 70rpx;
+	}
+	.evaText{
+		font-size: 25px;
+		margin-bottom: 40rpx;
+		font-weight: bold;
+	}
+	.evaluate{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 500rpx;
+		flex-direction: column;
+	}
 	.pic{
 		display: flex;
 		justify-content: center;
@@ -408,6 +501,9 @@
 	margin-top: 55rpx;
 	background-color: #ffedbc;
 	// border: 1px solid #fff5d0;
+}
+::v-deep .u-button{
+	width: 250rpx !important;
 }
 </style>
 

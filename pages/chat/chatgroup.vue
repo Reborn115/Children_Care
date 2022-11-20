@@ -71,13 +71,13 @@
       </view>
     </scroll-view>
     <!-- 给子组件传入inputs和heights -->
-    <groupsubmit @sendMessage="sendMessage" @heights="heights"></groupsubmit>
+    <submit @sendMessage="sendMessage" @heights="heights"></submit>
   </view>
 </template>
 
 <script>
 import dateTime from "./dateTime.js";
-import groupsubmit from "./groupsubmit.vue";
+import submit from "./submit.vue";
 export default {
   data() {
     return {
@@ -117,7 +117,7 @@ export default {
   },
   // 组件注册
   components: {
-    groupsubmit,
+    submit,
   },
   methods: {
     // 获取聊天者信息

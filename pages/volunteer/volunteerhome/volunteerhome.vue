@@ -26,13 +26,13 @@
             <text>解惑</text>
           </view>
           <image
-            src="../../../static/20221012-112300.png"
+            src="../../../static/panda.png"
             style="
-              width: 250rpx;
+              width: 330rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;
-              right: 72rpx;
+              right: 50rpx;
             "
           ></image>
         </view>
@@ -43,13 +43,13 @@
             <text>我的</text>
           </view>
           <image
-            src="../../../static/20221012-112220.png"
+            src="../../../static/panda.png"
             style="
-              width: 250rpx;
+              width: 330rpx;
               height: 255rpx;
               position: absolute;
               bottom: 0rpx;
-              right: 72rpx;
+              right: 50rpx;
             "
           ></image>
         </view>
