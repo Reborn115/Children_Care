@@ -5,7 +5,7 @@
 				绑定父母端账号
 			</view>
 			<view class="text">
-				请输入父母端生成的绑定验证码<br/>完成和父母端的绑定吧~
+				请输入或扫码获取父母端生成的绑定验证码<br/>完成和父母端的绑定吧~
 			</view>
 			<view class="code">
 				<view class="tip">
@@ -18,6 +18,9 @@
 					    v-model="value"
 					  ></u--input>
 				</view>
+			</view>
+			<view class="btn" @click="scan">
+				扫描二维码
 			</view>
 			<view class="btn" @click="bind">
 				绑定
@@ -50,6 +53,17 @@
 			}
 		},
 		methods: {
+			scan(){
+				
+				uni.scanCode({
+					success:  (res)=> {
+						/* console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						console.log(this,"@@@@") */
+						this.value=res.result
+					}
+				});
+			},
 			//退出登录弹框
 			out() {
 			  this.$refs.alertDialog.open();
