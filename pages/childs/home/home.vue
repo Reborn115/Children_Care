@@ -163,6 +163,12 @@
 		
 		},
 		onShow(){
+			let isBindParents=uni.getStorageSync('isBindParents');
+			if(isBindParents==0){
+				uni.reLaunch({
+					url:"/pages/childs/personal/bind/bind"
+				})
+			}
 			uni.setStorage({
 				key:"isCertification",
 				data:1
