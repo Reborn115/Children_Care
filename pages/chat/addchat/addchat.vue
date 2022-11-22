@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-section class="mb-10" title="请选择聊天对象(以下为家长和帮助过你的志愿者)" type="line" style="font-size: 40rpx;"></uni-section>
+		<uni-section class="mb-10" title="请选择聊天对象(以下为家人和帮助过你(他)的人)" type="line" style="font-size: 40rpx;"></uni-section>
 		<view class="one">
 			<view class="people" v-for="(item,index) in data" :key="index" @click="addchat(item.id)">
 				<image :src="item.picUrl" style="width: 130rpx;height: 130rpx;border-radius: 65rpx;"></image>

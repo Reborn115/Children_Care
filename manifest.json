@@ -1,6 +1,6 @@
 {
     "name" : "护苗",
-    "appid" : "__UNI__670C782",
+    "appid" : "__UNI__3B77CD6",
     "description" : "丢失的大熊猫队华北五省项目护苗app",
     "versionName" : "1.2.0",
     "versionCode" : 120,
@@ -121,7 +121,7 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wx51d5eeba73d732de",
+        "appid" : "wxfda8057f2b7cb400",
         "setting" : {
             "urlCheck" : false,
             "postcss" : false,
