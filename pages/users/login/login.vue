@@ -223,6 +223,8 @@ export default {
 				    key: "isBindParents",
 				    data: res.data.data.isBindParents,
 				  });
+				  let isBindParents=uni.getStorageSync('isBindParents');
+				  console.log(isBindParents,"login")
                   uni.setStorage({
                     key: "permission",
                     data: res.data.data.permission,
