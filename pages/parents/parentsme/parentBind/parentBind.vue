@@ -5,7 +5,7 @@
 				绑定儿童端账号
 			</view>
 			<view class="text">
-				点击生成绑定验证码<br/>完成和儿童端的绑定吧~
+				点击生成绑定验证码与二维码<br/>完成和儿童端的绑定吧~
 			</view>
 			<view class="code">
 				<view class="tip">
@@ -17,7 +17,7 @@
 			</view>
 			
 			<view class="btn" @click="createCode">
-				生成绑定验证码
+				生成绑定验证码与二维码
 			</view>
 			<view class="qr-box">
 				<canvas canvas-id="qrcode" v-show="qrShow" style="width: 300rpx;margin: 0 auto;"/>

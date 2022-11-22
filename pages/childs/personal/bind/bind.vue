@@ -20,13 +20,20 @@
 				</view>
 			</view>
 			<view class="btn" @click="scan">
-				扫描二维码
+				扫描邀请二维码
 			</view>
 			<view class="btn" @click="bind">
 				绑定
 			</view>
-			<view class="btn" @click="out">
+			<!-- <view class="btn" @click="out">
 				暂不绑定，退出登录
+			</view> -->
+			<view class='linkbox' >
+				<text @click="out">
+					暂不绑定，退出登录
+				</text>
+				</text>
+				<u-icon name="arrow-right-double" color=#3c9cff;></u-icon>
 			</view>
 		</view>
 		<view>
@@ -61,8 +68,10 @@
 						console.log('条码内容：' + res.result);
 						console.log(this,"@@@@") */
 						this.value=res.result
+						this.bind()
 					}
 				});
+				
 			},
 			//退出登录弹框
 			out() {
@@ -124,6 +133,12 @@
 </script>
 
 <style lang="scss" scoped>
+.linkbox{
+	margin-top: 60rpx;
+	display: flex;
+	color: #3c9cff;
+	justify-content: center;
+}
 .body{
 	.title{
 		font-size: 55rpx;
