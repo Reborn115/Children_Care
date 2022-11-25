@@ -234,6 +234,7 @@
 				    success: (res) => {
 				        console.log(res.data);
 				        if(res.data.code=='A0400'){
+							item.src=this.src
 							uni.navigateTo({
 							    url:"/pages/childs/home/details/waitAudio/waitAudio?positionResult="+JSON.stringify(item)
 							})

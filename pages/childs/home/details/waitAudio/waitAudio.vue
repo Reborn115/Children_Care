@@ -79,7 +79,7 @@
 			}
 		},
 		
-		onUnload(){
+		/* onUnload(){
 			uni.showToast({
 				title: '功能暂不可用',
 				icon:'error'
@@ -89,7 +89,7 @@
 				clearInterval(this.timer);  
 				this.timer = null;
 			}
-		},
+		}, */
 		
 		methods:{
 			clearMyTimer(){

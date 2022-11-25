@@ -119,6 +119,10 @@
 				this.show=false
 			},
 			lastAudio(){
+				if(this.contentAudio){
+					this.pauseAudio()
+					this.contentAudio.destroy();
+				}
 				if(this.order==1){
 					uni.showToast({
 						title:"此章节不存在",
@@ -131,6 +135,10 @@
 				
 			},
 			nextAudio(){
+				if(this.contentAudio){
+					this.pauseAudio()
+					this.contentAudio.destroy();
+				}
 				if(this.order==this.total){
 					uni.showToast({
 						title:"此章节不存在",
